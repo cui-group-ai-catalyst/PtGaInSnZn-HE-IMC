@@ -1,0 +1,7 @@
+Metric,Value
+Ordered_ElementRef_Hf_kJ_mol,-30.0079
+Disordered_Mean_ElementRef_Hf_kJ_mol,-13.9643
+Disordered_Std_ElementRef_Hf_kJ_mol,2.262
+Disordered_N,30
+Ordering_Gap_kJ_mol,16.0436
+Ordering_Gap_sign_note,positive = ordered is lower (more stable)

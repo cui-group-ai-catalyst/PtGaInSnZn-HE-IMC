@@ -1,0 +1,21 @@
+{
+  "script": "script_C_drive_force.py",
+  "composition": {
+    "Ga": 0.65,
+    "In": 0.2,
+    "Sn": 0.1,
+    "Zn": 0.05
+  },
+  "reaction_per_fu": "3 Pt(s) + GaInSnZn (liq) -> Pt3(Ga0.65In0.2Sn0.1Zn0.05) (L1_2)",
+  "termination_type": "exhaustion (liquid limiting reagent, y_i^beta = x_i^L)",
+  "convention": "per mole atom of species; 0 K enthalpic",
+  "driving_force_summary": {
+    "delta_mu_Pt_kJmol": 12.589,
+    "delta_mu_beta_weighted_kJmol": 12.589,
+    "driving_force_per_fu_kJmol": 50.356,
+    "driving_force_per_atom_kJmol": 12.589,
+    "delta_G_rxn_per_fu_kJmol": -50.356,
+    "delta_G_rxn_per_atom_kJmol": -12.589,
+    "notes": "Driving force F = sum(stoich * Delta_mu) > 0 means reaction proceeds spontaneously; Delta_G_rxn = -F is the thermodynamic free-energy change of the reaction (should be < 0 for spontaneity)."
+  }
+}

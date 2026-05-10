@@ -1,0 +1,21 @@
+element,sublattice,y_i,h_endmember_per_atom_kJmol,excess_per_atom_kJmol,entropy_per_atom_kJmol,mu_HEI_per_atom_kJmol,note,T_K
+Ga,beta,0.65,-43.3848,-0.0448,-0.2686,-43.6982,beta: Pt3Ga UMA end-member + CEF excess,300
+In,beta,0.2,-20.7157,0.2205,-1.0036,-21.4988,beta: Pt3In UMA end-member + CEF excess,300
+Sn,beta,0.1,-19.2662,-4.9647,-1.4359,-25.6668,beta: Pt3Sn UMA end-member + CEF excess,300
+Zn,beta,0.05,-31.2571,0.0603,-1.8681,-33.0649,beta: Pt3Zn UMA end-member + CEF excess,300
+Pt,alpha,1.0,-35.8328,-0.4785,0.0,-36.3112,alpha: G_atom (Gibbs-Duhem consistent),300
+Ga,beta,0.65,-43.3848,-0.0448,-0.7163,-44.1459,beta: Pt3Ga UMA end-member + CEF excess,800
+In,beta,0.2,-20.7157,0.2205,-2.6763,-23.1715,beta: Pt3In UMA end-member + CEF excess,800
+Sn,beta,0.1,-19.2662,-4.9647,-3.829,-28.0599,beta: Pt3Sn UMA end-member + CEF excess,800
+Zn,beta,0.05,-31.2571,0.0603,-4.9816,-36.1784,beta: Pt3Zn UMA end-member + CEF excess,800
+Pt,alpha,1.0,-35.8328,-0.4785,0.0,-36.3112,alpha: G_atom (Gibbs-Duhem consistent),800
+Ga,beta,0.65,-43.3848,-0.0448,-0.8954,-44.325,beta: Pt3Ga UMA end-member + CEF excess,1000
+In,beta,0.2,-20.7157,0.2205,-3.3454,-23.8406,beta: Pt3In UMA end-member + CEF excess,1000
+Sn,beta,0.1,-19.2662,-4.9647,-4.7862,-29.0171,beta: Pt3Sn UMA end-member + CEF excess,1000
+Zn,beta,0.05,-31.2571,0.0603,-6.227,-37.4238,beta: Pt3Zn UMA end-member + CEF excess,1000
+Pt,alpha,1.0,-35.8328,-0.4785,0.0,-36.3112,alpha: G_atom (Gibbs-Duhem consistent),1000
+Ga,beta,0.65,-43.3848,-0.0448,-1.0745,-44.5041,beta: Pt3Ga UMA end-member + CEF excess,1200
+In,beta,0.2,-20.7157,0.2205,-4.0145,-24.5097,beta: Pt3In UMA end-member + CEF excess,1200
+Sn,beta,0.1,-19.2662,-4.9647,-5.7434,-29.9743,beta: Pt3Sn UMA end-member + CEF excess,1200
+Zn,beta,0.05,-31.2571,0.0603,-7.4724,-38.6692,beta: Pt3Zn UMA end-member + CEF excess,1200
+Pt,alpha,1.0,-35.8328,-0.4785,0.0,-36.3112,alpha: G_atom (Gibbs-Duhem consistent),1200

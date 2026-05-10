@@ -1,0 +1,5 @@
+stage,n,criterion,representative
+A_all_prototypes,165,All 165 B-sublattice enumerations (Panel g),-
+B_favourable_window,20,Ga% >= 62.5 AND dHf <= -34.0 kJ/mol,Ga5Sn3 GLOBAL-MIN
+C_liquidus,20,T_liq(x_Zn) < 1073 K  [pending CALPHAD],-
+D_target,1,Closest B-site to Galinstan (Ga:In:Sn = 0.685:0.215:0.1) + 1.0 at.% Zn,Pt3(Ga0.685In0.215Sn0.1) + 1.0 at.% Zn

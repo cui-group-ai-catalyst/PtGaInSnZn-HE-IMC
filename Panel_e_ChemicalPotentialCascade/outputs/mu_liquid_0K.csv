@@ -1,0 +1,6 @@
+element,phase,x_i_or_y_i,mu_E_kJmol,mu_ideal_kJmol,mu_total_kJmol,note
+Ga,liquid_cocktail,0.65,-0.022,0.0,-0.022,0K enthalpic (excess only)
+In,liquid_cocktail,0.2,-0.239,0.0,-0.239,0K enthalpic (excess only)
+Sn,liquid_cocktail,0.1,-0.047,0.0,-0.047,0K enthalpic (excess only)
+Zn,liquid_cocktail,0.05,-0.022,0.0,-0.022,0K enthalpic (excess only)
+Pt,solid_fcc_pure,1.0,0.0,0.0,0.0,Pure Pt substrate reference at t=0

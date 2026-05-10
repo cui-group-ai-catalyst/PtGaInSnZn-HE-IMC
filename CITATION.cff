@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the manuscript and this software archive."
+type: software
+title: "Pt3(Ga,In,Sn,Zn) High-Entropy Intermetallic — Reproducibility Package"
+abstract: >-
+  Computational pipelines accompanying the manuscript on data-driven
+  liquid-metal-mediated chemical-potential-driven assembly of
+  Pt3(Ga,In,Sn,Zn) high-entropy intermetallic nanocrystals. Includes
+  Miedema binary and multicomponent enthalpy code, Hildebrand-Muggianu
+  regular-solution model, Compound Energy Formalism (CEF) analyses,
+  per-element chemical-potential cascade, macroscopic-atom solid-liquid
+  interfacial-energy decomposition, and UMA-s-1p1 single-point evaluation
+  wrappers used for ordered/disordered HE-IMC formation enthalpies.
+authors:
+  - family-names: "Xu"
+    given-names: "Bo"
+    email: "sodabobo@yeah.net"
+    # affiliation: "..."   # add before manuscript submission
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+license: MIT
+repository-code: "https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC"
+url: "https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC"
+version: "1.0.0"
+date-released: "2026-05-10"
+keywords:
+  - high-entropy intermetallic
+  - Miedema model
+  - chemical potential cascade
+  - UMA universal interatomic potential
+  - liquid-metal-mediated synthesis
+  - electrocatalysis
+preferred-citation:
+  type: article
+  title: "<MANUSCRIPT TITLE — fill on acceptance>"
+  authors:
+    - family-names: "Xu"
+      given-names: "Bo"
+  year: 2026
+  journal: "<JOURNAL>"
+  doi: "<DOI on acceptance>"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.<ZENODO-NUMBER>"
+    description: "Zenodo archive of this software release (filled at Zenodo deposit)"

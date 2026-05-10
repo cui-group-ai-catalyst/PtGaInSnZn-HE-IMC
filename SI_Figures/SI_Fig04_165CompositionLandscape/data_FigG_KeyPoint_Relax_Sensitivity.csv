@@ -1,0 +1,6 @@
+Case,Composition,FixedCell_E_init_eV_atom,FixedCell_E_final_eV_atom,FixedCell_DeltaE_kJ_mol,FixedCell_Fmax_init_eV_A,FixedCell_Fmax_final_eV_A,FixedCell_BFGS_steps,FixedCell_Converged,CellRelax_E_init_eV_atom,CellRelax_E_final_eV_atom,CellRelax_DeltaE_kJ_mol,CellRelax_a0_A,CellRelax_a1_A,CellRelax_BFGS_steps,CellRelax_Converged
+Ga8,Ga8,-5.162195,-5.162195,0.000000,0.000004,0.000004,0,True,-5.162195,-5.177993,-1.524319,7.806000,7.915068,18,True
+Ga5Sn3,Ga5Sn3,-5.169472,-5.177360,-0.761091,0.852805,0.038620,5,True,-5.169472,-5.236623,-6.479101,7.806000,8.020392,20,False
+Ga6InSn,Ga6InSn,-5.124921,-5.131276,-0.613132,0.462364,0.031678,2,True,-5.124921,-5.171722,-4.515606,7.806000,7.976800,19,True
+Sn8,Sn8,-5.141671,-5.141671,0.000000,0.000006,0.000006,0,True,-5.141671,-5.336113,-18.760771,7.806000,8.154627,12,True
+In8,In8,-4.836669,-4.836669,0.000000,0.000006,0.000006,0,True,-4.836669,-4.998717,-15.635216,7.806000,8.138537,13,True

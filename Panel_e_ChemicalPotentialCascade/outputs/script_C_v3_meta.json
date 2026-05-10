@@ -1,0 +1,16 @@
+{
+  "script": "script_C_drive_force_v3.py",
+  "convention": "per atom of f.u.; SER reference; 0K enthalpic",
+  "data_sources": {
+    "liquid": "script_A_mu_liquid_v3 (Miedema + CRC DH_fus)",
+    "HEI": "script_B_mu_HEI_v3 (CEF fitted to Panel g 165 UMA points)"
+  },
+  "driving_force_summary": {
+    "delta_G_rxn_per_fu_kJmol": -150.5354,
+    "delta_G_rxn_per_atom_kJmol": -37.6339,
+    "G_atom_HEI_kJmol": -36.3112,
+    "sum_y_mu_L_kJmol": 5.2906,
+    "notes": "delta_G_rxn<0 => spontaneous"
+  },
+  "v3_change": "HEI from UMA-CEF instead of literature values"
+}

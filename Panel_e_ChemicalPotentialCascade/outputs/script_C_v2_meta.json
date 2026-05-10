@@ -1,0 +1,12 @@
+{
+  "script": "script_C_drive_force_v2.py",
+  "convention": "per atom of f.u.; SER reference; 0K enthalpic",
+  "driving_force_summary": {
+    "delta_G_rxn_per_fu_kJmol": -55.713,
+    "delta_G_rxn_per_atom_kJmol": -13.928,
+    "driving_force_per_fu_kJmol": 55.713,
+    "driving_force_per_atom_kJmol": 13.928,
+    "notes": "delta_G_rxn<0 => spontaneous; driving_force>0 => spontaneous"
+  },
+  "v2_change": "SER liquid + end-member-resolved HEI = element-specific driving forces"
+}

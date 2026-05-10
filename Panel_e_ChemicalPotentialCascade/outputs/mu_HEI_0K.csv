@@ -1,0 +1,6 @@
+element,sublattice,y_or_x,endmember_share_kJmol,RT_ln_y_kJmol,excess_beta_kJmol,mu_HEI_total_kJmol,note
+Pt,alpha,1.0,-12.589,0.0,0.0,-12.589,"alpha site, y_Pt=1, no ideal entropy, no beta excess"
+Ga,beta,0.65,-12.589,0.0,-0.022,-12.611,"beta site, 0K enthalpic"
+In,beta,0.2,-12.589,0.0,-0.239,-12.828,"beta site, 0K enthalpic"
+Sn,beta,0.1,-12.589,0.0,-0.047,-12.636,"beta site, 0K enthalpic"
+Zn,beta,0.05,-12.589,0.0,-0.022,-12.611,"beta site, 0K enthalpic"

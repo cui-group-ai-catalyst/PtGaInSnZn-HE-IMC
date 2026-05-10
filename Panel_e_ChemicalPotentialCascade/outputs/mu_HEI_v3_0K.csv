@@ -1,0 +1,6 @@
+element,sublattice,y_i,h_endmember_per_atom_kJmol,excess_per_atom_kJmol,entropy_per_atom_kJmol,mu_HEI_per_atom_kJmol,note
+Ga,beta,0.65,-43.3848,-0.0448,0.0,-43.4296,beta: Pt3Ga UMA end-member + CEF excess
+In,beta,0.2,-20.7157,0.2205,0.0,-20.4952,beta: Pt3In UMA end-member + CEF excess
+Sn,beta,0.1,-19.2662,-4.9647,0.0,-24.2309,beta: Pt3Sn UMA end-member + CEF excess
+Zn,beta,0.05,-31.2571,0.0603,0.0,-31.1968,beta: Pt3Zn UMA end-member + CEF excess
+Pt,alpha,1.0,-35.8328,-0.4785,0.0,-36.3112,alpha: G_atom (Gibbs-Duhem consistent)

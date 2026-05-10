@@ -1,0 +1,2 @@
+delta_G_rxn_per_fu_kJmol,delta_G_rxn_per_atom_kJmol,driving_force_per_fu_kJmol,driving_force_per_atom_kJmol,notes
+-55.713,-13.928,55.713,13.928,delta_G_rxn<0 => spontaneous; driving_force>0 => spontaneous

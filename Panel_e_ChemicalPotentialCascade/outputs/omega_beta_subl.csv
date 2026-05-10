@@ -1,0 +1,7 @@
+i,j,Omega_beta_kJmol,source
+Ga,In,-0.542,Miedema simple x Neumann-Kopp factor
+Ga,Sn,-0.029,Miedema simple x Neumann-Kopp factor
+Ga,Zn,0.0,Miedema simple x Neumann-Kopp factor
+In,Sn,-0.876,Miedema simple x Neumann-Kopp factor
+In,Zn,-0.546,Miedema simple x Neumann-Kopp factor
+Sn,Zn,-0.032,Miedema simple x Neumann-Kopp factor

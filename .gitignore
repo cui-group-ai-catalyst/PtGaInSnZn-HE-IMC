@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.conda/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Office documents (this is a code repo; manuscript is hosted separately)
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+~$*
+
+# Origin / SigmaPlot project files
+*.opju
+*.opj
+
+# Large model checkpoints — must NOT be committed
+# UMA-s-1p1 must be downloaded from HuggingFace per UMA_Checkpoint_Setup.md
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+
+# Logs and runtime artifacts
+*.log
+*.out
+*.err
+.cache/
+
+# Local environment overrides
+.env
+.envrc
+*.local

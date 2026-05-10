@@ -1,0 +1,34 @@
+{
+  "script": "script_B_mu_HEI_v3.py",
+  "reference": "SER (0 K stable solid = 0)",
+  "data_source": "D:\\Research Workspace\\My Antigravity Assistant\\03 Projects\\PtGaInSnZn\\07_code_availability_working\\code_release_v2\\SI_Figures\\SI_Fig04_165CompositionLandscape\\data_FigG_165_ElementReferenced_Hf.csv",
+  "endmember_dH_f_per_atom": {
+    "Pt3Ga": -43.3848,
+    "Pt3In": -20.7157,
+    "Pt3Sn": -19.2662,
+    "Pt3Zn": -31.2571
+  },
+  "omega_ij_per_atom": {
+    "Ga-In": 0.2825,
+    "Ga-Sn": -6.3361,
+    "Ga-Zn": 1.0775,
+    "In-Sn": -4.1213,
+    "In-Zn": -0.5882,
+    "Sn-Zn": -10.0091
+  },
+  "fit_quality": {
+    "R2": 0.999277,
+    "RMSE_kJmol_atom": 0.1358,
+    "max_abs_error_kJmol_atom": 0.5603,
+    "n_data": 165,
+    "n_params": 6
+  },
+  "composition_beta": {
+    "Ga": 0.65,
+    "In": 0.2,
+    "Sn": 0.1,
+    "Zn": 0.05
+  },
+  "v3_change": "End-member ?H_f from UMA 165-pt data, Omega_ij from least-squares CEF fit (replaces literature + Miedema)",
+  "convention": "per atom of f.u. (alloy per-atom basis)"
+}

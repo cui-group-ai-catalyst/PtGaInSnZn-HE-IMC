@@ -1,0 +1,22 @@
+{
+  "script": "script_A_mu_liquid.py",
+  "composition": {
+    "Ga": 0.65,
+    "In": 0.2,
+    "Sn": 0.1,
+    "Zn": 0.05
+  },
+  "miedema": {
+    "P": 14.1,
+    "Q": 9.4,
+    "volume_corrected": false
+  },
+  "temperatures_K": [
+    300,
+    800,
+    1000,
+    1200
+  ],
+  "reference_state": "pure_liquid_for_cocktail_elements; pure_solid_fcc_for_Pt",
+  "convention": "0K enthalpic main output; RT ln x included only in T table"
+}

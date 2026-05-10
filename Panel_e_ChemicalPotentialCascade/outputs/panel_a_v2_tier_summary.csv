@@ -1,0 +1,11 @@
+tier,element,y_or_x,mu_per_atom_kJmol,phase_label
+liquid_top,Ga,0.65,1.392,Ga (liquid cocktail)
+liquid_top,In,0.2,0.76,In (liquid cocktail)
+liquid_top,Sn,0.1,1.746,Sn (liquid cocktail)
+liquid_top,Zn,0.05,1.825,Zn (liquid cocktail)
+Pt_middle,Pt,1.0,0.0,"Pt (s, fcc, SER=0)"
+HEI_bottom,Pt,1.0,-12.589,"Pt3(Ga,In,Sn,Zn) L1_2"
+HEI_bottom,Ga,0.65,-13.03,"Pt3(Ga,In,Sn,Zn) L1_2"
+HEI_bottom,In,0.2,-10.41,"Pt3(Ga,In,Sn,Zn) L1_2"
+HEI_bottom,Sn,0.1,-15.612,"Pt3(Ga,In,Sn,Zn) L1_2"
+HEI_bottom,Zn,0.05,-9.856,"Pt3(Ga,In,Sn,Zn) L1_2"

@@ -1,0 +1,24 @@
+{
+  "script": "script_B_mu_HEI_v2.py",
+  "reference": "SER (0 K stable solid = 0)",
+  "composition_beta": {
+    "Ga": 0.65,
+    "In": 0.2,
+    "Sn": 0.1,
+    "Zn": 0.05
+  },
+  "endmember_dH_f_fu": {
+    "Ga": -52.1,
+    "In": -41.4,
+    "Sn": -62.4,
+    "Zn": -39.4
+  },
+  "endmember_citations": {
+    "Pt3Ga": "Kumar, Liu, Chen 1996",
+    "Pt3In": "Srikanth, Petric 1993",
+    "Pt3Sn": "Watson-Hayes 1995 + Ghosh 2007",
+    "Pt3Zn": "Liu et al. 2011"
+  },
+  "v2_change": "beta elements use individual Pt3i end-members, not weighted avg",
+  "convention": "per atom of f.u. (divide f.u. quantities by 4)"
+}

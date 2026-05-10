@@ -1,0 +1,6 @@
+element,sublattice,y_i,mu_start_liquid_kJmol,start_per_atom_kJmol,mu_HEI_per_atom_kJmol,driving_force_per_atom_kJmol,driving_force_per_fu_kJmol
+Ga,beta,0.65,5.568,1.392,-43.4296,44.8216,179.2864
+In,beta,0.2,3.041,0.7602,-20.4952,21.2554,85.0218
+Sn,beta,0.1,6.983,1.7457,-24.2309,25.9766,103.9066
+Zn,beta,0.05,7.298,1.8245,-31.1968,33.0213,132.0852
+Pt,alpha,1.0,0.0,0.0,-36.3112,36.3112,145.2448

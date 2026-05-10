@@ -9,8 +9,7 @@ related Supplementary Information.
 
 The source code in this repository is openly available at
 `https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC` and archived with a
-persistent identifier at `https://doi.org/10.5281/zenodo.<ZENODO-NUMBER>`
-(Zenodo DOI placeholder filled at the time of submission). All in-house code is released under the
+persistent identifier at `https://doi.org/10.5281/zenodo.20111607`. All in-house code is released under the
 **MIT License** (see `LICENSE`). Third-party model weights and datasets are
 not redistributed; their sources, versions, and licenses are documented in
 `Third_Party_Model_and_Data_Notes.md`. The pretrained UMA-s-1p1 checkpoint

@@ -40,5 +40,5 @@ preferred-citation:
   doi: "<DOI on acceptance>"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.<ZENODO-NUMBER>"
-    description: "Zenodo archive of this software release (filled at Zenodo deposit)"
+    value: "10.5281/zenodo.20111607"
+    description: "Zenodo archive of this software release"

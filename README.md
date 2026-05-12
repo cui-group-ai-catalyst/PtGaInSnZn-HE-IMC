@@ -108,12 +108,32 @@ which combines the per-config HEI and HEA values listed below).
 
 ## Limitations and known gaps
 
-- `SI_Table01_ZnDownSelection/` contains the script but no precomputed CSV/PNG;
-  the script depends on a Python 3.12 environment and CALPHAD lookup tables
-  not yet bundled in this release. The Zn down-selection is reported in the
-  manuscript as **Supplementary Table 1** (liquidus/solidus of Ga-In-Sn-Zn vs
-  Zn loading) rather than a dedicated figure, and is not required to reproduce
-  the main-text numerical conclusions.
+- `SI_Table01_ZnDownSelection/` now ships **two complementary scripts**:
+  - `script_SI_DownSelectionFunnel.py` — 4-stage funnel reducing the 165
+    B-sublattice prototypes (Panel g / SI Fig 4) down to the
+    Galinstan + 1 at% Zn target. Stage C (CALPHAD-based liquidus screen)
+    is left as a `pending-CALPHAD` placeholder pending pycalphad + COST507.
+    Outputs `data_SI_Funnel_Summary.csv`,
+    `data_SI_Funnel_StageB_Prototypes.csv`, `preview_SI_Funnel.png`.
+  - `script_SI_LiquidusPredictor.py` — **Miedema + Hildebrand-Muggianu
+    liquidus predictor for Ga-In-Sn-Zn quaternary liquids.** Computes
+    the six binary mixing enthalpies via the Miedema model with de Boer
+    1988 element parameters, extrapolates to the four-element liquid
+    via the Muggianu form, and predicts T_l(°C) using a 2nd-order
+    regression on H_mix calibrated against three literature anchors
+    (Galinstan 11 °C Daeneke 2018; Wu 2025 6.80 °C; Shentu 2023 8.20 °C).
+    The Bai 2022 25 at% Zn equiatomic alloy is reported as an explicit
+    out-of-regime validation point. Predicts a eutectic minimum at
+    ~0.8 at% Zn, consistent with the 1 at% operational target used in
+    this study. Outputs `data_SI_Liquidus_Validation.csv`,
+    `data_SI_Liquidus_Scan.csv`, `preview_SI_Liquidus.png`,
+    `notes_SI_Liquidus_Calibration.txt`. Pure scientific Python
+    (numpy, pandas, matplotlib, scipy); no CALPHAD package needed.
+
+  The Zn down-selection is reported in the manuscript as **Supplementary
+  Table 1** (literature-anchored liquidus survey of Ga-In-Sn-(Zn)
+  alloys). The two scripts together provide a fully reproducible
+  prediction pipeline for the literature-anchored T_l values.
 - Some UMA-derived numbers in the chemical potential pipeline rely on a
   prior precomputed dataset of 165 B-sublattice configurations
   (`Panel_e_ChemicalPotentialCascade/outputs/`). Re-running these from

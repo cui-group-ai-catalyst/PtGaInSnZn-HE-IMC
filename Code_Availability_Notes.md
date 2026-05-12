@@ -21,12 +21,28 @@ energies. The UMA checkpoint is provisioned per `UMA_Checkpoint_Setup.md`.
 Reference UMA-derived CSVs are bundled so reviewers can reproduce the
 post-processing without re-running UMA, if desired.
 
-**Tier C — deferred**
+**Tier C — Miedema + Hildebrand-Muggianu (literature-anchored)**
 The Zn eutectic-depressant down-selection (reported in the manuscript as
-Supplementary Table 1) relies on external CALPHAD tables (Pandat /
-Thermo-Calc) plus a Python 3.12 environment that is outside the scope of
-this package. The staging script remains in `SI_Table01_ZnDownSelection/`
-for transparency.
+Supplementary Table 1) is now reproducible from the bundled scripts in
+`SI_Table01_ZnDownSelection/`:
+- `script_SI_LiquidusPredictor.py` implements binary Miedema enthalpies
+  (de Boer 1988 element parameters) + Muggianu multi-component
+  extrapolation + a 2nd-order T_l(H_mix) regression calibrated against
+  three literature anchors (Daeneke 2018 / Wu 2025 / Shentu 2023). Bai
+  2022 is documented as an out-of-regime validation point. Predicts a
+  eutectic minimum at ~0.8 at% Zn, consistent with the 1 at%
+  operational target.
+- Pure scientific Python (numpy, pandas, matplotlib, scipy); no CALPHAD
+  package required. Outputs `data_SI_Liquidus_Validation.csv`,
+  `data_SI_Liquidus_Scan.csv`, `preview_SI_Liquidus.png`,
+  `notes_SI_Liquidus_Calibration.txt`.
+
+**Tier D — deferred**
+Full CALPHAD treatment of Stage C in `script_SI_DownSelectionFunnel.py`
+(pycalphad + COST507 Ga-In-Sn-Zn TDB) is still a `pending-CALPHAD`
+placeholder. The four-stage funnel script falls through stages A → B → D
+without it; the bundled `predict_liquidus.py` covers the liquidus prediction
+needs for Supplementary Table 1 without requiring CALPHAD.
 
 ## What is fixed and what is not
 

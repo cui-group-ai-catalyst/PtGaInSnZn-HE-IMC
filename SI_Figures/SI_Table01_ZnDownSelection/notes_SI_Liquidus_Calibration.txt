@@ -1,0 +1,24 @@
+Polynomial coefficients  T_l(C) = c0 + c1*H_mix + c2*H_mix^2
+  c0 = +29.547602
+  c1 = -150.129188
+  c2 = +247.582849
+
+Calibration: 3-point exact fit on Ga-rich anchors
+  Galinstan (Daeneke 2018):  11.00 C  [fit]
+  Wu 2025  (~1.5 at% Zn):     6.80 C  [fit]
+  Shentu 2023 (~3 at% Zn):    8.20 C  [fit]
+  Bai 2022 (25 at% Zn each):  9.08 C  [out-of-regime validation only]
+Validation on Ga-rich set: RMSE = 0.00 C, max |residual| = 0.00 C
+
+Miedema parameters used (de Boer 1988 sp-sp values):
+  P = 10.7 kJ V^-2
+  Q = 9.4 kJ (d.u.)^-2/3
+  R* = 0.0
+
+Binary H_mix(50:50) inputs (literature-curated, kJ/mol):
+  Ga-In: +0.70
+  Ga-Sn: -1.00
+  Ga-Zn: +3.60
+  In-Sn: +0.40
+  In-Zn: +5.50
+  Sn-Zn: +4.70

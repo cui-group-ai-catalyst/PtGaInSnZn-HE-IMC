@@ -8,15 +8,13 @@ a–f) and the related Supplementary Information.
 ## Code availability
 
 The source code in this repository is openly available at
-`https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC` and archived with a
-persistent identifier on Zenodo.
-
-> **TODO before submission:** confirm the Zenodo DOI of the released
-> version. As of the current draft the repository quotes
-> `10.5281/zenodo.20111607` while the manuscript Data-availability
-> paragraph quotes `10.5281/zenodo.20111606`; reconcile both to the DOI
-> that actually resolves to the archived release before final
-> submission.
+`https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC` and archived on
+Zenodo at the **Concept DOI `10.5281/zenodo.20111606`** — a stable
+parent DOI that always resolves to the latest archived release. Each
+release additionally receives a version-specific DOI (see the Zenodo
+record for the full version list). The manuscript Data-availability
+paragraph cites the Concept DOI so the citation remains valid across
+future revisions.
 
 All in-house code is released under the **MIT License** (see
 `LICENSE`). Third-party model weights and datasets are not

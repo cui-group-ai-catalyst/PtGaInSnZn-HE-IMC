@@ -1,19 +1,29 @@
 # Code Release — Pt₃(Ga,In,Sn,Zn) High-Entropy Intermetallic Assembly
 
-This package accompanies the manuscript *"Data-Driven Liquid-Metal-Mediated
-Chemical-Potential-Driven Assembly of High-Entropy Intermetallic Nanocrystals"*
-and reproduces the calculations underlying Figure 1 (panels a–f) and the
-related Supplementary Information.
+This package accompanies the manuscript *"Data-Guided Liquid-Metal
+Synthesis of High-Entropy Intermetallics"* (Xu, Zhou, Gu, Xu, Ding, Dou
+& Cui) and reproduces the calculations underlying Figure 1 (panels
+a–f) and the related Supplementary Information.
 
 ## Code availability
 
 The source code in this repository is openly available at
 `https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC` and archived with a
-persistent identifier at `https://doi.org/10.5281/zenodo.20111607`. All in-house code is released under the
-**MIT License** (see `LICENSE`). Third-party model weights and datasets are
-not redistributed; their sources, versions, and licenses are documented in
-`Third_Party_Model_and_Data_Notes.md`. The pretrained UMA-s-1p1 checkpoint
-used in this study is provisioned per `UMA_Checkpoint_Setup.md`.
+persistent identifier on Zenodo.
+
+> **TODO before submission:** confirm the Zenodo DOI of the released
+> version. As of the current draft the repository quotes
+> `10.5281/zenodo.20111607` while the manuscript Data-availability
+> paragraph quotes `10.5281/zenodo.20111606`; reconcile both to the DOI
+> that actually resolves to the archived release before final
+> submission.
+
+All in-house code is released under the **MIT License** (see
+`LICENSE`). Third-party model weights and datasets are not
+redistributed; their sources, versions, and licenses are documented in
+`Third_Party_Model_and_Data_Notes.md`. The pretrained UMA-s-1p1
+checkpoint used in this study is provisioned per
+`UMA_Checkpoint_Setup.md`.
 
 ## Layout
 
@@ -36,7 +46,10 @@ code_release_v2/
 │   ├── SI_Fig02_SizeMismatch/                # Supplementary Fig. 2  — Hume-Rothery δ vs Miedema ΔH_mix, 28 hosts
 │   ├── SI_Fig03_TripleConsensus/             # Supplementary Fig. 3  — three-method consensus, 12 M-Ga binaries
 │   ├── SI_Fig04_165CompositionLandscape/     # Supplementary Fig. 4  — 165 B-sublattice prototypes, ΔH_f vs Ga at%
-│   └── SI_Table01_ZnDownSelection/           # Supplementary Table 1 — Zn eutectic-depressant funnel (deferred figure)
+│   └── SI_Table01_ZnDownSelection/           # Supplementary Tables 2 & 3 — Zn eutectic-depressant liquidus survey
+│                                              #   (folder name is historical; in the current SI
+│                                              #    numbering this content is Tables 2 and 3,
+│                                              #    while Table 1 is the chemical-potential cascade)
 │
 ├── SI_Note_S1_ChemicalPotential/             # full mathematical derivation
 └── shared/
@@ -91,53 +104,72 @@ python Panel_d_GibbsCurveVsT/script_FigD_GibbsCurve.py
 Each entry below is taken from a specific reference CSV in this package, which
 is the canonical numerical source. The Supplementary Information may aggregate
 some of these at a higher level (for example, the ordering gap is reported in
-the SI as `16.04 ± 0.41 kJ mol⁻¹ atom⁻¹ (mean ± SEM, σ = 2.26, z = 38.9)`,
-which combines the per-config HEI and HEA values listed below).
+the manuscript Methods as `16.04 ± 0.41 kJ mol⁻¹ atom⁻¹ (mean ± SEM, ensemble
+σ = 2.26 kJ mol⁻¹ atom⁻¹; gap/σ = 7.1)`, which combines the per-config HEI and
+HEA values listed below).
 
 | Quantity | Value | Source |
 |---|---|---|
-| Pt binary ΔH_mix (Pt-Ga) | −33.76 kJ mol⁻¹ | `Panel_a_BinaryHeatmap/data_FigA_v2_FamilyOrdered_Origin.csv` |
+| Pt binary ΔH_mix (Pt-Ga) | −32.06 kJ mol⁻¹ | `Panel_a_BinaryHeatmap/data_FigA_v2_FamilyOrdered_Origin.csv` |
 | HEI ΔH_f (0 K, element ref) | −30.01 kJ mol⁻¹ atom⁻¹ | `Panel_c_OrderedVsDisordered/data_FigC_Summary.csv` |
 | HEA ΔH_f mean ± σ | −13.96 ± 2.26 kJ mol⁻¹ atom⁻¹ | same |
 | Ordering enthalpy gap | 16.04 kJ mol⁻¹ atom⁻¹ | same |
 | T* crossover (frozen β) | 2123 K | `Panel_d_GibbsCurveVsT/notes_FigD_GibbsCurve.md` |
 | T* crossover (mixed β) | 3429 K | same |
 | ΔG_rxn at 0 K | −150.5 kJ mol⁻¹ f.u. | `Panel_e_ChemicalPotentialCascade/outputs/delta_G_rxn_v3_summary.csv` |
-| γ_SL (Pt) | −0.50 J m⁻² | `Panel_f_Wetting/data_FigF_Wetting_Ranked.csv` |
-| Hosts with γ_SL < 0 | 13 of 28 | same |
+| F_Ga / F_Zn / F_Pt / F_Sn / F_In | 49.00 / 38.49 / 36.31 / 31.21 / 23.54 kJ mol⁻¹ atom⁻¹ | `Panel_e_ChemicalPotentialCascade/outputs/delta_mu_v3_0K.csv` (matches SI Table 1) |
+| γ_SL (Pt) | −0.45 J m⁻² (manuscript: ≈ −0.50 ± 0.20 J m⁻²) | `Panel_f_Wetting/data_FigF_Wetting_Ranked.csv` |
+| Hosts with γ_SL < 0 | 11 of 28 | same |
 
 ## Limitations and known gaps
 
-- `SI_Table01_ZnDownSelection/` now ships **two complementary scripts**:
-  - `script_SI_DownSelectionFunnel.py` — 4-stage funnel reducing the 165
-    B-sublattice prototypes (Panel g / SI Fig 4) down to the
-    Galinstan + 1 at% Zn target. Stage C (CALPHAD-based liquidus screen)
-    is left as a `pending-CALPHAD` placeholder pending pycalphad + COST507.
-    Outputs `data_SI_Funnel_Summary.csv`,
-    `data_SI_Funnel_StageB_Prototypes.csv`, `preview_SI_Funnel.png`.
-  - `script_SI_LiquidusPredictor.py` — **Miedema + Hildebrand-Muggianu
-    liquidus predictor for Ga-In-Sn-Zn quaternary liquids.** Computes
-    the six binary mixing enthalpies via the Miedema model with de Boer
-    1988 element parameters, extrapolates to the four-element liquid
-    via the Muggianu form, and predicts T_l(°C) using a 2nd-order
-    regression on H_mix calibrated against three literature anchors
-    (Galinstan 11 °C Daeneke 2018; Wu 2025 6.80 °C; Shentu 2023 8.20 °C).
-    The Bai 2022 25 at% Zn equiatomic alloy is reported as an explicit
-    out-of-regime validation point. Predicts a eutectic minimum at
-    ~0.8 at% Zn, consistent with the 1 at% operational target used in
-    this study. Outputs `data_SI_Liquidus_Validation.csv`,
-    `data_SI_Liquidus_Scan.csv`, `preview_SI_Liquidus.png`,
-    `notes_SI_Liquidus_Calibration.txt`. Pure scientific Python
-    (numpy, pandas, matplotlib, scipy); no CALPHAD package needed.
+- **Panel e — only the `_v3` scripts are authoritative.** The
+  `Panel_e_ChemicalPotentialCascade/scripts/` directory ships v1, v2
+  and v3 of every script for historical transparency, but only v3
+  reproduces the manuscript and Supplementary Table 1 (v2 ΔG_rxn =
+  −55.7 kJ/mol f.u. ≠ manuscript −150.5; v1 has no SER). See
+  `Panel_e_ChemicalPotentialCascade/scripts/README_versions.md`.
 
-  The Zn down-selection is reported in the manuscript as **Supplementary
-  Table 1** (literature-anchored liquidus survey of Ga-In-Sn-(Zn)
-  alloys). The two scripts together provide a fully reproducible
-  prediction pipeline for the literature-anchored T_l values.
+- **`SI_Table01_ZnDownSelection/` ships two complementary scripts**
+  (folder name historical; corresponds to **Supplementary Tables 2 &
+  3** in the current SI numbering):
+  - `script_SI_DownSelectionFunnel.py` — 4-stage funnel reducing the
+    165 B-sublattice prototypes (SI Fig 4) down to the
+    Galinstan + 1 at% Zn target. Stage C (CALPHAD-based liquidus
+    screen) remains a `pending-CALPHAD` placeholder pending
+    pycalphad + COST507.
+  - `script_SI_LiquidusPredictor.py` — empirical liquidus predictor
+    for Ga-In-Sn-Zn quaternary liquids. Extrapolates literature-
+    curated binary enthalpies to the quaternary via the Muggianu
+    form and fits a 2nd-order T_l(ΔH_mix) regression to three
+    literature anchors (Galinstan 11 °C Daeneke 2018; Wu 2025
+    6.80 °C; Shentu 2023 8.20 °C). The fit is exact on the three
+    in-regime anchors by construction; the Bai 2022 25 at% Zn
+    equiatomic alloy is reported as an out-of-regime test point.
+    Predicts a eutectic minimum at ~0.8 at% Zn, consistent with the
+    1 at% operational target. Pure scientific Python; no CALPHAD
+    package needed.
+
 - Some UMA-derived numbers in the chemical potential pipeline rely on a
   prior precomputed dataset of 165 B-sublattice configurations
   (`Panel_e_ChemicalPotentialCascade/outputs/`). Re-running these from
   scratch requires the UMA checkpoint and ~1 hr of single-GPU computation.
+
+- **Panel a and Panel b** ship plot-only scripts plus precomputed CSVs;
+  the upstream Miedema binary heatmap and 800-point cocktail-scatter
+  generation scripts are not redistributed in this release. Panel f
+  computes its Miedema values inline; the same parameter convention
+  (`n_ws` field in `shared/data_periodic_table.py` already stores
+  n_WS^(1/3)) applies to all three panels.
+  - `Panel_a_BinaryHeatmap/regen_FigA_data.py` regenerates the binary
+    heatmap CSV from the released Miedema parameters and reproduces
+    the manuscript Methods value ΔH_mix(Pt-Ga) = −32.06 kJ/mol.
+  - `Panel_b_MultiComponentScatter/verify_FigB_central.py` independently
+    computes the central cocktail ΔH_mix and ΔG_mix at 500 K for each
+    of the 20 hosts (no perturbation) and asserts that Pt is the most
+    negative — the quantitative anchor for the manuscript's
+    "Pt exhibits the most negative multicomponent mixing enthalpy
+    among all 20 elements screened" claim (main text P18).
 
 ## License and attribution
 

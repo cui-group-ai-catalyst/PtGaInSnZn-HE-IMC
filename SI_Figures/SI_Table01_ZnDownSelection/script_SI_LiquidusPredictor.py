@@ -1,48 +1,56 @@
 """
 script_SI_LiquidusPredictor.py
 ==============================
-Phase 2 deliverable for Supplementary Table 1 — a reproducible
-Miedema + Hildebrand-Muggianu regular-solution predictor for the
-liquidus temperature (Tl) of Ga-In-Sn-Zn quaternary liquid alloys.
+Reproducible liquidus-temperature (T_l) predictor for the Ga-In-Sn-Zn
+quaternary liquid precursor, supporting the literature-anchored survey
+reported in **Supplementary Tables 2 and 3**.
+
+(The parent folder is named `SI_Table01_ZnDownSelection/` for historical
+reasons — that name predates the current SI numbering, in which the
+liquidus survey lives in Tables 2 and 3 while Table 1 is the
+per-element chemical-potential cascade.)
 
 What it does
 ------------
 1. Computes binary mixing enthalpies for the six Ga/In/Sn/Zn liquid
    pairs using the Miedema semi-empirical model (de Boer 1988, Miedema
-   et al. 1980) for reference. For sp-sp pairs the bare Miedema
-   formula underestimates non-ideality (electronegativity differences
-   are too small), so a literature-curated table of measured/CALPHAD
-   binary mixing enthalpies is used as the actual input.
+   et al. 1980) **for reference only**. For these sp-sp pairs the bare
+   Miedema formula underestimates non-ideality (electronegativity
+   differences are too small), so a literature-curated table of
+   measured/CALPHAD binary mixing enthalpies (`H_MIX_BINARY` below) is
+   used as the actual input to steps 2-5.
 
 2. Extrapolates to the four-element liquid via the Hildebrand-Muggianu
    pair-additive form (Muggianu 1975; Hildebrand 1929; Guggenheim
-   1935).
+   1935):  ΔH_mix = Σ_{i<j} 4 x_i x_j · ΔH_ij(50:50).
 
-3. Solves the simplified Ga-solvent liquidus equation
-       Delta_H_fus_Ga * (1/T_m_Ga - 1/Tl) = R * ln(x_Ga * gamma_Ga)
-   with gamma_Ga = exp(k_NI * H_mix / (R*T_m_Ga)).
-   The single calibration constant k_NI is fit by global least
-   squares against all four literature anchors below.
+3. Fits a 2nd-order polynomial T_l(°C) = c0 + c1·ΔH_mix + c2·ΔH_mix^2
+   to the three Ga-rich literature anchors below. Because the fit has
+   3 parameters and 3 anchors, in-regime residuals are zero by
+   construction — this is an empirical correlation, NOT an independent
+   validation. The single out-of-regime anchor (Bai 2022, 25 at% Zn
+   equiatomic) is reported separately.
 
-4. Validates against four independent literature anchors:
-       Galinstan      (0 at% Zn)       Daeneke 2018       11.0 C
-       Wu 2025        (1.5 at% Zn)     Wu et al. 2025      6.80 C
-       Shentu 2023    (3.0 at% Zn)     Shentu et al. 2023  8.20 C
-       Bai 2022       (25 at% each)    Bai et al. 2022     9.08 C
-   Reports per-anchor residual and RMSE.
+4. Literature anchors used:
+       Galinstan      (0 at% Zn)       Daeneke 2018       11.0 °C  [fit]
+       Wu 2025        (1.5 at% Zn)     Acta Mater. 2025    6.80 °C  [fit]
+       Shentu 2023    (3.0 at% Zn)     Metals 2023         8.20 °C  [fit]
+       Bai 2022       (25 at% each)    J. Alloys Compd 2022 9.08 °C [out-of-regime]
 
-5. Generates the Zn-dependence trend (0 to 25 at% Zn at the
-   Galinstan + Zn formulation), exports CSV and PNG.
+5. Generates the Zn-dependence trend (Galinstan + 0–2 at% Zn,
+   in-regime) and exports CSV and PNG.
 
-Important caveats (read before citing this as quantitative)
------------------------------------------------------------
-* This is a TRANSPARENT, simplified Miedema + Hildebrand-Muggianu
-  pipeline, NOT a full CALPHAD calculation. Expected absolute
-  accuracy is +/- 3-6 C on the predicted Tl across the 0-10 at% Zn
-  range, based on the validation residuals reported below.
+Important caveats
+-----------------
+* This is a TRANSPARENT empirical correlation calibrated on three
+  literature anchors, NOT a CALPHAD calculation. The fit reproduces
+  the three calibration anchors exactly (residual = 0 by construction);
+  true predictive accuracy is bounded by the out-of-regime Bai 2022
+  residual and is not quoted here.
 * The QUALITATIVE U-shape (drop then rise) is robust and locates the
-  minimum near 1-2 at% Zn, consistent with the Wu 2025 reverse-design
-  optimum.
+  minimum near 0.8–1.5 at% Zn, consistent with the Wu 2025
+  reverse-design optimum and the 1 at% operational target used in this
+  study.
 
 Outputs
 -------

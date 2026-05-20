@@ -22,14 +22,17 @@ Reference UMA-derived CSVs are bundled so reviewers can reproduce the
 post-processing without re-running UMA, if desired.
 
 **Tier C — Miedema + Hildebrand-Muggianu (literature-anchored)**
-The Zn eutectic-depressant down-selection (reported in the manuscript as
-Supplementary Table 1) is now reproducible from the bundled scripts in
-`SI_Table01_ZnDownSelection/`:
-- `script_SI_LiquidusPredictor.py` implements binary Miedema enthalpies
-  (de Boer 1988 element parameters) + Muggianu multi-component
-  extrapolation + a 2nd-order T_l(H_mix) regression calibrated against
-  three literature anchors (Daeneke 2018 / Wu 2025 / Shentu 2023). Bai
-  2022 is documented as an out-of-regime validation point. Predicts a
+The Zn eutectic-depressant liquidus survey (reported in the manuscript as
+**Supplementary Tables 2 and 3**) is reproducible from the bundled
+scripts in `SI_Figures/SI_Table01_ZnDownSelection/` (the folder name is
+historical; current SI numbering puts this content in Tables 2 & 3):
+- `script_SI_LiquidusPredictor.py` extrapolates the six liquid binary
+  enthalpies (Witusiewicz CALPHAD assessments) to the Ga-In-Sn-Zn
+  quaternary via the Muggianu form, then fits a 2nd-order
+  T_l(ΔH_mix) regression to three literature anchors (Daeneke 2018 /
+  Wu 2025 / Shentu 2023). Because the fit has 3 parameters and 3
+  anchors, in-regime residuals are zero by construction; Bai 2022 is
+  documented as the only out-of-regime test point. Predicts a
   eutectic minimum at ~0.8 at% Zn, consistent with the 1 at%
   operational target.
 - Pure scientific Python (numpy, pandas, matplotlib, scipy); no CALPHAD
@@ -41,8 +44,9 @@ Supplementary Table 1) is now reproducible from the bundled scripts in
 Full CALPHAD treatment of Stage C in `script_SI_DownSelectionFunnel.py`
 (pycalphad + COST507 Ga-In-Sn-Zn TDB) is still a `pending-CALPHAD`
 placeholder. The four-stage funnel script falls through stages A → B → D
-without it; the bundled `predict_liquidus.py` covers the liquidus prediction
-needs for Supplementary Table 1 without requiring CALPHAD.
+without it; the bundled `script_SI_LiquidusPredictor.py` covers the
+liquidus prediction needs for Supplementary Tables 2 and 3 without
+requiring CALPHAD.
 
 ## What is fixed and what is not
 

@@ -1,5 +1,5 @@
 # UMA Checkpoint Setup
-## Reviewer-Facing Setup Notes for Panels C and G
+## Reviewer-Facing Setup Notes for UMA-based Panels (c, d, e and SI Figs 3, 4)
 
 ## 1. Source
 
@@ -46,7 +46,7 @@ After placing the file, verify the MD5 matches the Hugging Face listing
 
 ## 3. Why this matters
 
-Panels `C` and `G` depend on this checkpoint for numerical reproduction.
+Panels c, d, e and SI Figs 3, 4 depend on this checkpoint for numerical reproduction.
 
 Without an explicit checkpoint route, a reviewer may understand the code path
 but still be unable to reproduce the same results from a clean machine.
@@ -65,8 +65,8 @@ Reviewers should be instructed to:
 
 ## 5. Current script behavior
 
-The current project scripts for `FigC` and `FigG` expect the checkpoint to be
-present in the local cache path. They do not yet include an automatic download
+The current project scripts for the UMA-dependent panels expect the checkpoint to
+be present in the local cache path. They do not yet include an automatic download
 or cache-bootstrap routine.
 
 This is acceptable for an internal or reviewer package if documented clearly,
@@ -76,4 +76,4 @@ but it should be stated explicitly in the release README.
 
 The safest wording is:
 
-`Panels C and G require the gated UMA checkpoint uma-s-1p1.pt from the Hugging Face repository facebook/UMA. The checkpoint used in this study has MD5 36a2f071350be0ee4c15e7ebdd16dde1 and is expected at the documented local cache path unless a user edits the script configuration.`
+`The UMA-based panels (c, d, e and SI Figs 3, 4) require the gated UMA checkpoint uma-s-1p1.pt from the Hugging Face repository facebook/UMA. The checkpoint used in this study has MD5 36a2f071350be0ee4c15e7ebdd16dde1 and is expected at the documented local cache path unless a user edits the script configuration.`

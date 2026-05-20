@@ -14,7 +14,7 @@ dependencies:
   - pymatgen=2025.10.7
   - pip:
     - fairchem-core==2.13.0
-    - chgnet==0.4.0  # for SI Fig S2 cross-validation only
+    - chgnet==0.4.0  # for SI Fig 3 three-method consensus (Miedema / UMA / CHGNet)
 # Notes:
 #   - fairchem-core 2.13.0 provides UMA-s-1p1; load via FAIRChemCalculator.
 #   - The UMA checkpoint is fetched from huggingface (facebook/UMA),
@@ -22,5 +22,6 @@ dependencies:
 #     See UMA_Checkpoint_Setup.md for offline-cache instructions.
 #   - GPU recommended for UMA panels (c, d, e, S2, S3); ~10 min/run on a
 #     16 GB consumer GPU.
-#   - SI Fig S4 down-selection script targets Python 3.12 + a separate
-#     CALPHAD lookup environment; not packaged here.
+#   - The SI liquidus predictor (SI_Figures/SI_Table01_ZnDownSelection/
+#     script_SI_LiquidusPredictor.py) is pure numpy/pandas/matplotlib/scipy
+#     and runs in this same environment. No CALPHAD package required.

@@ -11,16 +11,14 @@ v3 changes vs v2
   data (script_B_mu_HEI_v3), replacing literature values.
 - Liquid side unchanged (script_A_mu_liquid_v3, same as v2).
 
-Transfer event for beta element i:
-    3 Pt(s, SER=0) + 1 Xi(l, SER=DH_fus+excess) -> Pt3Xi (in HEI)
+Per-element driving force (manuscript eq. 3, SI Table 1):
+    F_i = mu_i_source - mu_i_HEI       (kJ/mol per atom of species i)
+        mu_i_source : Pt = 0 (SER); X = liquid cocktail chemical potential
+        mu_i_HEI    : chemical potential of i inside the HEI (CEF fit, per atom)
 
-Per-atom driving force:
-    F_i = start_per_atom - end_per_atom
-    start_per_atom = (3*mu_Pt + 1*mu_i^L) / 4
-    end_per_atom = mu_i^HEI (from CEF, per atom)
-
-Total reaction Gibbs energy per formula unit:
-    dG_rxn = 4*G_atom_HEI - Sum y_i * mu_i^L  (negative = spontaneous)
+Total reaction Gibbs energy per formula unit (unchanged by this fix):
+    dG_rxn = 4*G_atom_HEI - Sum y_i * mu_i^L            (negative = spontaneous)
+           = -Sum nu_i * F_i,    nu_Pt = 3,  nu_X = y_X (manuscript eq 3)
 
 Outputs
 -------
@@ -52,7 +50,11 @@ def main() -> None:
 
     dmu_rows: list[dict] = []
     for el in BETA_ELEMENTS:
-        start_pa = (3 * mu_start["Pt"] + mu_start[el]) / 4.0
+        # F_i per manuscript eq (3) and SI Table 1:
+        #   F_i = mu_i_source - mu_i_HEI   (per atom of species i)
+        # (previous v3 used (3*mu_Pt + mu_i)/4 as the "start", which mixed in
+        #  Pt and therefore did not reproduce SI Table 1's F_i column.)
+        start_pa = mu_start[el]
         end_pa = mu_end[el]
         F = start_pa - end_pa
         dmu_rows.append({

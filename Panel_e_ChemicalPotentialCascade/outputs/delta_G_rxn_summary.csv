@@ -1,2 +1,0 @@
-delta_mu_Pt_kJmol,delta_mu_beta_weighted_kJmol,driving_force_per_fu_kJmol,driving_force_per_atom_kJmol,delta_G_rxn_per_fu_kJmol,delta_G_rxn_per_atom_kJmol,notes
-12.589,12.589,50.356,12.589,-50.356,-12.589,Driving force F = sum(stoich * Delta_mu) > 0 means reaction proceeds spontaneously; Delta_G_rxn = -F is the thermodynamic free-energy change of the reaction (should be < 0 for spontaneity).

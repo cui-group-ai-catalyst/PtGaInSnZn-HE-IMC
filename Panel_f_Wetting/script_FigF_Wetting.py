@@ -1,20 +1,28 @@
 """
-20260415_FigD_compute_and_plot.py
-=================================
-Submission-facing provenance script for Panel d.
+script_FigF_Wetting.py
+======================
+Panel f — solid-liquid interfacial free energy (γ_SL) across 28 host
+candidates wetted by the fixed Ga/In/Sn/Zn liquid cocktail.
 
-Scientific purpose:
-- Estimate solid-liquid interfacial favorability for candidate hosts in
-  contact with the fixed Ga/In/Sn/Zn cocktail.
-- Combine a geometric term derived from surface tensions with a chemical term
-  derived from the corrected Miedema enthalpy route.
-- Report gamma_SL-style ranking values and a review plot; file persistence is
-  only the final bookkeeping step.
+Method (matches manuscript Methods eq. 1 and eq. 4):
+    γ_SL = (sqrt(γ_S) − sqrt(γ_L))^2 + ΔH_mix × f_surf
+        γ_S        = 1.15 × γ_L,host                (Miedema rule)
+        ΔH_mix     = Σ_X y_X · ΔH(host, X)          (cocktail mixing enthalpy)
+        ΔH(M, X)   = −P (Δφ*)^2 + Q (Δn_WS^(1/3))^2 (simplified Miedema, P=14.1, Q=9.4)
+        f_surf     = 1000 / (1.091 · N_A^(1/3) · V_m^(2/3))   (J m⁻² per kJ mol⁻¹)
 
-Input and rule notes:
-- The liquid composition is fixed to Ga 0.65 / In 0.20 / Sn 0.10 / Zn 0.05.
-- `periodic_table_data` provides the element-wise Phi, n_ws, gamma_L, and
-  related descriptors used throughout Panels a, b, d, and e.
+Element parameters: shared/data_periodic_table.py (φ*, n_WS^(1/3), γ_L).
+Molar volumes (cm³/mol): tabulated locally from de Boer 1988.
+
+Convention note: the 'n_ws' field in shared/data_periodic_table.py stores
+n_WS^(1/3) directly (Pt = 1.78 = n_WS^(1/3); raw n_WS ≈ 5.6 d.u.). The
+Miedema formula calls for Δ(n_WS^(1/3)) so the field is used as-is below.
+
+Outputs (rewritten on each run):
+    data_FigF_Wetting_Ranked_regen.csv   28-host γ_SL ranking
+    preview_FigF_Wetting_regen.png       ΔH_mix vs γ_SL scatter
+
+Reproducibility: pure NumPy/Pandas; no UMA dependency; deterministic.
 """
 
 import sys
@@ -38,7 +46,7 @@ def calc_cocktail_properties():
     avg_nws = sum(periodic_table_data[el]['n_ws'] * w for el, w in weights.items())
     return {'gamma_L': avg_gamma_L, 'Phi': avg_Phi, 'n_ws': avg_nws, 'weights': weights}
 
-# Molar volumes (cm3/mol) for f_surf calculation — de Boer 1988 / patch_vm.py
+# Molar volumes (cm3/mol) for f_surf calculation — de Boer 1988 Table 4.1
 VM_DATA = {
     'Pt': 9.09, 'Ir': 8.52, 'Rh': 8.28, 'Pd': 8.56, 'Ru': 8.17, 'Os': 8.42,
     'Re': 8.86, 'Au': 10.21, 'W': 9.47, 'Mo': 9.38, 'Ni': 6.59, 'Co': 6.67,
@@ -86,8 +94,12 @@ def calc_wetting_analysis():
         for el, frac in cocktail['weights'].items():
             lp = periodic_table_data[el]
             dPhi_c = props['Phi'] - lp['Phi']
-            dn_c = props['n_ws']**(1/3) - lp['n_ws']**(1/3)
-            dH_i = -P * dPhi_c**2 + Q * dn_c**2   # CORRECTED: no *10
+            # NOTE: shared/data_periodic_table.py stores n_WS^(1/3) directly in the
+            # 'n_ws' field (Pt = 1.78 = n_WS^(1/3), not the raw electron density
+            # ~5.6 d.u.). The Miedema formula calls for Δ(n_WS^(1/3)), so use the
+            # tabulated value directly — do NOT take the cube root again.
+            dn_c = props['n_ws'] - lp['n_ws']
+            dH_i = -P * dPhi_c**2 + Q * dn_c**2   # Miedema: -P (Δφ*)^2 + Q (Δn_WS^(1/3))^2
             dH_cocktail += frac * dH_i
         
         dH_mix_kj = dH_cocktail  # kJ/mol, correct scale

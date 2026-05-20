@@ -1,6 +1,0 @@
-element,mu_start_kJmol,mu_HEI_kJmol,delta_mu_kJmol,start_phase,end_phase
-Pt,0.0,-12.589,12.589,solid_fcc_pure,HEI_L1_2
-Ga,-0.022,-12.611,12.589,liquid_cocktail,HEI_L1_2
-In,-0.239,-12.828,12.589,liquid_cocktail,HEI_L1_2
-Sn,-0.047,-12.636,12.589,liquid_cocktail,HEI_L1_2
-Zn,-0.022,-12.611,12.589,liquid_cocktail,HEI_L1_2

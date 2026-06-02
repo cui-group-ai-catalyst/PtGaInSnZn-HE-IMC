@@ -10,12 +10,9 @@ This README corresponds to release `v1.3.0` (Nature software-checklist release).
 ## Code availability
 
 - Repository: `https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC`
-- Zenodo concept DOI: `https://doi.org/10.5281/zenodo.20111606`
-- Exact version DOI for this release: pending until the `v1.3.0` GitHub
-  release is archived by Zenodo.
-- Proposed release tag: `v1.3.0`
-- Current audited baseline commit before this upgrade:
-  `c21828fdb8d517ce464d3d11bfa348c411354226`
+- Zenodo concept DOI (all versions): `https://doi.org/10.5281/zenodo.20111606`
+- Exact version DOI for `v1.3.1`: `https://doi.org/10.5281/zenodo.20511673`
+- Latest release tag: `v1.3.1`
 
 All in-house code is released under the MIT License. Third-party model weights
 and datasets are not redistributed. Their sources, versions, licenses, and

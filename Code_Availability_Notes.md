@@ -40,13 +40,13 @@ historical; current SI numbering puts this content in Tables 2 & 3):
   `data_SI_Liquidus_Scan.csv`, `preview_SI_Liquidus.png`,
   `notes_SI_Liquidus_Calibration.txt`.
 
-**Tier D — deferred**
-Full CALPHAD treatment of Stage C in `script_SI_DownSelectionFunnel.py`
-(pycalphad + COST507 Ga-In-Sn-Zn TDB) is still a `pending-CALPHAD`
-placeholder. The four-stage funnel script falls through stages A → B → D
-without it; the bundled `script_SI_LiquidusPredictor.py` covers the
-liquidus prediction needs for Supplementary Tables 2 and 3 without
-requiring CALPHAD.
+**Optional archival script — not the reviewer path**
+`script_SI_DownSelectionFunnel.py` is retained for provenance of the earlier
+four-stage down-selection sketch. Its CALPHAD Stage C requires pycalphad plus a
+COST507 Ga-In-Sn-Zn TDB and is intentionally not part of the clean reviewer
+path. The bundled `script_SI_LiquidusPredictor.py` is the release-supported
+script for the liquidus prediction reported in Supplementary Tables 2 and 3 and
+does not require CALPHAD.
 
 ## What is fixed and what is not
 
@@ -59,9 +59,11 @@ requiring CALPHAD.
   `36a2f071350be0ee4c15e7ebdd16dde1`, snapshot `38529caa`).
 - Random-structure generation uses fixed seeds (100–129 in `Panel_c`),
   so re-running yields bit-identical structures.
-- The 165-prototype B-sublattice scan is provided as a precomputed CSV
-  rather than a recipe; the structure-generation pipeline is documented
-  in `Panel_e_ChemicalPotentialCascade/docs_ChemicalPotential_Workflow.md`.
+- The 165-prototype B-sublattice scan is provided as a precomputed CSV for
+  reviewer inspection and post-processing. The historical structure-generation
+  workflow is documented in
+  `Panel_e_ChemicalPotentialCascade/docs_ChemicalPotential_Workflow.md`, but
+  not every raw structure-generation input is redistributed in this release.
 
 ## Numerical conventions
 
@@ -70,9 +72,9 @@ requiring CALPHAD.
   96.485 kJ mol⁻¹ eV⁻¹.
 - Formation enthalpies are referenced to the **stable element reference
   (SER)**: the most stable solid phase of each constituent at 0 K is
-  assigned μ° = 0. Element reference energies are tabulated in
-  `Panel_c_OrderedVsDisordered/data_FigC_Summary.csv` and computed by the
-  same UMA-s-1p1 single-point pipeline used for the alloy structures.
+  assigned μ° = 0. Panel-level SER-referenced summary values are reported in
+  `Panel_c_OrderedVsDisordered/data_FigC_Summary.csv`; the underlying element
+  reference convention is described in the panel notes and methods text.
 - Sample standard deviation (`ddof=1`, the numpy default) is used wherever
   a 1σ variation across the 30 random HEA structures is reported. The
   `mean ± SEM` values quoted in the SI use SEM = σ_sample / √N with N = 30,
@@ -91,5 +93,5 @@ reproducibility.
 
 When reusing any panel-specific script or reference output, please cite the
 manuscript and the dependent third-party packages
-(`Third_Party_Model_and_Data_Notes.md` not included in this package; see
-`UMA_Checkpoint_Setup.md` for the UMA citation).
+(`Third_Party_Model_and_Data_Notes.md`; see `UMA_Checkpoint_Setup.md` for the
+UMA checkpoint provisioning route).

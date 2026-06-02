@@ -20,8 +20,8 @@ dependencies:
 #   - The UMA checkpoint is fetched from huggingface (facebook/UMA),
 #     snapshot 38529caa, file uma-s-1p1.pt (MD5 36a2f071350be0ee4c15e7ebdd16dde1).
 #     See UMA_Checkpoint_Setup.md for offline-cache instructions.
-#   - GPU recommended for UMA panels (c, d, e, S2, S3); ~10 min/run on a
-#     16 GB consumer GPU.
+#   - GPU recommended for from-scratch UMA energy calculations; the quick demo
+#     and bundled CSV post-processing do not require GPU hardware.
 #   - The SI liquidus predictor (SI_Figures/SI_Table01_ZnDownSelection/
 #     script_SI_LiquidusPredictor.py) is pure numpy/pandas/matplotlib/scipy
 #     and runs in this same environment. No CALPHAD package required.

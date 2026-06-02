@@ -1,5 +1,5 @@
-Label,Composition,Ga_pct,Hf_kJ_mol,Rank_overall,Ga_count,In_count,Sn_count,Zn_count
-Ga8 Pt3Ga-baseline (ElementRef global min),Ga8 Pt3Ga-baseline,100.000000,-43.384818,6,8,0,0,0
-Ga5Sn3 (historical calibrated global min),Ga5Sn3 GLOBAL-MIN,62.500000,-35.785053,1,5,0,3,0
-Ga6InSn (model-selected),Ga6InSn MODEL-SELECTED,75.000000,-38.113553,12,6,1,1,0
-Ga5In2Sn (experimental-representative),Ga5In2Sn,62.500000,-35.208495,28,5,2,1,0
+Label,Composition,Ga_pct,Hf_kJ_mol,ElementRef_Rank,Legacy_Rank,Ga_count,In_count,Sn_count,Zn_count
+Ga8 Pt3Ga-baseline (ElementRef global min),Ga8 Pt3Ga-baseline,100.000000,-43.384818,1,6,8,0,0,0
+Ga5Sn3 (historical calibrated global min),Ga5Sn3 GLOBAL-MIN,62.500000,-35.785053,20,1,5,0,3,0
+Ga6InSn (model-selected),Ga6InSn MODEL-SELECTED,75.000000,-38.113553,10,12,6,1,1,0
+Ga5In2Sn (experimental-representative),Ga5In2Sn,62.500000,-35.208495,24,28,5,2,1,0

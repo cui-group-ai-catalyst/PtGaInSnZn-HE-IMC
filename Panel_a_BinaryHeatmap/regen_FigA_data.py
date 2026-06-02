@@ -1,7 +1,7 @@
 """
 regen_FigA_data.py
 ==================
-Regenerate `data_FigA_v2_FamilyOrdered_Origin.csv` from the Miedema
+Regenerate `data_FigA_v2_FamilyOrdered_Origin_regen.csv` from the Miedema
 binary mixing-enthalpy formula using the element parameters in
 `shared/data_periodic_table.py`.
 
@@ -53,9 +53,10 @@ def main() -> None:
             rows[p][h] = round(dH_miedema(h, p), 2)
     df = pd.DataFrame([rows[p] for p in PARTNERS])
     df = df[["Target_Element"] + HOSTS]
-    out = HERE / "data_FigA_v2_FamilyOrdered_Origin.csv"
+    out = HERE / "data_FigA_v2_FamilyOrdered_Origin_regen.csv"
     df.to_csv(out, index=False)
     print(f"Wrote {out}")
+    print("Canonical reference remains data_FigA_v2_FamilyOrdered_Origin.csv")
     print(df.to_string(index=False))
 
 

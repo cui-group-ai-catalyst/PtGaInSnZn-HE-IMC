@@ -47,8 +47,8 @@ Method (matches manuscript Methods eq. 1 and Methods P51)
 
 Outputs
 -------
-data_FigB_central_anchors.csv : 20-row table of central ΔH_mix and
-                                ΔG_mix(500 K) per host, plus host ranking.
+data_FigB_central_anchors_regen.csv : 20-row table of central ΔH_mix and
+                                      ΔG_mix(500 K) per host, plus host ranking.
 
 Reproducibility: pure NumPy/Pandas; no UMA dependency; deterministic.
 """
@@ -136,9 +136,10 @@ def main() -> None:
     df["dH_rank"] = df["dH_mix_kJmol"].rank(method="dense", ascending=True).astype(int)
     df = df.sort_values("dH_rank")
 
-    out = HERE / "data_FigB_central_anchors.csv"
+    out = HERE / "data_FigB_central_anchors_regen.csv"
     df.to_csv(out, index=False)
     print(f"Wrote {out}")
+    print("Canonical reference remains data_FigB_central_anchors.csv")
     print(df.to_string(index=False))
 
     pt = df[df["Host"] == "Pt"].iloc[0]

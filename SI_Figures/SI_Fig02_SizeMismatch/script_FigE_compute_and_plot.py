@@ -14,6 +14,29 @@ Important interpretation note:
 - Any visual threshold lines used in the plot are heuristic highlighting rules
   for manuscript discussion. They should not be overstated as exact physical
   phase boundaries.
+
+Manuscript figure scope (important for reviewers)
+-------------------------------------------------
+This script reproduces the ranked Resistance/Enthalpy_Drive view and writes
+its outputs under `_regen` filenames:
+    data_FigE_Resistance_Ranked_regen.csv
+    preview_FigE_Resistance_Plot_regen.png
+
+The manuscript-facing figure used in Supplementary Fig. 2 is
+`preview_FigE_ThreeWay.png`, an Origin layout that composes three views of
+the dataset. It is paired with the bundled `data_FigE_True_ThreeWay.csv`.
+
+This script does NOT reproduce the ThreeWay Origin layout. It reproduces
+only the ranked-resistance subset. A reviewer running this script will
+therefore see a PNG that differs from the manuscript figure -- this is
+expected and does NOT indicate a code or data problem. The numerical
+substrate is the same; only the layout differs.
+
+Canonical vs regen convention
+-----------------------------
+This script never overwrites canonical files. The `_regen` CSV output is
+bit-identical to the bundled canonical `data_FigE_Resistance_Ranked.csv`;
+verified by `scripts/verify_release.py`.
 """
 
 import sys

@@ -14,6 +14,29 @@ and regenerate the bar-chart PNG plus Origin-ready wide CSV.
 `--rerun-uma`: re-run the full UMA + Miedema pipeline from CIFs. Requires
 fairchem-core, ASE, and the local CIF tree which is NOT included in this
 release. This branch is preserved for archival reference only.
+
+Canonical vs regen convention
+-----------------------------
+Default-mode outputs are written under `_regen` filenames
+(`data_FigF_TripleConsensus_Origin_regen.csv`,
+`preview_FigF_TripleConsensus_regen.png`). The bundled canonical files
+(`data_FigF_TripleConsensus_Origin.csv`, `preview_FigF_TripleConsensus.png`)
+are the manuscript-facing artifacts and are never overwritten by this
+script.
+
+- The `_regen` CSV is bit-identical to the bundled canonical CSV; verified
+  by `scripts/verify_release.py`.
+- The `_regen` PNG may differ visually from the bundled canonical PNG by a
+  small amount. This is NOT random error and NOT a numerical regression.
+  The bundled canonical PNG was rendered during manuscript finalization
+  (April 2026) with one matplotlib/font snapshot; the `_regen` PNG is
+  rendered today with the currently-installed matplotlib. Same numbers,
+  slightly different rendering. The visual delta carries no scientific
+  meaning.
+
+A companion script `script_FigF_TripleConsensus_Replot.py` produces
+`preview_FigF_TripleConsensus_replot.png`, which IS bit-identical to the
+bundled canonical PNG.
 """
 
 from __future__ import annotations

@@ -1,0 +1,6 @@
+Element,Reference_Label,Structure_Source,Structure_File,N_atoms,a_A,b_A,c_A,UMA_E_eV_atom
+Ga,Ga_alpha_like_mp142,Localized Materials Project CIF (mp-142),shared/element_reference_structures/20260417_Ga_mp142_reference.cif,4,4.39808,4.39808,4.5555,-2.5320015196976886
+In,In_bct_I4mmm,"Generated conventional In (I4/mmm; a=3.25 Angstrom; c=4.95 Angstrom)",shared/element_reference_structures/20260417_In_bct_reference.cif,2,3.25,3.25,4.95,-2.169694835339569
+Pt,Pt_fcc_mp126,Localized Materials Project CIF (mp-126),shared/element_reference_structures/20260417_Pt_mp126_reference.cif,1,2.78823,2.78823,2.7882299999999995,-5.439388188131092
+Sn,Sn_alpha_diamond,"Generated conventional alpha-Sn (Fd-3m; a=6.4892 Angstrom)",shared/element_reference_structures/20260417_Sn_alpha_reference.cif,8,6.4892,6.4892,6.4892,-3.449797398210563
+Zn,Zn_hcp_conventional,"ASE bulk Zn hcp (a=2.66 Angstrom; c=4.93696 Angstrom)",shared/element_reference_structures/20260417_Zn_hcp_reference.cif,2,2.66,2.66,4.93696,-0.7238517414447614

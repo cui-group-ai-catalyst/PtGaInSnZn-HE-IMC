@@ -2,7 +2,9 @@
 
 **面板角色**: 给 corrected Miedema 排序增加一个独立的原子级 (DFT/ML) 参照。
 **最新修订**: 2026-04-18（Miedema **已从主图移除**；主图 = MP-DFT + UMA + CHGNet 三方法均值 + 误差棒）。
-**完整脚注来源**: [legacy_FigF_Technical_Report.md](legacy_FigF_Technical_Report.md)
+**Release note**: this file is a self-contained reviewer note. Historical
+internal technical reports and raw local structure trees are not redistributed
+in this software release.
 
 ---
 
@@ -23,8 +25,7 @@
 | 来源 | 内容 |
 |:---|:---|
 | Materials Project (本地 CIF 归档) | 15 个 `M-Ga` 二元相 + 元素参考态；见 [data_FigF_MP_DFT_References.csv](data_FigF_MP_DFT_References.csv) |
-| `02_data/20260415_FigF_LocalStructures/binary_manifest.csv` | 二元相 CIF 清单 + MP-ID |
-| `02_data/20260415_FigF_LocalStructures/element_manifest.csv` | 元素参考态 CIF 清单 |
+| Historical local structure manifests | Used in the original from-scratch run; not redistributed. The released default script re-plots bundled CSV values. |
 | UMA-s-1p1 (Fairchem) | 对上述本地 CIF 做 single-point，得 $\Delta H_f^{\text{UMA}}$ |
 | CHGNet | 同上做 single-point，得 $\Delta H_f^{\text{CHGNet}}$ |
 
@@ -130,7 +131,9 @@ python script_FigF_TripleConsensus_Replot.py
 
 ## 7. Origin 绘制要点
 
-完整操作见顶层 [99_Origin_Plotting_Guide_All_Panels.md § Panel f](../99_Origin_Plotting_Guide_All_Panels.md#panel-f).
+The released default script `script_FigF_TripleConsensus.py` reads the bundled
+CSV and regenerates `_regen` reviewer outputs. The archival `--rerun-uma` path
+is not the clean reviewer path because it requires local structure inputs.
 
 核心:
 
@@ -176,6 +179,7 @@ python script_FigF_TripleConsensus_Replot.py
 
 ## 10. 参考
 
-- 完整 Technical Report: [legacy_FigF_Technical_Report.md](legacy_FigF_Technical_Report.md)
-- 2026-04-18 "Miedema 从主图移除" 决策记录: 本日会话交互
-- 原始 MP 结构清单: `../../02_data/20260415_FigF_LocalStructures/` (外部)
+- Third-party provenance is summarized in
+  `../../Third_Party_Model_and_Data_Notes.md`.
+- Raw local structure manifests used in the historical from-scratch run are not
+  redistributed; use the bundled CSVs for reviewer post-processing.

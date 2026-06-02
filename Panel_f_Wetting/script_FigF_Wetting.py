@@ -23,6 +23,22 @@ Outputs (rewritten on each run):
     preview_FigF_Wetting_regen.png       ΔH_mix vs γ_SL scatter
 
 Reproducibility: pure NumPy/Pandas; no UMA dependency; deterministic.
+
+Canonical vs regen convention
+-----------------------------
+This script writes its outputs under the `_regen` filename suffix and never
+overwrites the canonical manuscript-facing files
+(`data_FigF_Wetting_Ranked.csv` and `preview_FigF_Wetting.png`).
+
+- The `_regen` CSV is bit-identical to the bundled canonical CSV; this is
+  asserted by `scripts/verify_release.py`.
+- The `_regen` PNG may differ visually from the bundled canonical PNG by a
+  small amount. This is NOT random error and NOT a numerical regression.
+  The bundled canonical PNG was rendered during manuscript finalization
+  (April 2026) with one matplotlib/font snapshot; the `_regen` PNG is
+  rendered today with whatever matplotlib version your conda environment
+  installs. Same numbers, slightly different rendering. The visual delta
+  carries no scientific meaning.
 """
 
 import sys

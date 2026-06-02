@@ -2,7 +2,9 @@
 
 **面板角色**: 把 "宿主选择" 推进到 "多元化学计量景观"；找出 Ga-rich 低焓窗口并验证实验配比落在其中。
 **最新修订**: 2026-04-19（Element-reference 形成焓 + 7-slug 分类 + Origin 单表 + Ga-rich 绿带 / 少量 Zn 叙述）。
-**完整脚注来源**: [legacy_FigG_Technical_Report.md](legacy_FigG_Technical_Report.md)
+**Release note**: this file is a self-contained reviewer note. Historical
+internal technical reports, Origin style guides, and raw structure-generation
+records are not redistributed in this software release.
 
 ---
 
@@ -22,7 +24,7 @@
 | 32-原子 L1₂ supercell | `a = 3.903 Å`，24 个 Pt 主骨架，8 个 B-site |
 | B-site 化学计量枚举 | 所有满足 $n_{\text{Ga}} + n_{\text{In}} + n_{\text{Sn}} + n_{\text{Zn}} = 8$ 的整数组合，共 $\binom{11}{3} = 165$ 个点 |
 | 每个化学计量点 | 一个 deterministic representative occupancy（不是随机），保证 provenance |
-| 元素参考能 (2026-04-17 重建) | Pt `mp-126`; Ga `mp-142`; In 生成 `I4/mmm`; Sn 生成 diamond-α; Zn 生成 hcp。详见 [../04_reports/20260417_UMA_ElementReference_Strategy.md] |
+| 元素参考能 (2026-04-17 重建) | Pt `mp-126`; Ga `mp-142`; In 生成 `I4/mmm`; Sn 生成 diamond-α; Zn 生成 hcp。The released CSVs preserve the resulting element-reference convention; raw reconstruction notes are not redistributed. |
 
 ---
 
@@ -83,16 +85,18 @@ X 方向 uniform $[-0.35, +0.35]$，seed = 42（与历史 `Fig1h_Origin_AllPanel
 
 | 文件 | 作用 |
 |:---|:---|
-| [script_FigG_ElementRef.py](script_FigG_ElementRef.py) | (2026-04-18) 枚举 165 个点 + UMA single-point + 元素参考能 → 生成 `data_FigG_165_ElementReferenced_Hf.csv` |
+| [script_FigG_ElementRef.py](script_FigG_ElementRef.py) | Release post-processing script: reads bundled `data_FigG_165_ElementReferenced_Hf.csv`, creates Origin-ready `_regen` CSVs, and regenerates the preview PNG. The original UMA single-point generation inputs are not fully redistributed in this release. |
 | [script_FigG_Origin_Ready.py](script_FigG_Origin_Ready.py) | (2026-04-19) 读取 165 行 ElementRef CSV → 重排成 Origin 单表 + 每 Ga% bin 的 Mean/Std overlay |
 
 **Python 环境**:
-- `ElementRef.py`: **hea_ai**（需要 fairchem UMA）
-- `Origin_Ready.py`: **py312**（仅 pandas/numpy）
+- `script_FigG_ElementRef.py`: uses the release environment; because it
+  post-processes bundled UMA-derived CSVs, it does not load UMA during the
+  default release run.
+- `script_FigG_Origin_Ready.py`: pandas/numpy-only Origin table utility.
 
 **运行**:
 ```bash
-# 1) 首次生成（耗时 ~15 min）
+# 1) Release post-processing from bundled UMA-derived CSV
 python script_FigG_ElementRef.py
 
 # 2) 纯重排到 Origin 格式（< 1 s）
@@ -123,7 +127,8 @@ python script_FigG_Origin_Ready.py
 
 ## 7. Origin 绘制要点
 
-完整操作 + 符号样式总表见顶层 [99_Origin_Plotting_Guide_All_Panels.md § Panel g](../99_Origin_Plotting_Guide_All_Panels.md#panel-g).
+The released default script `script_FigG_ElementRef.py` regenerates the
+Origin-ready `_regen` CSVs and preview PNG from the bundled 165-row CSV.
 
 每 Ga% bin 一层 layer（共 9 层），7 slug + Mean 共 8 种样式，**9 层共享同一套配色**:
 
@@ -203,7 +208,9 @@ python script_FigG_Origin_Ready.py
 
 ## 10. 参考
 
-- 完整 Technical Report: [legacy_FigG_Technical_Report.md](legacy_FigG_Technical_Report.md)
-- Element-reference 重建决策: `../04_reports/20260417_UMA_ElementReference_Strategy.md`
+- Element-reference values are preserved in
+  `data_FigG_165_ElementReferenced_Hf.csv`; raw reconstruction notes are not
+  redistributed.
 - 2026-04-18 Ga-rich 绿带 + "少量 Zn" 叙述: 本日 / 昨日会话交互记录
-- Origin 符号总表: [99_Origin_Plotting_Guide_All_Panels.md § Panel g](../99_Origin_Plotting_Guide_All_Panels.md#panel-g)
+- Third-party provenance is summarized in
+  `../../Third_Party_Model_and_Data_Notes.md`.

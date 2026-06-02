@@ -2,7 +2,9 @@
 
 **面板角色**: 把化学吸引 (Panel b/d) 和几何匹配 (Panel e 本身) 放在同一张图里讨论。
 **生成日期**: 2026-04-15（本版沿用；无后续方法学修改）。
-**完整脚注来源**: [legacy_FigE_Technical_Report.md](legacy_FigE_Technical_Report.md)
+**Release note**: this file is a self-contained reviewer note. Historical
+internal technical reports and Origin style guides are not redistributed in
+this software release.
 
 ---
 
@@ -90,7 +92,8 @@ $$
 
 ## 7. Origin 绘制要点
 
-完整操作见顶层 [99_Origin_Plotting_Guide_All_Panels.md § Panel e](../99_Origin_Plotting_Guide_All_Panels.md#panel-e).
+The release script `script_FigE_compute_and_plot.py` regenerates the bundled
+ranked-resistance CSV and preview PNG from the released inputs.
 
 核心:
 
@@ -144,5 +147,6 @@ $$
 
 ## 10. 参考
 
-- 完整 Technical Report: [legacy_FigE_Technical_Report.md](legacy_FigE_Technical_Report.md)
-- 与 Panel c / g 联合解释: 见 [../03_Panel_c_OrderedVsDisordered/notes_FigC.md] 和 [../07_Panel_g_GaSweep/notes_FigG.md]
+- For the Figure 1c and Supplementary Fig. 4 links, use the released folders
+  `../../Panel_c_OrderedVsDisordered/` and
+  `../SI_Fig04_165CompositionLandscape/`.

@@ -55,7 +55,7 @@ complying with these third-party terms.
     approach to accelerating materials innovation.* APL Mater. 1, 011002
     (2013).
   - Cite the specific MP entries by their `mp-XXXXX` IDs as listed in the
-    manifest at `02_data/.../binary_manifest.csv` (where applicable).
+    bundled panel CSVs and notes where applicable.
 - **Provisioning**: queried at runtime via `mp_api`. Reviewers without an
   API key can use the bundled CSV snapshots in `*_data*` files to reproduce
   downstream analysis without re-querying the REST endpoint.

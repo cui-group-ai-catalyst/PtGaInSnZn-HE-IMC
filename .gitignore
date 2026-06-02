@@ -64,6 +64,9 @@ desktop.ini
 *.err
 .cache/
 
+# Output of scripts/recompute_element_referenced_Hf.py (regenerated on demand)
+shared/ElementRef_Hf_USER_vs_BUNDLED.csv
+
 # Local environment overrides
 .env
 .envrc

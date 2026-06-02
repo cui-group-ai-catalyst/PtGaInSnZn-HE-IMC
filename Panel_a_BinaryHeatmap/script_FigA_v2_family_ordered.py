@@ -4,10 +4,10 @@ script_FigA_v2_family_ordered.py
 Panel a v2 — heatmap of binary Miedema mixing enthalpies, restricted to the
 20-host family-grouped set.
 
-This release reads the shipped Origin-format CSV
+This release reads the shipped Origin-format reference CSV
 (`data_FigA_v2_FamilyOrdered_Origin.csv`, rows = liquid partners, columns =
-hosts already in family-grouped order) and regenerates the long-format CSV
-plus the heatmap PNG. Family colours and family ordering are encoded
+hosts already in family-grouped order) and regenerates `_regen` long-format
+CSV and heatmap PNG outputs. Family colours and family ordering are encoded
 inline so the script is fully self-contained inside the release tree.
 """
 from __future__ import annotations
@@ -59,7 +59,7 @@ def main() -> None:
             v = float(src.loc[src["Target_Element"] == p, host].iloc[0])
             long_rows.append({"Host": host, "Family": family, "Partner": p, "dH_kJmol": round(v, 4)})
     long_df = pd.DataFrame(long_rows)
-    csv_long = RESULTS_DIR / "data_FigA_v2_FamilyOrdered_Long.csv"
+    csv_long = RESULTS_DIR / "data_FigA_v2_FamilyOrdered_Long_regen.csv"
     long_df.to_csv(csv_long, index=False)
     print(f"Saved long-format CSV: {csv_long}")
 
@@ -120,7 +120,7 @@ def main() -> None:
                  "(family-grouped)", fontsize=11, pad=12)
 
     plt.tight_layout()
-    out_png = RESULTS_DIR / "preview_FigA_heatmap.png"
+    out_png = RESULTS_DIR / "preview_FigA_heatmap_regen.png"
     plt.savefig(out_png, dpi=300, bbox_inches="tight")
     print(f"Saved heatmap PNG: {out_png}")
 

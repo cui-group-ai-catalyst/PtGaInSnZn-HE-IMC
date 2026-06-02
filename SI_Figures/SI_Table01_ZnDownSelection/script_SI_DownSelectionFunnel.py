@@ -20,14 +20,18 @@ Outputs
   data_SI_Funnel_StageB_Prototypes.csv prototypes inside the favourable window
   preview_SI_Funnel.png                4-stage funnel + Stage-B scatter overlay
 
-Note
-----
+Release note
+------------
 Stage C (CALPHAD-based liquidus accessibility) requires `pycalphad` plus the
 COST507 Ga-In-Sn-Zn TDB; both are outside the bundled environment of this
 release. The Stage-C step is therefore guarded by `CALPHAD_AVAILABLE` and
 emits `pending-CALPHAD` placeholders when the dependency is absent. The
 script falls through Stages A -> B -> D in that case, which is sufficient
-to render the funnel figure shown in the Supplementary Information.
+to render the historical funnel sketch.
+
+This script is retained as an archival/provenance helper, not as the clean
+Nature reviewer path. For the release-supported Supplementary Tables 2 and 3
+liquidus workflow, use `script_SI_LiquidusPredictor.py`.
 
 Environment: Python 3.12 + numpy, pandas, matplotlib. Stage C additionally
 requires pycalphad.

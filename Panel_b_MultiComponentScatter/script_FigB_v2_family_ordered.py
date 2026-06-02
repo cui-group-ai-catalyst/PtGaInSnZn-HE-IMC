@@ -11,9 +11,9 @@ originally generated `data_FigB_v2_Long.csv` from Miedema parameters lives
 outside this release; the values are bundled here directly.
 
 Outputs (all in SCRIPT_DIR):
-- preview_FigB_scatter.png
-- data_FigB_v2_Origin_dH.csv (wide ({Host}_X, {Host}_Y) for ΔH)
-- data_FigB_v2_Origin_dG.csv (same for ΔG)
+- preview_FigB_scatter_regen.png
+- data_FigB_v2_Origin_dH_regen.csv (wide ({Host}_X, {Host}_Y) for ΔH)
+- data_FigB_v2_Origin_dG_regen.csv (same for ΔG)
 """
 from __future__ import annotations
 from pathlib import Path
@@ -59,8 +59,8 @@ def main() -> None:
 
     wide_dh = to_origin_wide("dH_multi_kJmol")
     wide_dg = to_origin_wide("dG_multi_kJmol")
-    csv_wide_dh = RESULTS_DIR / "data_FigB_v2_Origin_dH.csv"
-    csv_wide_dg = RESULTS_DIR / "data_FigB_v2_Origin_dG.csv"
+    csv_wide_dh = RESULTS_DIR / "data_FigB_v2_Origin_dH_regen.csv"
+    csv_wide_dg = RESULTS_DIR / "data_FigB_v2_Origin_dG_regen.csv"
     wide_dh.to_csv(csv_wide_dh, index=False)
     wide_dg.to_csv(csv_wide_dg, index=False)
     print(f"Saved Origin wide ΔH: {csv_wide_dh}")
@@ -111,7 +111,7 @@ def main() -> None:
                  "(family-grouped, 40 perturbation points each)",
                  fontsize=12, y=0.995)
     plt.tight_layout()
-    out_png = RESULTS_DIR / "preview_FigB_scatter.png"
+    out_png = RESULTS_DIR / "preview_FigB_scatter_regen.png"
     plt.savefig(out_png, dpi=300, bbox_inches="tight")
     print(f"Saved preview PNG: {out_png}")
 

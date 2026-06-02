@@ -170,7 +170,8 @@ def build_refpoints(df: pd.DataFrame) -> pd.DataFrame:
             "Composition":    r["Composition"],
             "Ga_pct":         float(r["Ga_pct"]),
             "Hf_kJ_mol":      float(r["ElementRef_Hf_kJ_mol"]),
-            "Rank_overall":   int(r["Rank"]),
+            "ElementRef_Rank": int(r["ElementRef_Rank"]),
+            "Legacy_Rank":    int(r["Rank"]),
             "Ga_count":       int(r["Ga_count"]),
             "In_count":       int(r["In_count"]),
             "Sn_count":       int(r["Sn_count"]),
@@ -335,6 +336,9 @@ def main() -> None:
     df = pd.read_csv(SRC)
     if len(df) != 165:
         raise ValueError(f"Expected 165 rows, got {len(df)}")
+    df["ElementRef_Rank"] = (
+        df["ElementRef_Hf_kJ_mol"].rank(method="min", ascending=True).astype(int)
+    )
 
     # 旧标签 -> 新标签 (Zn 亚组只改名，定义不变)
     df["Category"] = df["Category"].replace(CATEGORY_RENAME)
@@ -376,13 +380,16 @@ def main() -> None:
 
     # Summary print
     print("\n-- Panel g key numbers (element-reference axis) --")
-    print(f"  Global min (overall)        : Rank 1 = "
-          f"{df.iloc[0]['Composition']} at "
-          f"{df.iloc[0]['ElementRef_Hf_kJ_mol']:.3f} kJ/mol")
+    best = df.loc[df["ElementRef_Hf_kJ_mol"].idxmin()]
+    print(f"  ElementRef global min       : rank {int(best['ElementRef_Rank'])} = "
+          f"{best['Composition']} at "
+          f"{best['ElementRef_Hf_kJ_mol']:.3f} kJ/mol")
     for _, r in refs.iterrows():
         print(f"  {r['Label']:55s} : "
               f"{r['Composition']} @ Ga%={r['Ga_pct']:.1f}, "
-              f"Hf={r['Hf_kJ_mol']:.3f} kJ/mol (rank {int(r['Rank_overall'])})")
+              f"Hf={r['Hf_kJ_mol']:.3f} kJ/mol "
+              f"(ElementRef rank {int(r['ElementRef_Rank'])}; "
+              f"legacy rank {int(r['Legacy_Rank'])})")
     print("\n-- Zn sweep Ga_{8-k}Zn_k (penalty vs Ga8) --")
     print(zn[["Composition", "Zn_pct", "Hf_kJ_mol",
               "Penalty_vs_Ga8_kJ_mol"]].to_string(index=False))

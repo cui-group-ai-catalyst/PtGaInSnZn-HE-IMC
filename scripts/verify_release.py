@@ -130,7 +130,7 @@ def main() -> int:
 
     readme = (root / "README.md").read_text(encoding="utf-8")
     for text in [
-        "https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC",
+        "https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC",
         "10.5281/zenodo.20111606",
     ]:
         if text not in readme:

@@ -18,8 +18,8 @@ authors:
     # affiliation: "..."   # add before manuscript submission
     # orcid: "https://orcid.org/0000-0000-0000-0000"
 license: MIT
-repository-code: "https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC"
-url: "https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC"
+repository-code: "https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC"
+url: "https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC"
 version: "1.3.0"
 date-released: "2026-06-02"
 keywords:

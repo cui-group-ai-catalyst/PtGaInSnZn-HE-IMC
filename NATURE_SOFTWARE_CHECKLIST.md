@@ -5,7 +5,7 @@ Portfolio reporting standards to concrete files in this repository.
 
 ## Repository identifiers
 
-- GitHub repository: `https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC`
+- GitHub repository: `https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC`
 - Zenodo concept DOI: `https://doi.org/10.5281/zenodo.20111606`
 - Exact submitted version DOI: pending until the `v1.3.0` GitHub release is
   archived by Zenodo

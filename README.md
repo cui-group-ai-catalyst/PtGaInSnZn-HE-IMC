@@ -9,7 +9,7 @@ This README corresponds to release `v1.3.0` (Nature software-checklist release).
 
 ## Code availability
 
-- Repository: `https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC`
+- Repository: `https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC`
 - Zenodo concept DOI: `https://doi.org/10.5281/zenodo.20111606`
 - Exact version DOI for this release: pending until the `v1.3.0` GitHub
   release is archived by Zenodo.
@@ -77,7 +77,7 @@ the quick reviewer demo or for verifying the bundled numerical outputs.
 From a clean machine with conda or mamba installed:
 
 ```bash
-git clone https://github.com/xiuxiudebobo/PtGaInSnZn-HE-IMC.git
+git clone https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC.git
 cd PtGaInSnZn-HE-IMC
 conda env create -f environment.yml
 conda activate ptgainsnzn

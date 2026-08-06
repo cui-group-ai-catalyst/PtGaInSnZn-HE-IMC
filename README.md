@@ -7,6 +7,8 @@ results underlying Figure 1 (thermodynamic design and the related Supplementary
 Information) and Figure 3 (atomic-ordering analysis of the reaction
 intermediate from 4D-STEM multislice electron ptychography).
 
+![Three-dimensional rendering of the detected atom-column positions across the 16-layer ptychographic reconstruction of the reaction intermediate (Figure 3i1).](Figure3/static/i1_3d_preview_readme.png)
+
 This working tree prepares `v1.4.0` (Figure 3 package on top of the v1.3.2
 scientific-audit corrections) and is not yet an archived release. The latest
 archived release is `v1.3.1`; the additions documented here require a new

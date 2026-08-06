@@ -1,9 +1,8 @@
-# Release notes - v1.4.0 (proposed)
+# Release notes - v1.4.0
 
-Status: working-tree candidate. Combines the v1.3.2 scientific-audit
-corrections already present in the working tree with a new Figure 3
-reproducibility package. Exact-version archive (DOI) pending; version number is
-a proposal and can be renumbered before archiving.
+Status: released 2026-08-07 on GitHub (`cui-group-ai-catalyst/PtGaInSnZn-HE-IMC`).
+Combines the v1.3.2 scientific-audit corrections with a new Figure 3
+reproducibility package. Exact-version Zenodo archive (DOI) pending.
 
 ## Added
 

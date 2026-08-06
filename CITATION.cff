@@ -9,8 +9,12 @@ abstract: >-
   Miedema binary and multicomponent enthalpy code, Hildebrand-Muggianu
   regular-solution model, Compound Energy Formalism (CEF) analyses,
   per-element chemical-potential cascade, macroscopic-atom solid-liquid
-  interfacial-energy decomposition, and UMA-s-1p1 single-point evaluation
-  wrappers used for ordered/disordered HE-IMC formation enthalpies.
+  interfacial-energy decomposition, UMA-s-1p1 single-point evaluation
+  wrappers used for ordered/disordered HE-IMC formation enthalpies, and the
+  Figure 3 4D-STEM multislice electron ptychography structural analyses
+  (automated atom-column detection, local FFT periodic-contrast mapping and
+  layer-/radius-resolved lattice-support quantification) of the reaction
+  intermediate.
 authors:
   - family-names: "Xu"
     given-names: "Bo"
@@ -20,8 +24,7 @@ authors:
 license: MIT
 repository-code: "https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC"
 url: "https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC"
-version: "1.3.0"
-date-released: "2026-06-02"
+version: "1.4.0-dev"
 keywords:
   - high-entropy intermetallic
   - Miedema model
@@ -35,4 +38,4 @@ identifiers:
     description: "Zenodo concept DOI for all versions"
   - type: doi
     value: "10.5281/zenodo.20511673"
-    description: "Zenodo exact version DOI for v1.3.1"
+    description: "Previous archived exact version DOI for v1.3.1; not the current development tree"

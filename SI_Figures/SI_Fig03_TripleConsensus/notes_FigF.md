@@ -2,9 +2,9 @@
 
 **面板角色**: 给 corrected Miedema 排序增加一个独立的原子级 (DFT/ML) 参照。
 **最新修订**: 2026-04-18（Miedema **已从主图移除**；主图 = MP-DFT + UMA + CHGNet 三方法均值 + 误差棒）。
-**Release note**: this file is a self-contained reviewer note. Historical
-internal technical reports and raw local structure trees are not redistributed
-in this software release.
+**Release note**: this file is a self-contained reviewer note. The historical
+15-binary/16-element CIF tree is now bundled under `inputs/structures/` with a
+SHA-256 manifest and an executable UMA rerun path.
 
 ---
 
@@ -25,7 +25,7 @@ in this software release.
 | 来源 | 内容 |
 |:---|:---|
 | Materials Project (本地 CIF 归档) | 15 个 `M-Ga` 二元相 + 元素参考态；见 [data_FigF_MP_DFT_References.csv](data_FigF_MP_DFT_References.csv) |
-| Historical local structure manifests | Used in the original from-scratch run; not redistributed. The released default script re-plots bundled CSV values. |
+| Historical local structure manifests | Bundled under `inputs/structures/`; the default mode re-plots bundled values and `--rerun-uma` rebuilds UMA values from the CIFs. |
 | UMA-s-1p1 (Fairchem) | 对上述本地 CIF 做 single-point，得 $\Delta H_f^{\text{UMA}}$ |
 | CHGNet | 同上做 single-point，得 $\Delta H_f^{\text{CHGNet}}$ |
 
@@ -132,8 +132,9 @@ python script_FigF_TripleConsensus_Replot.py
 ## 7. Origin 绘制要点
 
 The released default script `script_FigF_TripleConsensus.py` reads the bundled
-CSV and regenerates `_regen` reviewer outputs. The archival `--rerun-uma` path
-is not the clean reviewer path because it requires local structure inputs.
+CSV and regenerates `_regen` reviewer outputs. The `--rerun-uma` path reads the
+bundled structure tree and writes separate `_uma_regen` outputs plus
+`validation_FigF_UMA_Rerun.json`; it still requires the gated UMA checkpoint.
 
 核心:
 
@@ -181,5 +182,6 @@ is not the clean reviewer path because it requires local structure inputs.
 
 - Third-party provenance is summarized in
   `../../Third_Party_Model_and_Data_Notes.md`.
-- Raw local structure manifests used in the historical from-scratch run are not
-  redistributed; use the bundled CSVs for reviewer post-processing.
+- Raw local structure manifests and CIFs used in the historical from-scratch
+  run are bundled under `inputs/structures/`; default mode remains the fast
+  reviewer post-processing path.

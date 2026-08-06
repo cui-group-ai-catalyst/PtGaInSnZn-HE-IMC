@@ -1,0 +1,5 @@
+subset_id,pair_id,backend,rank,item
+all_materials,reference_backend__candidate_backend,reference_backend,1,m1
+all_materials,reference_backend__candidate_backend,reference_backend,2,m2
+all_materials,reference_backend__candidate_backend,candidate_backend,1,m1
+all_materials,reference_backend__candidate_backend,candidate_backend,2,m2

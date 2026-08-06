@@ -9,7 +9,8 @@ referenced to SER (Stable Element Reference) = 0 K stable solid phase.
 v3 note: Logic identical to v2. Output filenames updated to v3 for
 pipeline consistency with script_B_mu_HEI_v3 (CEF-fitted HEI).
 
-mu_i^L(SER) = DH_fus(i) + RT ln x_i + Sum_j Omega_ij x_j^2
+G^E = Sum_(i<j) Omega_ij x_i x_j
+mu_i^L(SER) = DH_fus(i) + RT ln x_i + Sum_(j!=i) Omega_ij x_j - G^E
 At 0K the entropy term vanishes.
 
 Data sources
@@ -37,11 +38,12 @@ import numpy as np
 import pandas as pd
 
 PERIODIC: dict[str, dict[str, float]] = {
-    "Ga": {"Phi": 4.10, "n_ws": 1.34, "V": 11.8},
-    "In": {"Phi": 3.90, "n_ws": 1.17, "V": 15.7},
-    "Sn": {"Phi": 4.15, "n_ws": 1.25, "V": 16.3},
-    "Zn": {"Phi": 4.10, "n_ws": 1.32, "V": 9.17},
-    "Pt": {"Phi": 5.65, "n_ws": 1.78, "V": 9.10},
+    # de Boer tabulates this quantity as n_WS^(1/3); it is not raw n_WS.
+    "Ga": {"Phi": 4.10, "n_ws_one_third": 1.34, "V": 11.8},
+    "In": {"Phi": 3.90, "n_ws_one_third": 1.17, "V": 15.7},
+    "Sn": {"Phi": 4.15, "n_ws_one_third": 1.25, "V": 16.3},
+    "Zn": {"Phi": 4.10, "n_ws_one_third": 1.32, "V": 9.17},
+    "Pt": {"Phi": 5.65, "n_ws_one_third": 1.78, "V": 9.10},
 }
 
 DH_FUSION: dict[str, float] = {
@@ -67,7 +69,7 @@ BETA_ELEMENTS: list[str] = ["Ga", "In", "Sn", "Zn"]
 def miedema_omega(ei: str, ej: str) -> float:
     pi, pj = PERIODIC[ei], PERIODIC[ej]
     d_phi = pi["Phi"] - pj["Phi"]
-    d_n13 = pi["n_ws"] ** (1.0 / 3.0) - pj["n_ws"] ** (1.0 / 3.0)
+    d_n13 = pi["n_ws_one_third"] - pj["n_ws_one_third"]
     return -P_MIEDEMA * d_phi**2 + Q_MIEDEMA * d_n13**2
 
 
@@ -85,9 +87,16 @@ def compute_omega_matrix(elements: list[str]) -> tuple[np.ndarray, pd.DataFrame]
                     "i": ei, "j": ej,
                     "dPhi_V": round(PERIODIC[ei]["Phi"] - PERIODIC[ej]["Phi"], 3),
                     "dn_WS_13": round(
-                        PERIODIC[ei]["n_ws"] ** (1/3) - PERIODIC[ej]["n_ws"] ** (1/3), 4),
+                        PERIODIC[ei]["n_ws_one_third"]
+                        - PERIODIC[ej]["n_ws_one_third"],
+                        4,
+                    ),
                     "Omega_ij_kJmol": round(M[i, j], 3),
                 })
+    if not np.allclose(M, M.T, atol=1.0e-12) or not np.allclose(
+        np.diag(M), 0.0, atol=1.0e-12
+    ):
+        raise AssertionError("Regular-solution Omega matrix must be symmetric with zero diagonal")
     return M, pd.DataFrame(rows)
 
 
@@ -95,12 +104,22 @@ def mu_liquid_SER(
     x: np.ndarray, elements: list[str], M: np.ndarray, T: float,
 ) -> list[dict]:
     """Chemical potentials in SER reference."""
+    g_excess = sum(
+        M[i, j] * x[i] * x[j]
+        for i in range(len(elements))
+        for j in range(i + 1, len(elements))
+    )
     rows: list[dict] = []
+    excess_values: list[float] = []
     for i, ei in enumerate(elements):
         dh_fus = DH_FUSION[ei]
-        excess = sum(M[i, j] * x[j] ** 2 for j in range(len(elements)) if j != i)
+        excess = (
+            sum(M[i, j] * x[j] for j in range(len(elements)) if j != i)
+            - g_excess
+        )
         rt_ln = R_KJ_MOL_K * T * np.log(x[i]) if (T > 0 and x[i] > 0) else 0.0
         total = dh_fus + excess + rt_ln
+        excess_values.append(float(excess))
         rows.append({
             "element": ei,
             "phase": "liquid_cocktail",
@@ -110,6 +129,8 @@ def mu_liquid_SER(
             "RT_ln_x_kJmol": round(rt_ln, 3),
             "mu_total_SER_kJmol": round(total, 3),
         })
+    if not np.isclose(float(np.dot(x, excess_values)), g_excess, atol=1.0e-10):
+        raise AssertionError("Partial molar excess terms do not recover G_excess")
     rows.append({
         "element": "Pt",
         "phase": "solid_fcc_pure",
@@ -150,8 +171,19 @@ def main() -> None:
         "reference": "SER (0 K stable solid = 0)",
         "DH_fusion_source": "CRC Handbook 97th ed.",
         "composition": LIQUID_COMPOSITION,
-        "miedema": {"P": P_MIEDEMA, "Q": Q_MIEDEMA},
-        "v3_note": "Logic identical to v2; filenames updated for v3 pipeline",
+        "miedema": {
+            "P": P_MIEDEMA,
+            "Q": Q_MIEDEMA,
+            "n_ws_convention": "stored values are n_WS^(1/3)",
+        },
+        "regular_solution": {
+            "G_excess": "sum_(i<j) Omega_ij*x_i*x_j",
+            "partial_molar_excess": "sum_(j!=i) Omega_ij*x_j - G_excess",
+        },
+        "v3_note": (
+            "2026-07-27 correction: removed duplicate cube root of n_WS^(1/3) "
+            "and used the Gibbs-Duhem-consistent multicomponent partial molar form"
+        ),
     }
     (out / "script_A_v3_meta.json").write_text(
         json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")

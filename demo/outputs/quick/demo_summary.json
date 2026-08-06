@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "demo_id": "reviewer_adaptability_and_bounded_validation",
+  "mode": "quick",
+  "status": "passed",
+  "purpose": "Demonstrate manifest-driven software adaptability and bounded numerical validation on supplied data; not scientific transferability.",
+  "provenance": {
+    "execution": "computed_from_manifest_selected_supplied_tables",
+    "generated_at_utc": "2026-07-24T04:20:48+00:00",
+    "python_executable": "D:\\Downloads\\Anaconda\\envs\\hea_ai\\python.exe",
+    "git_sha": "fe6a3b73f6381168e39cf58f40d006a582cfc3a9"
+  },
+  "input_contract": {
+    "manifest": "experimental_extensions/system_manifest.json",
+    "manifest_sha256": "c41490aaa8ed478cc6ed68a6e84c3ebda60d2ba43aad038b7bb24c06896e2c3a",
+    "system_id": "pt3_gainsnzn_bounded_validation",
+    "scientific_scope": "Software configuration, interpolation inside the fixed L12-Pt3(Ga,In,Sn,Zn) representative-occupancy manifold, and rank consistency on the bundled M-Ga binary reference set.",
+    "configured_modules": [
+      {
+        "id": "fixed_l12_manifold",
+        "kind": "manifold_regression"
+      },
+      {
+        "id": "uma_mp_dft_binary_rank",
+        "kind": "energy_backend_comparison"
+      }
+    ],
+    "energy_data_origin": "precomputed tables referenced by the manifest",
+    "automatic_new_structure_generation": false,
+    "automatic_arbitrary_material_scoring": false
+  },
+  "claim_boundary": {
+    "software_configurability": "demonstrated_for_bundled_inputs",
+    "within_manifold_interpolation": "validated_internal",
+    "binary_energy_rank_consistency": "observed_reference_set",
+    "new_host_or_prototype_transferability": "not_evaluated",
+    "nonmetal_compound_transferability": "not_evaluated",
+    "synthesizability": "not_predicted"
+  },
+  "supported_conclusions": [
+    "The workflow accepts a schema-checked system manifest instead of relying on a fixed row order.",
+    "Supplied composition-energy tables can be checked for uniqueness and manifold completeness.",
+    "Pairwise CEF interpolation can be evaluated by training fit, non-endmember LOOCV, and composition-family holdout.",
+    "Matched supplied energy backends can be compared by error, rank correlation, top-k overlap, and ranking reversals.",
+    "Bundled calculations and validation artifacts can be reproduced deterministically within the stated scope."
+  ],
+  "excluded_conclusions": [
+    "Accuracy or transferability for a new host, ordered prototype, or bonding class.",
+    "Applicability to N-, O-, S-, or P-containing compounds without new models and independent validation.",
+    "Universal accuracy of UMA, CHGNet, DFT, or any other energy backend.",
+    "Global phase stability, kinetic accessibility, or synthesizability."
+  ],
+  "steps": [
+    {
+      "id": "release_verifier",
+      "status": "passed",
+      "return_code": 0,
+      "duration_seconds": 0.272,
+      "command": [
+        "D:\\Downloads\\Anaconda\\envs\\hea_ai\\python.exe",
+        "scripts/verify_release.py"
+      ],
+      "stdout_log": "demo/outputs/quick/logs/release_verifier.stdout.log",
+      "stderr_log": "demo/outputs/quick/logs/release_verifier.stderr.log"
+    },
+    {
+      "id": "bounded_validation",
+      "status": "passed",
+      "return_code": 0,
+      "duration_seconds": 2.237,
+      "command": [
+        "D:\\Downloads\\Anaconda\\envs\\hea_ai\\python.exe",
+        "experimental_extensions/run_validation.py",
+        "D:\\Research Workspace\\My Antigravity Assistant\\03 Projects\\PtGaInSnZn\\07_code_availability_working\\code_release_v2\\experimental_extensions\\system_manifest.json",
+        "--output-dir",
+        "D:\\Research Workspace\\My Antigravity Assistant\\03 Projects\\PtGaInSnZn\\07_code_availability_working\\code_release_v2\\demo\\outputs\\quick\\bounded_validation"
+      ],
+      "stdout_log": "demo/outputs/quick/logs/bounded_validation.stdout.log",
+      "stderr_log": "demo/outputs/quick/logs/bounded_validation.stderr.log"
+    }
+  ],
+  "artifacts": {
+    "bounded_validation": {
+      "machine_readable": "demo/outputs/quick/bounded_validation/validation_results.json",
+      "si_figure_png": "demo/outputs/quick/bounded_validation/validation_evidence.png",
+      "si_figure_pdf": "demo/outputs/quick/bounded_validation/validation_evidence.pdf",
+      "reviewer_report_html": "demo/outputs/quick/bounded_validation/evidence_report.html",
+      "reviewer_report_pdf": "demo/outputs/quick/bounded_validation/evidence_report.pdf"
+    }
+  },
+  "bounded_validation": {
+    "overall_status": "passed",
+    "manifold_validations": [
+      {
+        "module_id": "fixed_l12_manifold",
+        "system_id": "l12_pt3_gainsnzn_regression",
+        "host": "Pt",
+        "prototype": "L12_A3B",
+        "mixing_elements": [
+          "Ga",
+          "In",
+          "Sn",
+          "Zn"
+        ],
+        "mixing_site_count": 8,
+        "n_compositions": 165,
+        "design_rank": 6,
+        "training_R2": 0.9992773421034635,
+        "training_metrics": {
+          "RMSE": 0.13582112732478216,
+          "MAE": 0.09777413809550069,
+          "max_abs_error": 0.5602699125757589
+        },
+        "nonendmember_LOOCV_metrics": {
+          "RMSE": 0.14225046715799528,
+          "MAE": 0.10396536352383957,
+          "max_abs_error": 0.5704868762394391
+        },
+        "group_holdout": {
+          "element": "Ga",
+          "n_groups": 8,
+          "RMSE_min": 0.07180603344096442,
+          "RMSE_max": 0.23196219085891873,
+          "RMSE_mean": 0.11430412418515826
+        },
+        "transferability_claim": "none"
+      }
+    ],
+    "energy_backend_comparisons": [
+      {
+        "module_id": "uma_mp_dft_binary_rank",
+        "unit": "kJ mol^-1 atom^-1",
+        "backends": [
+          {
+            "id": "mp_dft",
+            "label": "Materials Project DFT",
+            "column": "MP_DFT_abs_Hf_kJ_mol_atom"
+          },
+          {
+            "id": "uma_s_1p1",
+            "label": "UMA-s-1p1",
+            "column": "UMA_abs_Hf_kJ_mol_atom"
+          },
+          {
+            "id": "chgnet",
+            "label": "CHGNet",
+            "column": "CHGNet_abs_Hf_kJ_mol_atom"
+          }
+        ],
+        "pairwise_results": [
+          {
+            "subset_id": "all_hosts",
+            "pair_id": "mp_dft__uma_s_1p1",
+            "n": 15,
+            "spearman_rho": 0.8678571428571429,
+            "RMSE": 10.483849496344364,
+            "MAE": 6.652113333333332,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "ranking_reversals": 15,
+            "ranking_reversal_fraction": 0.14285714285714285
+          },
+          {
+            "subset_id": "all_hosts",
+            "pair_id": "mp_dft__chgnet",
+            "n": 15,
+            "spearman_rho": 0.95,
+            "RMSE": 6.062753824514621,
+            "MAE": 4.943073333333333,
+            "top_k": 5,
+            "top_k_overlap_count": 5,
+            "top_k_jaccard": 1.0,
+            "ranking_reversals": 8,
+            "ranking_reversal_fraction": 0.0761904761904762
+          },
+          {
+            "subset_id": "all_hosts",
+            "pair_id": "uma_s_1p1__chgnet",
+            "n": 15,
+            "spearman_rho": 0.9035714285714285,
+            "RMSE": 8.841319868662145,
+            "MAE": 7.124546666666666,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "ranking_reversals": 13,
+            "ranking_reversal_fraction": 0.12380952380952381
+          },
+          {
+            "subset_id": "size_compatible_hosts",
+            "pair_id": "mp_dft__uma_s_1p1",
+            "n": 12,
+            "spearman_rho": 0.9510489510489512,
+            "RMSE": 5.966177336522383,
+            "MAE": 4.020324999999999,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "ranking_reversals": 5,
+            "ranking_reversal_fraction": 0.07575757575757576
+          },
+          {
+            "subset_id": "size_compatible_hosts",
+            "pair_id": "mp_dft__chgnet",
+            "n": 12,
+            "spearman_rho": 0.9370629370629372,
+            "RMSE": 5.444194395944486,
+            "MAE": 4.397775000000001,
+            "top_k": 5,
+            "top_k_overlap_count": 5,
+            "top_k_jaccard": 1.0,
+            "ranking_reversals": 5,
+            "ranking_reversal_fraction": 0.07575757575757576
+          },
+          {
+            "subset_id": "size_compatible_hosts",
+            "pair_id": "uma_s_1p1__chgnet",
+            "n": 12,
+            "spearman_rho": 0.9720279720279721,
+            "RMSE": 7.707814998104197,
+            "MAE": 6.084566666666667,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "ranking_reversals": 4,
+            "ranking_reversal_fraction": 0.06060606060606061
+          }
+        ],
+        "interpretation": "Pairwise agreement of binary M-Ga formation-enthalpy rankings on the bundled reference structures.",
+        "limitation": "This is a heterogeneous binary reference-set consistency check, not a direct accuracy validation of the five-component energy landscape or a synthesis-success test.",
+        "transferability_claim": "none"
+      }
+    ]
+  }
+}

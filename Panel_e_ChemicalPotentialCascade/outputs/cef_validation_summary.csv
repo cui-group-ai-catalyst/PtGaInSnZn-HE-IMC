@@ -1,0 +1,12 @@
+metric,value,unit,scope
+n_compositions,165.0,count,full dataset
+n_pair_parameters,6.0,count,pairwise CEF
+design_rank,6.0,count,pairwise CEF
+design_condition_number,2.2188007849009166,dimensionless,pairwise CEF
+training_R2,0.9992773421034635,dimensionless,all 165 compositions
+training_RMSE,0.13582112732478202,kJ mol^-1 atom^-1,all 165 compositions
+training_max_abs_error,0.5602699125757589,kJ mol^-1 atom^-1,all 165 compositions
+endmember_only_RMSE,1.1365209539974888,kJ mol^-1 atom^-1,161 non-endmember compositions
+nonendmember_LOOCV_RMSE,0.14225046715799536,kJ mol^-1 atom^-1,161 non-endmember compositions
+nonendmember_LOOCV_MAE,0.10396536352383959,kJ mol^-1 atom^-1,161 non-endmember compositions
+nonendmember_LOOCV_max_abs_error,0.5704868762394426,kJ mol^-1 atom^-1,161 non-endmember compositions

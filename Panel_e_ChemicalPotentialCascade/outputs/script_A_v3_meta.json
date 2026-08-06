@@ -10,7 +10,12 @@
   },
   "miedema": {
     "P": 14.1,
-    "Q": 9.4
+    "Q": 9.4,
+    "n_ws_convention": "stored values are n_WS^(1/3)"
   },
-  "v3_note": "Logic identical to v2; filenames updated for v3 pipeline"
+  "regular_solution": {
+    "G_excess": "sum_(i<j) Omega_ij*x_i*x_j",
+    "partial_molar_excess": "sum_(j!=i) Omega_ij*x_j - G_excess"
+  },
+  "v3_note": "2026-07-27 correction: removed duplicate cube root of n_WS^(1/3) and used the Gibbs-Duhem-consistent multicomponent partial molar form"
 }

@@ -1,0 +1,41 @@
+{
+  "style": {
+    "text": "#1F2933",
+    "axis": "#16212B",
+    "grid": "#B7C0C9",
+    "pane": "#F8FAFC",
+    "pane_edge": "#66727D",
+    "ring": "#6B747D",
+    "axis_label_size": 11.5,
+    "tick_size": 10.0,
+    "title_size": 13.0,
+    "colorbar_label_size": 10.0,
+    "colorbar_tick_size": 9.0,
+    "axis_line_width": 1.35,
+    "tick_width": 1.05,
+    "grid_width": 0.65,
+    "projection": "ortho",
+    "elev": 17,
+    "azim": 40
+  },
+  "data": {
+    "A_points": 10332,
+    "B_points": 20000,
+    "A_sha256": "c158e6b6421db8f30d8142b29362a2fbdfae9516e617277ca103ab29453be7f8",
+    "B_sha256": "9d96fd2a4f48fb9fd5c4a26ee9740223fa798ba4478608553b6ec708c9f613b4",
+    "brightness_percentile_limits": [
+      41.72701162319399,
+      190.29106598109956
+    ]
+  },
+  "defaults": {
+    "projection": "orthographic",
+    "layer_spacing": 0.9,
+    "camera_eye": {
+      "x": 1.65,
+      "y": 1.35,
+      "z": 0.78
+    }
+  },
+  "scientific_note": "A contains detected atom-column candidates; colour is fitted peak brightness (a.u.), not elemental identity or a formal order parameter."
+}

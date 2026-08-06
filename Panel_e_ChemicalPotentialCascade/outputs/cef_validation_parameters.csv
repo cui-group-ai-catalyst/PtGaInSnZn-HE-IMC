@@ -1,0 +1,7 @@
+pair,omega_kJmol_atom,Omega_kJmol_beta_site,unit_relation
+Ga-In,0.2824655612121345,1.129862244848538,omega_atom = Omega_beta_site / 4
+Ga-Sn,-6.336058881491837,-25.34423552596735,omega_atom = Omega_beta_site / 4
+Ga-Zn,1.0774815724009352,4.309926289603741,omega_atom = Omega_beta_site / 4
+In-Sn,-4.121330131841501,-16.485320527366003,omega_atom = Omega_beta_site / 4
+In-Zn,-0.5882128014918444,-2.3528512059673776,omega_atom = Omega_beta_site / 4
+Sn-Zn,-10.009140227878786,-40.036560911515146,omega_atom = Omega_beta_site / 4

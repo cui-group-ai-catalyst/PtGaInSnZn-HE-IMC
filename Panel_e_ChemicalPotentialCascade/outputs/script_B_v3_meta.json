@@ -29,6 +29,9 @@
     "Sn": 0.1,
     "Zn": 0.05
   },
+  "element_potential_identifiability": "The fixed-Pt3X manifold determines total G and beta-sublattice diffusion potentials. Absolute element-resolved potentials require an additional reference/gauge convention.",
+  "legacy_mu_output_convention": "Euler-consistent alloy-atom-normalized decomposition retained for manuscript regression; do not interpret as unique absolute elemental mu.",
+  "diffusion_potential_output": "beta_diffusion_potentials_v3_0K.csv",
   "v3_change": "End-member ?H_f from UMA 165-pt data, Omega_ij from least-squares CEF fit (replaces literature + Miedema)",
   "convention": "per atom of f.u. (alloy per-atom basis)"
 }

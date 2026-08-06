@@ -1,0 +1,17 @@
+Metric,Value
+Miedema_vs_MP_DFT_all,0.2857
+Miedema_vs_UMA_all,0.475
+MP_DFT_vs_UMA_all,0.8679
+MP_DFT_vs_CHGNet_all,0.95
+UMA_vs_CHGNet_all,0.9036
+Miedema_vs_CHGNet_all,0.2071
+Miedema_vs_MP_DFT_sizepass,0.7622
+Miedema_vs_UMA_sizepass,0.7273
+MP_DFT_vs_UMA_sizepass,0.951
+N_hosts_all,15.0
+N_hosts_sizepass,12.0
+Pt_Miedema_Rank,1.0
+Pt_MP_DFT_Rank,6.0
+Pt_UMA_Rank,3.0
+Pt_CHGNet_Rank,6.0
+Pt_Consensus_Rank,5.0

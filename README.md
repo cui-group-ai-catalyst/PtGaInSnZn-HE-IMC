@@ -3,16 +3,22 @@
 This repository accompanies the manuscript *Data-Guided Liquid-Metal
 Synthesis of High-Entropy Intermetallics* and provides the scripts, reference
 outputs, and reviewer-facing documentation needed to reproduce the numerical
-results underlying Figure 1 and the related Supplementary Information.
+results underlying Figure 1 (thermodynamic design and the related Supplementary
+Information) and Figure 3 (atomic-ordering analysis of the reaction
+intermediate from 4D-STEM multislice electron ptychography).
 
-This README corresponds to release `v1.3.0` (Nature software-checklist release).
+This working tree prepares `v1.4.0` (Figure 3 package on top of the v1.3.2
+scientific-audit corrections) and is not yet an archived release. The latest
+archived release is `v1.3.1`; the additions documented here require a new
+exact-version archive before submission.
 
 ## Code availability
 
 - Repository: `https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC`
 - Zenodo concept DOI (all versions): `https://doi.org/10.5281/zenodo.20111606`
 - Exact version DOI for `v1.3.1`: `https://doi.org/10.5281/zenodo.20511673`
-- Latest release tag: `v1.3.1`
+- Latest archived release tag: `v1.3.1`
+- Current working target: `v1.4.0` (exact-version DOI pending)
 
 All in-house code is released under the MIT License. Third-party model weights
 and datasets are not redistributed. Their sources, versions, licenses, and
@@ -104,6 +110,7 @@ code base, see `REVIEWER_REPRODUCTION_GUIDE.md`.
 conda activate ptgainsnzn
 python Panel_a_BinaryHeatmap/regen_FigA_data.py
 python Panel_b_MultiComponentScatter/verify_FigB_central.py
+python experimental_extensions/run_validation.py
 python scripts/verify_release.py
 ```
 
@@ -113,6 +120,9 @@ The demo should regenerate or verify:
 
 - `Panel_a_BinaryHeatmap/data_FigA_v2_FamilyOrdered_Origin_regen.csv`
 - `Panel_b_MultiComponentScatter/data_FigB_central_anchors_regen.csv`
+- `experimental_extensions/outputs/system_validation/validation_evidence.png`
+- `experimental_extensions/outputs/system_validation/evidence_report.html`
+- `experimental_extensions/outputs/system_validation/evidence_report.pdf`
 
 Key expected numerical checks:
 
@@ -135,8 +145,9 @@ results and inspect the assumptions for each model.
 
 Recommended workflow:
 
-1. Read `Figure1_Code_Map.csv` to identify the script, reference CSV, preview
-   PNG, and UMA requirement for each panel.
+1. Read `Figure1_Code_Map.csv` (and `Figure3/Figure3_Code_Map.csv` for the
+   structural analyses) to identify the script, reference CSV, preview PNG, and
+   UMA/Origin requirement for each panel.
 2. Run the quick CPU demo above.
 3. Run analytical panels a, b, and f without UMA.
 4. For UMA-derived panels c, d, e and SI Figs. 3/4, first decide whether the
@@ -150,6 +161,12 @@ To adapt the scripts to new host/liquid systems, edit the host lists,
 composition dictionaries, or local parameter tables in the relevant panel
 folder. The scripts are intentionally transparent and panel-specific. See
 the next section "Using your own data" for concrete substitution workflows.
+
+Scientific scope: this is a manuscript-specific reproducibility package, not
+a validated general-purpose materials predictor. Input substitution or a
+successful software run does not establish transferability to a new host,
+prototype, bonding class, or synthesis route. The configuration-driven tools
+under `experimental_extensions/` are kept separate for this reason.
 
 ## Using your own data
 
@@ -221,6 +238,21 @@ manuscript values end to end.
 **Use case:** you want to add new compositions that are not in the bundled
 165 list (for example, swap Zn for Bi, or add a 5-component cocktail).
 
+This is an experimental developer workflow, not part of the frozen manuscript
+reproduction path. `experimental_extensions/run_manifold.py` can validate an
+integer composition table and fit the same pairwise CEF form from a JSON
+configuration. It does not validate the structures, energy method, competing
+phases, interfaces, kinetics, or synthesizability of the substituted system.
+
+At the system level, `experimental_extensions/system_manifest.json` provides
+a schema-checked P1 interface and `experimental_extensions/run_validation.py`
+runs the complete bounded validation workflow. The bundled manifest combines
+the fixed-manifold CEF/LOOCV/group-holdout checks with a three-backend binary
+reference comparison (Materials Project DFT, UMA-s-1p1, and CHGNet), including
+RMSE, Spearman correlation, top-k overlap, and explicit ranking reversals.
+These outputs demonstrate configurable software and transparent validation;
+they are not evidence that a new chemistry is scientifically transferable.
+
 1. Build the structure for each new composition (extend the 8-site B
    sublattice with the new element distribution; use the same Pt3X8
    2x2x2 L1_2 base supercell from Scenario B).
@@ -236,17 +268,31 @@ manuscript values end to end.
    new element (for example Bi), extend `shared/UMA_Element_Reference_Energies.csv`
    and `scripts/recompute_element_referenced_Hf.py` to include it.
 
-### What the release does not let you substitute end to end
+### Raw-energy reproduction and remaining end-to-end boundaries
 
-Two paths are intentionally left to the reviewer rather than automated:
-
-- **Panel c (1 ordered + 30 disordered Pt3(Ga,In,Sn,Zn) equimolar
-  configurations).** The release ships the post-element-reference
-  `ZeroK_ElementRef_Hf_kJ_mol` column but not the raw per-structure
-  `Energy_eV_atom`. Reproducing Panel c under a different reference set
-  requires re-running the potential on those 31 structures. The seeds used
-  for the 30 disordered structures are documented in
-  `Code_Availability_Notes.md`.
+- **Panel c historical regression (1 ordered + 30 disordered
+  Pt3(Ga,In,Sn,Zn) equimolar configurations).** The release ships the original per-structure
+  `Energy_eV_atom` values in
+  `Panel_c_OrderedVsDisordered/data_FigC_Raw_UMA_Energies.csv` and the
+  deterministic structure/UMA rerun entry point
+  `script_FigC_Rerun_UMA.py`. The 30 disordered occupations use seeds
+  100-129. The script writes `_regen` data and a JSON comparison report; it
+  can also export all 31 generated CIFs.
+- **Panel c ensemble robustness (30 ordered + the original 30 disordered).**
+  `script_FigC_OrderedEnsemble_Rerun_UMA.py` enumerates 2,520 labelled
+  Ga2In2Sn2Zn2 B-site assignments, reduces them to 68 symmetry classes, keeps
+  the historical ordered anchor, and selects 29 additional classes with seed
+  20260727. `script_FigC_OrderedEnsemble_Analysis.py` produces the measured
+  30+30 comparison. The optional `--n-ordered 68` path and
+  `script_FigC_OrderedAll68_Sensitivity.py` verify that the 30-class sample
+  reproduces the degeneracy-weighted all-class mean.
+- **Panel d ensemble temperature model.**
+  `Panel_d_GibbsCurveVsT/script_FigD_GibbsCurve_Ensemble.py` reads the measured
+  30+30 Panel c energies and adds ideal configurational-entropy bounds. It
+  writes separate ensemble CSV/JSON/PDF/SVG/PNG/TIFF artifacts and does not
+  overwrite the historical canonical Panel d files. These curves are model
+  bounds, not phonon-inclusive or directly sampled finite-temperature free
+  energies.
 - **The CEF fit in Panel e** consumes the SI Fig 4 landscape. After
   Scenario A or Scenario B above, the CEF inputs change; rerunning Panel e
   scripts with the substituted Hf values is straightforward but is not
@@ -268,15 +314,27 @@ The repository contains two reproducibility levels:
   - Figure 1e
   - Supplementary Fig. 3 UMA column
   - Supplementary Fig. 4
+- Figure 3 (4D-STEM structural analysis), three reproducibility tiers:
+  - Fully reproducible from bundled data: Figure 3h (row-resolved projected-column
+    modulation; `Figure3/analysis/analyze_h_l8_projected_rows.py` +
+    `Figure3/build/render_compact_h.py`), Figure 3i1 (3-D rendering +
+    interactive HTML; `Figure3/build/render_white_layered_3d_readable_v2.py`),
+    and Figure 3i2 score computation (`Figure3/build/build_layer9_de_panels.py`).
+  - Bundled canonical tables for inspection: the Figure 3i3 80-cell lattice-support
+    table and Figure 3j centre-edge summary in `Figure3/source_data/`.
+  - Canonical figure rendering in OriginPro for g1-g3 and the i2/i3/j heatmaps;
+    the Origin-driving scripts and input matrices are bundled for transparency.
 
 Reference CSVs and preview PNGs are included so reviewers can compare
 regenerated values against the manuscript-facing outputs.
 
 For Level B, the release supports reviewer inspection and post-processing of
-bundled UMA-derived CSVs. Full re-derivation of every UMA energy from scratch
-depends on the gated checkpoint and, for some historical branches, local
-structure trees that are not redistributed. These boundaries are documented in
-`Code_Availability_Notes.md`, `UMA_Checkpoint_Setup.md`, and the panel scripts.
+bundled UMA-derived CSVs. Panel c and SI Fig. 3 now also include their raw
+structure-generation/CIF inputs and validated UMA rerun paths. Full
+re-derivation still depends on the gated UMA checkpoint, and other historical
+UMA datasets may remain table-level reproductions. These boundaries are
+documented in `Code_Availability_Notes.md`, `UMA_Checkpoint_Setup.md`, and the
+panel scripts.
 
 ## Canonical files vs `_regen` files
 
@@ -297,11 +355,12 @@ overwriting the canonical file.
 
 **Verification posture:**
 
-- For every panel with both versions, the underlying numerical CSV pair is
-  bit-identical between canonical and `_regen`; this can be confirmed with
-  `python scripts/verify_release.py`, which also asserts the manuscript
-  numerical anchors (Pt-Ga = -32.06, ordering gap 16.0436, ΔG_rxn = -150.5354,
-  Pt γ_SL = -0.44834).
+- Most unchanged panel CSV pairs remain numerically identical. SI Fig. 2 now
+  intentionally differs after correction of a repeated cube root in the
+  `n_WS^(1/3)` term, and Panel f appends uncertainty-aware interpretation
+  columns. `python scripts/verify_release.py` checks the corrected anchors and
+  explicitly treats older canonical files as provenance rather than current
+  corrected output.
 - For four panels (c, d, SI Fig 3 `_replot`, SI Fig 4) the `_regen` PNG is
   also bit-identical to the canonical PNG.
 - For three panels (Panel f, SI Fig 2, SI Fig 3 `_regen`) the `_regen` PNG
@@ -348,6 +407,13 @@ code_release_v2/
   REVIEWER_REPRODUCTION_GUIDE.md
   demo/
   scripts/
+  experimental_extensions/
+    system_manifest.json
+    system_manifest.schema.json
+    module_contracts.json
+    FORMULAS_AND_VALIDATION.md
+    run_validation.py
+    outputs/system_validation/
   Panel_a_BinaryHeatmap/
   Panel_b_MultiComponentScatter/
   Panel_c_OrderedVsDisordered/
@@ -356,6 +422,16 @@ code_release_v2/
   Panel_f_Wetting/
   SI_Figures/
   SI_Note_S1_ChemicalPotential/
+  Figure3/
+    README.md
+    Figure3_Code_Map.csv
+    fig3_paths.py
+    analysis/        atom-column detection, lattice locking, per-layer geometry, row analysis
+    build/           figure build/render scripts
+    source_data/     canonical result tables
+    data/            input datasets (aligned reconstruction stack, detected columns, FFT inputs)
+    static/          published panel previews
+    interactive_3d/  white-background interactive 3-D package
   shared/
     data_periodic_table.py
     UMA_Element_Reference_Energies.csv
@@ -368,9 +444,13 @@ code_release_v2/
   upstream `facebook/UMA` terms.
 - Some UMA-derived datasets are bundled as reference CSVs. Reviewers can
   inspect and post-process these data without rerunning UMA. Re-running UMA
-  energy calculations from scratch requires the checkpoint and may require
-  non-redistributed local structure inputs for archival branches such as the
-  SI Fig. 3 `--rerun-uma` path.
+  energy calculations from scratch requires the checkpoint. The Panel c and
+  SI Fig. 3 inputs are bundled; this does not make the workflow a validated
+  predictor for new chemistries, prototypes, interfaces, or synthesizability.
+- The Panel c/d ensemble extension remains a fixed-cell, fixed-coordinate
+  structural-manifold test. It does not identify the unrestricted ground
+  state, include competing phases, quantify UMA out-of-domain error, or
+  predict synthesis probability.
 - `SI_Table01_ZnDownSelection/script_SI_DownSelectionFunnel.py` retains a
   deferred CALPHAD stage; the released liquidus predictor covers the reported
   Supplementary Tables 2 and 3 without requiring CALPHAD.
@@ -379,6 +459,7 @@ code_release_v2/
 
 ## Citation
 
-Please cite both the manuscript and this software archive. After `v1.3.0` is
-archived on Zenodo, cite the exact version DOI for this release and the concept
+Please cite both the manuscript and the archived software version actually
+submitted. The DOI above identifies archived `v1.3.1`; after these corrections
+are archived, replace it with the new exact-version DOI and retain the concept
 DOI for the version family.

@@ -8,6 +8,19 @@
 
 ## Workflow (v3)
 
+`script_B_cef_validation.py` provides a reproducible validation companion to
+the authoritative CEF fit. It writes model-ablation, non-endmember
+leave-one-composition-out, and Ga-count-family holdout results to
+`../outputs/cef_validation_*.csv`. These tests quantify interpolation only
+inside the fixed L1_2-Pt3(Ga,In,Sn,Zn) manifold; they do not establish UMA
+accuracy or transferability to new elements, hosts, or structure prototypes.
+
+`script_B_mu_HEI_v3.py` also writes gauge-invariant beta-sublattice diffusion
+potentials relative to Ga. The fixed-Pt3X manifold determines these exchange
+potentials and the total product energy, but it does not uniquely determine
+five absolute elemental chemical potentials. The historical element-resolved
+cascade is retained as an Euler-consistent reference-convention decomposition.
+
 ```
 script_A_mu_liquid_v3.py   →  script_B_mu_HEI_v3.py   →  script_C_drive_force_v3.py   →  script_D_panel_a_plot_v3.py
         (μ_liquid)                    (μ_HEI)                    (F_i + ΔG_rxn)                  (cascade plot)
@@ -25,6 +38,11 @@ script_A_mu_liquid_v3.py   →  script_B_mu_HEI_v3.py   →  script_C_drive_forc
 - **Composition (β-sublattice):** y_Ga = 0.65, y_In = 0.20, y_Sn = 0.10, y_Zn = 0.05.
 - **Reference state:** SER (stable element reference). μ°(X) = 0 for each element in its 0 K bulk ground state.
 - **Units:** kJ/mol per atom (so per-formula-unit values are 4× the per-atom values).
+- **CEF parameter convention:** the fitted `omega_per_atom_kJmol` is per alloy
+  atom; the corresponding per-beta-site parameter is
+  `Omega_per_beta_site_kJmol = 4 * omega_per_atom_kJmol`.
+- **Primary reaction quantity:** total `delta_G_rxn`; the individual `F_i`
+  values depend on the documented reference convention.
 - **Temperature:** 0 K enthalpic terms. The dG_rxn at T > 0 K follows from `mu_*_T_table.csv`.
 
 ## Reference numbers (must match Supplementary Table 1)

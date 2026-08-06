@@ -34,9 +34,10 @@ substrate is the same; only the layout differs.
 
 Canonical vs regen convention
 -----------------------------
-This script never overwrites canonical files. The `_regen` CSV output is
-bit-identical to the bundled canonical `data_FigE_Resistance_Ranked.csv`;
-verified by `scripts/verify_release.py`.
+This script never overwrites canonical files. After the 2026-07-22 correction
+to the n_WS^(1/3) term, the `_regen` CSV intentionally differs from the older
+canonical `data_FigE_Resistance_Ranked.csv`. The canonical file is retained
+for provenance until the corrected SI source data and figure are approved.
 """
 
 import sys
@@ -88,7 +89,9 @@ def calc_resistance_analysis():
         for el, frac in cocktail['weights'].items():
             t_props_c = periodic_table_data[el]
             dPhi_c = props['Phi'] - t_props_c['Phi']
-            dn_c = props['n_ws']**(1/3) - t_props_c['n_ws']**(1/3)
+            # The shared table already stores n_WS^(1/3), so use a direct
+            # difference. Taking another cube root would compress this term.
+            dn_c = props['n_ws'] - t_props_c['n_ws']
             # BUG FIX: Removed the * 10 legacy multiplier
             dH_i = (-P * dPhi_c**2 + Q * dn_c**2)
             dH_cocktail += frac * dH_i

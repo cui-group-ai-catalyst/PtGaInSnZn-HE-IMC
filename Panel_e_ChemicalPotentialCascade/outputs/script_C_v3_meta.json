@@ -1,16 +1,18 @@
 {
   "script": "script_C_drive_force_v3.py",
   "convention": "per atom of f.u.; SER reference; 0K enthalpic",
+  "interpretation_priority": "delta_G_rxn is primary and gauge invariant within the model; elementwise F_i is a reference-convention decomposition",
+  "beta_diffusion_potentials": "beta_diffusion_potentials_v3_0K.csv",
   "data_sources": {
     "liquid": "script_A_mu_liquid_v3 (Miedema + CRC DH_fus)",
     "HEI": "script_B_mu_HEI_v3 (CEF fitted to Panel g 165 UMA points)"
   },
   "driving_force_summary": {
-    "delta_G_rxn_per_fu_kJmol": -150.5354,
-    "delta_G_rxn_per_atom_kJmol": -37.6339,
+    "delta_G_rxn_per_fu_kJmol": -150.5481,
+    "delta_G_rxn_per_atom_kJmol": -37.637,
     "G_atom_HEI_kJmol": -36.3112,
-    "sum_y_mu_L_kJmol": 5.2906,
-    "notes": "delta_G_rxn<0 => spontaneous"
+    "sum_y_mu_L_kJmol": 5.3034,
+    "notes": "delta_G_rxn<0 is thermodynamically favourable within the stated model and reference states; kinetics and competing phases are not implied"
   },
   "v3_change": "HEI from UMA-CEF instead of literature values"
 }

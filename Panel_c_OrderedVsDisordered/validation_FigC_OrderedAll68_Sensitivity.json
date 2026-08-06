@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "provenance_mode": "measured_computational",
+  "energy_protocol": "fixed-cell fixed-coordinate UMA-s-1p1 single-point",
+  "sample_30": {
+    "n": 30,
+    "mean_eV_atom": -4.9438245362333335,
+    "sample_sd_eV_atom": 0.0009889602010302787,
+    "range_eV_atom": 0.00327025400000025,
+    "sample_sd_kJ_mol_atom": 0.09541982499640644,
+    "range_kJ_mol_atom": 0.3155304571900241,
+    "min_eV_atom": -4.945295641,
+    "max_eV_atom": -4.942025387
+  },
+  "all_68_equal_class_weight": {
+    "n": 68,
+    "mean_eV_atom": -4.943893355161765,
+    "sample_sd_eV_atom": 0.0011704839926778572,
+    "range_eV_atom": 0.004713579999999773,
+    "sample_sd_kJ_mol_atom": 0.11293414803352304,
+    "range_kJ_mol_atom": 0.4547897662999781,
+    "min_eV_atom": -4.945846194,
+    "max_eV_atom": -4.941132614
+  },
+  "all_68_degeneracy_weighted": {
+    "raw_assignment_count": 2520,
+    "mean_eV_atom": -4.943819439714286,
+    "population_sd_eV_atom": 0.001104026023099301,
+    "population_sd_kJ_mol_atom": 0.10652195083873606
+  },
+  "weighted_all68_minus_sample30_mean_kJ_mol_atom": 0.000491737640315013,
+  "historical_anchor_abs_difference_eV_atom": 2.999999981767587e-08,
+  "interpretation": "The 30-class sample reproduces the degeneracy-weighted all-class mean; the narrow spread is not caused by duplicate or symmetry-equivalent structures."
+}

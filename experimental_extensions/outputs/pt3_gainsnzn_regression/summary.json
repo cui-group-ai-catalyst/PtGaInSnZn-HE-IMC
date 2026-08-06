@@ -1,0 +1,36 @@
+{
+  "system_id": "l12_pt3_gainsnzn_regression",
+  "status": "manuscript-regression-only",
+  "host": "Pt",
+  "prototype": "L12_A3B",
+  "mixing_elements": [
+    "Ga",
+    "In",
+    "Sn",
+    "Zn"
+  ],
+  "mixing_site_count": 8,
+  "n_compositions": 165,
+  "expected_complete_manifold_rows": 165,
+  "n_pair_parameters": 6,
+  "design_rank": 6,
+  "design_condition_number": 2.218800784900917,
+  "training_R2": 0.9992773421034635,
+  "training_metrics": {
+    "RMSE": 0.13582112732478216,
+    "MAE": 0.09777413809550069,
+    "max_abs_error": 0.5602699125757589
+  },
+  "endmember_only_nonendmember_metrics": {
+    "RMSE": 1.1365209539974888,
+    "MAE": 0.9214911164596272,
+    "max_abs_error": 2.4430484999999997
+  },
+  "nonendmember_LOOCV_metrics": {
+    "RMSE": 0.14225046715799528,
+    "MAE": 0.10396536352383957,
+    "max_abs_error": 0.5704868762394391
+  },
+  "scientific_scope": "Interpolation inside the fixed L12-Pt3(Ga,In,Sn,Zn) representative-occupancy manifold only.",
+  "transferability_claim": "none"
+}

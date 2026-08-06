@@ -5,6 +5,9 @@ __pycache__/
 *.so
 .Python
 build/
+# Figure3/build is a source-figure folder, not a Python build/ output dir.
+!Figure3/build/
+!Figure3/build/**
 dist/
 *.egg-info/
 .eggs/

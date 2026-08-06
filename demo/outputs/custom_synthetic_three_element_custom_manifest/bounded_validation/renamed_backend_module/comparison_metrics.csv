@@ -1,0 +1,2 @@
+subset_id,pair_id,left_backend,right_backend,n,spearman_rho,pearson_r,RMSE,MAE,bias_right_minus_left,top_k,top_k_overlap_count,top_k_jaccard,ranking_reversals,comparable_item_pairs,tied_item_pairs,ranking_reversal_fraction
+all_materials,reference_backend__candidate_backend,reference_backend,candidate_backend,5,0.9999999999999999,0.9935270994574197,0.16733200530681516,0.16,0.039999999999999904,2,2,1.0,0,10,0,0.0

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "demo_id": "reviewer_adaptability_and_bounded_validation",
+  "mode": "quick",
+  "status": "passed",
+  "purpose": "Demonstrate manifest-driven software adaptability and bounded numerical validation on supplied data; not scientific transferability.",
+  "provenance": {
+    "execution": "computed_from_manifest_selected_supplied_tables",
+    "generated_at_utc": "2026-07-24T04:33:48+00:00",
+    "python_executable": "python.exe",
+    "python_version": "3.10.19",
+    "git_sha": "fe6a3b73f6381168e39cf58f40d006a582cfc3a9"
+  },
+  "input_contract": {
+    "manifest": "demo/examples/three_element/system_manifest.json",
+    "manifest_sha256": "eec7c5da4a16e1e0b2a66a5a6ec45c9739891dd73a1d5dfb4f9ff4aeeda31d9a",
+    "system_id": "synthetic_three_element_custom_manifest",
+    "scientific_scope": "Software input-substitution test using deterministic synthetic tables; no material claim.",
+    "configured_modules": [
+      {
+        "id": "renamed_composition_module",
+        "kind": "manifold_regression"
+      },
+      {
+        "id": "renamed_backend_module",
+        "kind": "energy_backend_comparison"
+      }
+    ],
+    "energy_data_origin": "precomputed tables referenced by the manifest",
+    "automatic_new_structure_generation": false,
+    "automatic_arbitrary_material_scoring": false
+  },
+  "claim_boundary": {
+    "software_configurability": "demonstrated_for_bundled_inputs",
+    "within_manifold_interpolation": "validated_internal",
+    "binary_energy_rank_consistency": "observed_reference_set",
+    "new_host_or_prototype_transferability": "not_evaluated",
+    "nonmetal_compound_transferability": "not_evaluated",
+    "synthesizability": "not_predicted"
+  },
+  "supported_conclusions": [
+    "The workflow accepts a schema-checked system manifest instead of relying on a fixed row order.",
+    "Supplied composition-energy tables can be checked for uniqueness and manifold completeness.",
+    "Pairwise CEF interpolation can be evaluated by training fit, non-endmember LOOCV, and composition-family holdout.",
+    "Matched supplied energy backends can be compared by error, rank correlation, top-k overlap, and ranking reversals.",
+    "The custom supplied tables completed the same contract, validation, visualization, and reporting path."
+  ],
+  "excluded_conclusions": [
+    "Accuracy or transferability for a new host, ordered prototype, or bonding class.",
+    "Applicability to N-, O-, S-, or P-containing compounds without new models and independent validation.",
+    "Universal accuracy of UMA, CHGNet, DFT, or any other energy backend.",
+    "Global phase stability, kinetic accessibility, or synthesizability."
+  ],
+  "steps": [
+    {
+      "id": "release_verifier",
+      "status": "passed",
+      "return_code": 0,
+      "duration_seconds": 0.318,
+      "command": [
+        "<python>",
+        "scripts/verify_release.py"
+      ],
+      "stdout_log": "demo/outputs/custom_synthetic_three_element_custom_manifest/logs/release_verifier.stdout.log",
+      "stderr_log": "demo/outputs/custom_synthetic_three_element_custom_manifest/logs/release_verifier.stderr.log"
+    },
+    {
+      "id": "bounded_validation",
+      "status": "passed",
+      "return_code": 0,
+      "duration_seconds": 2.562,
+      "command": [
+        "<python>",
+        "experimental_extensions/run_validation.py",
+        "demo/examples/three_element/system_manifest.json",
+        "--output-dir",
+        "demo/outputs/custom_synthetic_three_element_custom_manifest/bounded_validation"
+      ],
+      "stdout_log": "demo/outputs/custom_synthetic_three_element_custom_manifest/logs/bounded_validation.stdout.log",
+      "stderr_log": "demo/outputs/custom_synthetic_three_element_custom_manifest/logs/bounded_validation.stderr.log"
+    }
+  ],
+  "artifacts": {
+    "bounded_validation": {
+      "machine_readable": "demo/outputs/custom_synthetic_three_element_custom_manifest/bounded_validation/validation_results.json",
+      "si_figure_png": "demo/outputs/custom_synthetic_three_element_custom_manifest/bounded_validation/validation_evidence.png",
+      "si_figure_pdf": "demo/outputs/custom_synthetic_three_element_custom_manifest/bounded_validation/validation_evidence.pdf",
+      "reviewer_report_html": "demo/outputs/custom_synthetic_three_element_custom_manifest/bounded_validation/evidence_report.html",
+      "reviewer_report_pdf": "demo/outputs/custom_synthetic_three_element_custom_manifest/bounded_validation/evidence_report.pdf"
+    }
+  },
+  "bounded_validation": {
+    "overall_status": "passed",
+    "manifold_validations": [
+      {
+        "module_id": "renamed_composition_module",
+        "system_id": "synthetic_three_element_demo",
+        "host": "X",
+        "prototype": "custom_A3B",
+        "mixing_elements": [
+          "A",
+          "B",
+          "C"
+        ],
+        "mixing_site_count": 4,
+        "n_compositions": 15,
+        "design_rank": 3,
+        "training_R2": 1.0,
+        "training_metrics": {
+          "RMSE": 0.0,
+          "MAE": 0.0,
+          "max_abs_error": 0.0
+        },
+        "nonendmember_LOOCV_metrics": {
+          "RMSE": 1.4332917616497527e-16,
+          "MAE": 5.551115123125783e-17,
+          "max_abs_error": 4.440892098500626e-16
+        },
+        "group_holdout": {
+          "element": "B",
+          "n_groups": 4,
+          "RMSE_min": 0.0,
+          "RMSE_max": 3.8459253727671276e-16,
+          "RMSE_mean": 1.5165928555043602e-16
+        },
+        "transferability_claim": "none"
+      }
+    ],
+    "energy_backend_comparisons": [
+      {
+        "module_id": "renamed_backend_module",
+        "unit": "arbitrary energy unit",
+        "backends": [
+          {
+            "id": "reference_backend",
+            "label": "Reference backend",
+            "column": "reference_energy"
+          },
+          {
+            "id": "candidate_backend",
+            "label": "Candidate backend",
+            "column": "candidate_energy"
+          }
+        ],
+        "pairwise_results": [
+          {
+            "subset_id": "all_materials",
+            "pair_id": "reference_backend__candidate_backend",
+            "n": 5,
+            "spearman_rho": 0.9999999999999999,
+            "RMSE": 0.16733200530681516,
+            "MAE": 0.16,
+            "top_k": 2,
+            "top_k_overlap_count": 2,
+            "top_k_jaccard": 1.0,
+            "ranking_reversals": 0,
+            "ranking_reversal_fraction": 0.0
+          }
+        ],
+        "interpretation": "Synthetic matched-column interface check.",
+        "limitation": "Deterministic synthetic data; no scientific material inference.",
+        "transferability_claim": "none"
+      }
+    ]
+  }
+}

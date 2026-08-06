@@ -7,9 +7,10 @@ Portfolio reporting standards to concrete files in this repository.
 
 - GitHub repository: `https://github.com/cui-group-ai-catalyst/PtGaInSnZn-HE-IMC`
 - Zenodo concept DOI: `https://doi.org/10.5281/zenodo.20111606`
-- Exact submitted version DOI: pending until the `v1.3.0` GitHub release is
-  archived by Zenodo
-- Proposed release tag: `v1.3.0`
+- Previous archived exact DOI (`v1.3.1`):
+  `https://doi.org/10.5281/zenodo.20511673`
+- Exact DOI for the corrected working tree: pending a new `v1.3.2` archive
+- Proposed corrected release tag: `v1.3.2`
 - License: MIT
 
 ## PDF checklist mapping
@@ -39,12 +40,12 @@ Portfolio reporting standards to concrete files in this repository.
 | Requirement | Location | Notes |
 |---|---|---|
 | Minimum dataset transparent to readers | Bundled reference CSVs and paper Source Data | Derived CSVs are included for computational reproduction |
-| Public identifiers for code | GitHub URL and Zenodo DOI | Concept DOI present; exact version DOI to add after archive |
+| Public identifiers for code | GitHub URL and Zenodo DOI | Concept DOI and previous v1.3.1 DOI present; corrected exact DOI pending |
 | Restrictions disclosed | `UMA_Checkpoint_Setup.md`, `Third_Party_Model_and_Data_Notes.md` | UMA checkpoint is gated and not redistributed |
 | Code availability section in manuscript | Manuscript Data/Code availability statement | Existing extraction includes GitHub, Zenodo, and UMA HF URL |
 | DOI-minting repository | Zenodo | Use exact version DOI in reference list if required |
 | OSI-approved license | MIT license | Copyright holder currently listed as `Bo Xu and co-authors` |
-| Version management | Git tags and GitHub releases | Proposed `v1.3.0` tag; not yet committed/tagged |
+| Version management | Git tags and GitHub releases | Corrected working tree targets `v1.3.2`; not yet archived |
 
 ## Quick reviewer path
 
@@ -88,19 +89,21 @@ Disclosed up front so reviewers do not encounter them as surprises:
   rendering script is not.
 - **`_regen` file convention.** Every panel ships canonical and `_regen`
   parallel files; the `_regen` files are what the in-release scripts produce
-  on a fresh run. See README section "Canonical files vs `_regen` files" for
-  the convention, the bit-identity guarantee on the CSV side, and the
-  cosmetic-only PNG drift for Panel f, SI Fig 2, and SI Fig 3 `_regen`.
+  on a fresh run. SI Fig. 2 intentionally differs after a corrected
+  `n_WS^(1/3)` calculation, and Panel f appends uncertainty-aware columns.
+  Older canonical files are retained for provenance pending manuscript/SI
+  alignment; they are not evidence that the corrected outputs are identical.
 - **UMA scope.** The release includes UMA-derived reference CSVs for reviewer
   inspection and post-processing. Re-running UMA energy calculations requires
   the gated UMA-s-1p1 checkpoint with MD5
-  `36a2f071350be0ee4c15e7ebdd16dde1`; some archival from-scratch branches also
-  require local structure inputs that are not redistributed.
+  `36a2f071350be0ee4c15e7ebdd16dde1`. Panel c and SI Fig. 3 now bundle their
+  structure-generation/CIF inputs and machine-readable rerun validation; this
+  does not establish transferability to untested chemistries or prototypes.
 
 ## Items requiring author input before final public release
 
-- Create the `v1.3.0` GitHub release and fill the exact Zenodo version DOI
-  after Zenodo archives it.
+- Archive the corrected working tree as a new `v1.3.2` release and fill its
+  exact Zenodo version DOI. Do not reuse the `v1.3.1` exact DOI for changed files.
 - Add ORCID/affiliation if the author wants them in `CITATION.cff`.
 - Replace `Bo Xu and co-authors` with the final formal author list if required
   by the institution or journal production team.

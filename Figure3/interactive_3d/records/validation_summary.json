@@ -1,0 +1,22 @@
+{
+  "source_files_unchanged": true,
+  "coordinates_changed": false,
+  "A_points": 10332,
+  "B_points": 20000,
+  "source_sha256": {
+    "A": "c158e6b6421db8f30d8142b29362a2fbdfae9516e617277ca103ab29453be7f8",
+    "B": "9d96fd2a4f48fb9fd5c4a26ee9740223fa798ba4478608553b6ec708c9f613b4"
+  },
+  "rendered_outputs": [
+    "A_white_compact_volume_readable.png/.svg/.pdf",
+    "A_white_exploded_orthographic_readable.png/.svg/.pdf",
+    "A_white_each_layer_4x4_readable.png/.svg/.pdf",
+    "A_white_layer_resolved_readable_interactive.html"
+  ],
+  "axis_upgrade": {
+    "axis_color": "#16212B",
+    "grid_color": "#B7C0C9",
+    "axis_label_size_pt": 11.5,
+    "tick_size_pt": 10.0
+  }
+}

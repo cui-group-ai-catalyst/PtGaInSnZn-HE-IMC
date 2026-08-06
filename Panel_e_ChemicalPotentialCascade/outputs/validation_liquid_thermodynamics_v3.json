@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "liquid_model": "symmetric multicomponent regular solution",
+  "n_ws_convention": "stored values are n_WS^(1/3)",
+  "g_excess_formula": "sum_(i<j) Omega_ij*x_i*x_j",
+  "partial_molar_excess_formula": "sum_(j!=i) Omega_ij*x_j - G_excess",
+  "ga_in_omega_kJmol": -0.292339999999998,
+  "g_excess_kJmol": -0.05511689999999984,
+  "gibbs_duhem_euler_residual_kJmol": -1.3877787807814457e-17,
+  "max_csv_difference_kJmol": 0.0,
+  "reconstructed_delta_G_rxn_per_fu_kJmol": -150.54815,
+  "reported_delta_G_rxn_per_fu_kJmol": -150.5481,
+  "delta_G_identity_residual_kJmol": -4.999999998744897e-05
+}

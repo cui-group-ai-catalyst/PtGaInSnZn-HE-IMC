@@ -11,9 +11,9 @@ Default mode (no flags): post-processing only — read the shipped
 `data_FigF_TripleConsensus_Data.csv` (4-method consensus already computed)
 and regenerate the bar-chart PNG plus Origin-ready wide CSV.
 
-`--rerun-uma`: re-run the full UMA + Miedema pipeline from CIFs. Requires
-fairchem-core, ASE, and the local CIF tree which is NOT included in this
-release. This branch is preserved for archival reference only.
+`--rerun-uma`: re-run the UMA + Miedema pipeline from the bundled CIF tree.
+Requires fairchem-core, ASE, and the gated UMA-s-1p1 checkpoint documented in
+UMA_Checkpoint_Setup.md. Outputs use `_uma_regen` names.
 
 Canonical vs regen convention
 -----------------------------
@@ -188,19 +188,10 @@ def main_postprocess() -> None:
 
 
 def main_rerun_uma() -> None:
-    """Full UMA + Miedema rebuild from CIFs.
+    """Rebuild UMA values from bundled structures without overwriting canonical data."""
+    from script_FigF_Rerun_UMA import main
 
-    This branch requires fairchem-core, ASE, and the local CIF tree which
-    is not included in this release. Kept here for archival reference; if
-    you need to re-derive the consensus numbers from scratch, restore the
-    CIF inputs alongside this script and adapt the data paths below.
-    """
-    raise NotImplementedError(
-        "UMA rerun branch is not bundled with this release. "
-        "Restore the binary/element CIF tree and the original "
-        "this script with --rerun-uma to rebuild "
-        "data_FigF_TripleConsensus_Data.csv from scratch."
-    )
+    main()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
-pair,omega_per_atom_kJmol
-Ga-In,0.2825
-Ga-Sn,-6.3361
-Ga-Zn,1.0775
-In-Sn,-4.1213
-In-Zn,-0.5882
-Sn-Zn,-10.0091
+pair,omega_per_atom_kJmol,Omega_per_beta_site_kJmol,unit_relation
+Ga-In,0.2825,1.1299,omega_per_atom = Omega_per_beta_site / 4
+Ga-Sn,-6.3361,-25.3442,omega_per_atom = Omega_per_beta_site / 4
+Ga-Zn,1.0775,4.3099,omega_per_atom = Omega_per_beta_site / 4
+In-Sn,-4.1213,-16.4853,omega_per_atom = Omega_per_beta_site / 4
+In-Zn,-0.5882,-2.3529,omega_per_atom = Omega_per_beta_site / 4
+Sn-Zn,-10.0091,-40.0366,omega_per_atom = Omega_per_beta_site / 4

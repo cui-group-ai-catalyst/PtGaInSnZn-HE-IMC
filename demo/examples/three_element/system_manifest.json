@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "system_id": "synthetic_three_element_custom_manifest",
+  "status": "bounded-validation-demo",
+  "scientific_scope": "Software input-substitution test using deterministic synthetic tables; no material claim.",
+  "output_dir": "outputs",
+  "contract_catalog": "../../../experimental_extensions/module_contracts.json",
+  "claim_boundary": {
+    "software_configurability": "demonstrated_for_bundled_inputs",
+    "within_manifold_interpolation": "validated_internal",
+    "binary_energy_rank_consistency": "observed_reference_set",
+    "new_host_or_prototype_transferability": "not_evaluated",
+    "nonmetal_compound_transferability": "not_evaluated",
+    "synthesizability": "not_predicted"
+  },
+  "modules": [
+    {
+      "id": "renamed_composition_module",
+      "kind": "manifold_regression",
+      "enabled": true,
+      "config_path": "manifold_config.json"
+    },
+    {
+      "id": "renamed_backend_module",
+      "kind": "energy_backend_comparison",
+      "enabled": true,
+      "config": {
+        "input_csv": "backend_energies.csv",
+        "key_column": "Material",
+        "backends": [
+          {
+            "id": "reference_backend",
+            "label": "Reference backend",
+            "column": "reference_energy"
+          },
+          {
+            "id": "candidate_backend",
+            "label": "Candidate backend",
+            "column": "candidate_energy"
+          }
+        ],
+        "unit": "arbitrary energy unit",
+        "primary_metric": "spearman_rank_correlation",
+        "ranking_direction": "descending",
+        "top_k": 2,
+        "subsets": [
+          {
+            "id": "all_materials",
+            "expected_n": 5
+          }
+        ],
+        "interpretation": "Synthetic matched-column interface check.",
+        "limitation": "Deterministic synthetic data; no scientific material inference."
+      }
+    }
+  ]
+}

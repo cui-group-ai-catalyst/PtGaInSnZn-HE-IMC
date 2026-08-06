@@ -12,6 +12,9 @@ dependencies:
   - scipy=1.14.1
   - ase=3.22.1
   - pymatgen=2025.10.7
+  - scikit-image=0.24.0   # Figure 3 automated atom-column detection
+  - pillow=10.4.0        # Figure 3 reconstruction image handling
+  - plotly=5.24.1        # Figure 3i1 interactive 3-D HTML
   - pip:
     - fairchem-core==2.13.0
     - chgnet==0.4.0  # for SI Fig 3 three-method consensus (Miedema / UMA / CHGNet)

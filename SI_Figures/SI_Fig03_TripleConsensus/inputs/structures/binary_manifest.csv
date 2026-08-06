@@ -1,0 +1,16 @@
+Host,MP_ID,Formula,N_sites,Size_Pass,CIF_File,Source
+Au,mp-2776,Ga2Au,3,True,binaries\Au_Ga2Au_mp-2776.cif,Materials Project summary.structure localized on 2026-04-15
+Co,mp-20559,Ga3Co,16,True,binaries\Co_Ga3Co_mp-20559.cif,Materials Project summary.structure localized on 2026-04-15
+Cu,mp-1197621,Ga4Cu9,52,True,binaries\Cu_Ga4Cu9_mp-1197621.cif,Materials Project summary.structure localized on 2026-04-15
+Fe,mp-636368,Ga3Fe,16,True,binaries\Fe_Ga3Fe_mp-636368.cif,Materials Project summary.structure localized on 2026-04-15
+Ir,mp-1212680,Ga5Ir3,32,True,binaries\Ir_Ga5Ir3_mp-1212680.cif,Materials Project summary.structure localized on 2026-04-15
+Ni,mp-11397,Ga3Ni2,5,True,binaries\Ni_Ga3Ni2_mp-11397.cif,Materials Project summary.structure localized on 2026-04-15
+Os,mp-570844,Ga3Os,16,True,binaries\Os_Ga3Os_mp-570844.cif,Materials Project summary.structure localized on 2026-04-15
+Pd,mp-1078526,GaPd,8,True,binaries\Pd_GaPd_mp-1078526.cif,Materials Project summary.structure localized on 2026-04-15
+Pt,mp-1025551,GaPt,8,True,binaries\Pt_GaPt_mp-1025551.cif,Materials Project summary.structure localized on 2026-04-15
+Re,mp-1188393,Ga3Re,16,True,binaries\Re_Ga3Re_mp-1188393.cif,Materials Project summary.structure localized on 2026-04-15
+Rh,mp-2444,GaRh,2,True,binaries\Rh_GaRh_mp-2444.cif,Materials Project summary.structure localized on 2026-04-15
+Ru,mp-1072429,Ga2Ru,6,True,binaries\Ru_Ga2Ru_mp-1072429.cif,Materials Project summary.structure localized on 2026-04-15
+Ce,mp-2209,CeGa2,3,False,binaries\Ce_CeGa2_mp-2209.cif,Materials Project summary.structure localized on 2026-04-15
+La,mp-19839,LaGa2,3,False,binaries\La_LaGa2_mp-19839.cif,Materials Project summary.structure localized on 2026-04-15
+Y,mp-1914,YGa2,3,False,binaries\Y_YGa2_mp-1914.cif,Materials Project summary.structure localized on 2026-04-15

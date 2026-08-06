@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "provenance_mode": "measured_computational",
+  "model": "UMA-s-1p1",
+  "task_name": "oc20",
+  "checkpoint_file": "uma-s-1p1.pt",
+  "checkpoint_md5": "36a2f071350be0ee4c15e7ebdd16dde1",
+  "device": "cuda",
+  "selection_seed": 20260727,
+  "selection_mode": "all_symmetry_classes",
+  "n_ordered": 68,
+  "historical_anchor_energy_eV_atom": -4.945261025505408,
+  "raw_assignment_count": 2520,
+  "symmetry_class_count": 68,
+  "spglib_operation_count": 384,
+  "unique_b_sublattice_permutations": 48,
+  "energy_file": "data_FigC_OrderedAll68_Raw_UMA_Energies_sensitivity.csv",
+  "structure_manifest": "data_FigC_OrderedAll68_StructureManifest_sensitivity.csv"
+}

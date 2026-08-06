@@ -15,9 +15,10 @@ The package has two reproducibility levels:
   outputs from the bundled reference data for Figure 1a-f and Supplementary
   Figs. 2-4 / Supplementary Tables 2-3.
 - **From-scratch UMA energy calculations**: require the gated UMA-s-1p1
-  checkpoint and, for some archival branches, local structure inputs that are
-  not redistributed. These limits are disclosed in `UMA_Checkpoint_Setup.md`
-  and `Code_Availability_Notes.md`.
+  checkpoint. Panel c and Supplementary Fig. 3 now bundle their deterministic
+  structure-generation/CIF inputs and write machine-readable validation
+  reports. Other UMA-derived panels may remain table-level reproductions; see
+  `UMA_Checkpoint_Setup.md` and `Code_Availability_Notes.md`.
 
 ## 2. Install
 
@@ -71,6 +72,20 @@ The release audit ran the default scripts for Figure 1a-f, Supplementary
 Figs. 2-4, and Supplementary Tables 2-3 from the bundled inputs. All default
 scripts completed successfully in the tested local environment.
 
+The bundled 30+30 statistics and Panel d entropy model can be regenerated
+without loading UMA:
+
+```bash
+python Panel_c_OrderedVsDisordered/script_FigC_OrderedEnsemble_Analysis.py
+python Panel_c_OrderedVsDisordered/script_FigC_OrderedAll68_Sensitivity.py
+python Panel_d_GibbsCurveVsT/script_FigD_GibbsCurve_Ensemble.py
+python scripts/verify_release.py
+```
+
+To regenerate the ordered energies themselves, obtain the UMA checkpoint and
+run `script_FigC_OrderedEnsemble_Rerun_UMA.py --device cuda`. The optional
+`--n-ordered 68` path evaluates every symmetry-distinct B-sublattice class.
+
 ## 6. Which preview image should I inspect?
 
 Some folders contain both a canonical preview image and a `_regen` preview
@@ -96,10 +111,12 @@ Use this map when checking where each result comes from:
   `shared/data_periodic_table.py`; no external model.
 - **Figure 1b**: Miedema plus Hildebrand-Muggianu regular-solution mixing at
   500 K; no external model.
-- **Figure 1c**: bundled UMA-derived ordered/disordered reference CSVs; default
-  release script post-processes these data and does not download UMA.
-- **Figure 1d**: uses Figure 1c enthalpy summaries plus ideal configurational
-  entropy; no new model load in the default release path.
+- **Figure 1c**: historical 1+30 regression plus measured 30+30 ensemble and
+  exhaustive 68 ordered-class sensitivity artifacts. UMA reruns require the
+  separately obtained checkpoint.
+- **Figure 1d**: uses the measured 30 ordered and original 30 disordered
+  Figure 1c enthalpies plus ideal configurational-entropy bounds; it does not
+  load a new atomistic model.
 - **Figure 1e**: liquid term from Hildebrand/Miedema conventions plus a CEF fit
   to the bundled 165-point UMA landscape; default script reads bundled outputs.
 - **Figure 1f**: macroscopic-atom/Miedema solid-liquid interfacial-energy
@@ -107,8 +124,9 @@ Use this map when checking where each result comes from:
 - **Supplementary Fig. 2**: atomic-size mismatch plus corrected Miedema drive;
   no external model.
 - **Supplementary Fig. 3**: bundled Materials Project, UMA and CHGNet values;
-  default script re-plots bundled data. The archival `--rerun-uma` branch is
-  not a clean-reviewer path because it needs local structure inputs.
+  default mode re-plots bundled data. `--rerun-uma` now evaluates the bundled
+  15 binary and 16 elemental-reference CIFs, writes separate `_uma_regen`
+  outputs, and checks them against the canonical table.
 - **Supplementary Fig. 4**: bundled 165-point UMA-derived composition landscape;
   default script post-processes the bundled CSV.
 - **Supplementary Tables 2-3**: literature-anchored liquidus predictor using
@@ -150,7 +168,34 @@ Safety rules:
 - Treat `Third_Party_Model_and_Data_Notes.md` as the source of truth for
   external model/data attribution.
 
-## 9. Troubleshooting
+## 9. Bounded validation report
+
+Reviewers who prefer a single entry point can run:
+
+```bash
+python experimental_extensions/run_validation.py
+```
+
+This validates the external system manifest, reruns the complete-manifold CEF
+fit, non-endmember LOOCV, and Ga-count group holdout, and compares Materials
+Project DFT, UMA-s-1p1, and CHGNet on the bundled M-Ga binary reference set.
+The comparison exports pairwise RMSE, Spearman correlation, top-k overlap, and
+every ranking reversal. It then writes:
+
+```text
+experimental_extensions/outputs/system_validation/validation_results.json
+experimental_extensions/outputs/system_validation/validation_evidence.png
+experimental_extensions/outputs/system_validation/validation_evidence.pdf
+experimental_extensions/outputs/system_validation/evidence_report.html
+experimental_extensions/outputs/system_validation/evidence_report.pdf
+```
+
+The report intentionally states that new-host/prototype and N/O/S/P-compound
+transferability were not evaluated and that synthesizability is not predicted.
+The generic formulas and metric definitions are in
+`experimental_extensions/FORMULAS_AND_VALIDATION.md`.
+
+## 10. Troubleshooting
 
 - If `python` is not found, activate the conda environment first:
   `conda activate ptgainsnzn`.

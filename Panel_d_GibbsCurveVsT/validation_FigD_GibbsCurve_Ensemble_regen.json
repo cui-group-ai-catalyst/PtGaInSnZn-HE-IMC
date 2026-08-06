@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "provenance_mode": "measured_computational_plus_ideal_entropy_model",
+  "energy_protocol": "fixed-cell fixed-coordinate UMA-s-1p1 single-point",
+  "ordered": {
+    "n": 30,
+    "mean": -29.869287067848134,
+    "sd": 0.09541982499640667,
+    "sem": 0.01742119686124241,
+    "ci95_low": -29.904917416070177,
+    "ci95_high": -29.83365671962609,
+    "min": -30.011226611260007,
+    "max": -29.69569615406998
+  },
+  "disordered": {
+    "n": 30,
+    "mean": -13.964307015708304,
+    "sd": 2.262000488446505,
+    "sem": 0.4129828975366182,
+    "ci95_low": -14.808951879444049,
+    "ci95_high": -13.119662151972559,
+    "min": -19.95038435937494,
+    "max": -8.127691369374949
+  },
+  "entropy_disordered_kJ_mol_atom_K": 0.007557087699628868,
+  "entropy_ordered_Bmix_upper_bound_kJ_mol_atom_K": 0.0028815731608219895,
+  "gap_0K_kJ_mol_atom": 15.90498005213983,
+  "gap_0K_welch_ci95_kJ_mol_atom": [
+    15.05971421657143,
+    16.750245887708232
+  ],
+  "crossover_Bmix_K": 3401.760366720738,
+  "crossover_frozen_K": 2104.644101579095,
+  "interpretation_boundary": "Temperature curves add ideal configurational-entropy bounds to 0 K UMA ensemble means; they are not phonon-inclusive or directly sampled finite-temperature free energies."
+}

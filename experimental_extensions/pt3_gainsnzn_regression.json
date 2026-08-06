@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "system_id": "l12_pt3_gainsnzn_regression",
+  "status": "manuscript-regression-only",
+  "host": "Pt",
+  "prototype": "L12_A3B",
+  "mixing_elements": ["Ga", "In", "Sn", "Zn"],
+  "mixing_site_count": 8,
+  "count_columns": {
+    "Ga": "Ga_count",
+    "In": "In_count",
+    "Sn": "Sn_count",
+    "Zn": "Zn_count"
+  },
+  "composition_column": "Composition",
+  "energy_column": "ElementRef_Hf_kJ_mol",
+  "energy_unit": "kJ mol^-1 atom^-1",
+  "input_csv": "../SI_Figures/SI_Fig04_165CompositionLandscape/data_FigG_165_ElementReferenced_Hf.csv",
+  "output_dir": "outputs/pt3_gainsnzn_regression",
+  "require_complete_integer_manifold": true,
+  "group_holdout_element": "Ga",
+  "scientific_scope": "Interpolation inside the fixed L12-Pt3(Ga,In,Sn,Zn) representative-occupancy manifold only."
+}
+

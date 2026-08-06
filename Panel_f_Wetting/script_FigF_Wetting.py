@@ -30,8 +30,9 @@ This script writes its outputs under the `_regen` filename suffix and never
 overwrites the canonical manuscript-facing files
 (`data_FigF_Wetting_Ranked.csv` and `preview_FigF_Wetting.png`).
 
-- The `_regen` CSV is bit-identical to the bundled canonical CSV; this is
-  asserted by `scripts/verify_release.py`.
+- The `_regen` CSV preserves the canonical numerical columns and appends an
+  uncertainty-aware interpretation. The legacy binary `Status` column is
+  retained only for traceability.
 - The `_regen` PNG may differ visually from the bundled canonical PNG by a
   small amount. This is NOT random error and NOT a numerical regression.
   The bundled canonical PNG was rendered during manuscript finalization
@@ -54,6 +55,19 @@ import seaborn as sns
 from data_periodic_table import periodic_table_data
 
 # --- Pillar 2: The Enablers (Wetting / Interface Energy) ---
+
+GAMMA_SL_UNCERTAINTY_J_M2 = 0.20
+
+
+def classify_gamma_sl(gamma_sl):
+    """Classify the semi-quantitative screen using its stated uncertainty."""
+    lower = gamma_sl - GAMMA_SL_UNCERTAINTY_J_M2
+    upper = gamma_sl + GAMMA_SL_UNCERTAINTY_J_M2
+    if upper < 0:
+        return 'favourable'
+    if lower > 0:
+        return 'unfavourable'
+    return 'indeterminate'
 
 def calc_cocktail_properties():
     weights = {'Ga': 0.65, 'In': 0.20, 'Sn': 0.10, 'Zn': 0.05}
@@ -130,6 +144,7 @@ def calc_wetting_analysis():
         gamma_sl = Gamma_SL_geom + interaction_term
         
         status = 'Wets' if gamma_sl < 0 else 'Does Not Wet'
+        interpretation = classify_gamma_sl(gamma_sl)
         results.append({
             'Host': host,
             'Delta_H_mix': round(dH_mix_kj, 4),
@@ -137,7 +152,15 @@ def calc_wetting_analysis():
             'Gamma_SL_geom': round(Gamma_SL_geom, 6),
             'Gamma_SL_chem': round(interaction_term, 6),
             'Gamma_SL': round(gamma_sl, 6),
-            'Status': status
+            'Status': status,
+            'Gamma_SL_Uncertainty_J_m2': GAMMA_SL_UNCERTAINTY_J_M2,
+            'Gamma_SL_Lower_J_m2': round(
+                gamma_sl - GAMMA_SL_UNCERTAINTY_J_M2, 6
+            ),
+            'Gamma_SL_Upper_J_m2': round(
+                gamma_sl + GAMMA_SL_UNCERTAINTY_J_M2, 6
+            ),
+            'Interpretation': interpretation,
         })
         
     df = pd.DataFrame(results)
@@ -173,7 +196,12 @@ def plot_wetting(df):
     x = df['Delta_H_mix']
     y = df['Gamma_SL']
     
-    colors = ['red' if el == 'Pt' else 'blue' for el in df['Host']]
+    color_map = {
+        'favourable': '#1b7837',
+        'indeterminate': '#7f7f7f',
+        'unfavourable': '#b2182b',
+    }
+    colors = [color_map[value] for value in df['Interpretation']]
     sizes = [150 if el == 'Pt' else 60 for el in df['Host']]
     
     plt.scatter(x, y, c=colors, s=sizes, alpha=0.7, edgecolors='k')
@@ -261,23 +289,34 @@ def plot_wetting(df):
 
         plt.text(x_pos + dx, y_pos + dy, label, fontsize=font_size, fontweight=weight, ha=ha, va=va)
 
-    plt.axhline(0, color='green', linestyle='--', linewidth=2, label='Perfect Wetting Limit')
+    plt.axhspan(
+        -GAMMA_SL_UNCERTAINTY_J_M2,
+        GAMMA_SL_UNCERTAINTY_J_M2,
+        color='#d9d9d9',
+        alpha=0.45,
+        label=r'Indeterminate within $\pm$0.20 J m$^{-2}$',
+    )
+    plt.axhline(0, color='black', linestyle='--', linewidth=1.5,
+                label='Model sign crossover')
+    plt.axhline(-GAMMA_SL_UNCERTAINTY_J_M2, color='#1b7837',
+                linestyle=':', linewidth=1)
+    plt.axhline(GAMMA_SL_UNCERTAINTY_J_M2, color='#b2182b',
+                linestyle=':', linewidth=1)
     plt.axvline(0, color='black', linestyle='-', linewidth=1)
     
     x_max = max(abs(x.min()), abs(x.max())) * 1.15
     plt.xlim(-x_max, x_max)
     plt.ylim(bottom=min(-0.5, y.min() * 1.1), top=max(1.5, y.max()*1.1))
 
-    plt.title('Pillar 2: The Enabler - Wetting Analysis (Sparse & Merged Labels)', fontsize=14, fontweight='bold')
+    plt.title('Semi-quantitative solid-liquid interfacial screen', fontsize=14, fontweight='bold')
     plt.xlabel(r'Mixing enthalpy, $\Delta H_{mix}$ (kJ mol$^{-1}$)', fontsize=12, fontweight='bold')
     plt.ylabel(r'Solid-liquid interfacial free energy, $\gamma_{SL}$ (J m$^{-2}$)', fontsize=12, fontweight='bold')
     plt.legend()
     
-    plt.text(-x_max*0.8, -0.2, "Quadrant III\nSpontaneous Wetting\n(Pt Zone)", color='green', 
-             fontsize=10, fontweight='bold', bbox=dict(facecolor='white', alpha=0.8, edgecolor='green'))
-    
-    plt.text(x_max*0.5, 1.0, "Quadrant I\nNon-Wetting\n(Repulsive)", color='red', 
-             fontsize=10, fontweight='bold', bbox=dict(facecolor='white', alpha=0.8, edgecolor='red'))
+    plt.text(-x_max*0.80, -0.34, "Favourable within model uncertainty",
+             color='#1b7837', fontsize=9, fontweight='bold')
+    plt.text(x_max*0.30, 0.33, "Unfavourable within model uncertainty",
+             color='#b2182b', fontsize=9, fontweight='bold')
     
     plt.tight_layout()
     save_path = os.path.join(results_dir, "preview_FigF_Wetting_regen.png")

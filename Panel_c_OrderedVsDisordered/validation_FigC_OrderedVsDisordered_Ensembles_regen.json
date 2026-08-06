@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "provenance_mode": "measured_computational",
+  "energy_protocol": "fixed-cell fixed-coordinate UMA-s-1p1 single-point",
+  "ordered": {
+    "n": 30,
+    "mean": -29.86928706784822,
+    "sd": 0.09541982499640628,
+    "sem": 0.01742119686124234,
+    "ci95_low": -29.904917416070262,
+    "ci95_high": -29.833656719626177,
+    "min": -30.011226611260092,
+    "max": -29.69569615407007
+  },
+  "disordered": {
+    "n": 30,
+    "mean": -13.96430701570839,
+    "sd": 2.262000488446505,
+    "sem": 0.4129828975366182,
+    "ci95_low": -14.808951879444136,
+    "ci95_high": -13.119662151972646,
+    "min": -19.950384359375025,
+    "max": -8.127691369375034
+  },
+  "mean_gap_disordered_minus_ordered_kJ_mol_atom": 15.904980052139829,
+  "gap_sem_kJ_mol_atom": 0.41335018054649386,
+  "gap_welch_df": 29.10320921171649,
+  "gap_ci95_kJ_mol_atom": [
+    15.059714216571429,
+    16.75024588770823
+  ],
+  "nonoverlap_margin_kJ_mol_atom": 9.745311794695045,
+  "cohen_d_pooled": 9.935034225662642,
+  "historical_anchor_abs_difference_eV_atom": 4.000000330961484e-09
+}

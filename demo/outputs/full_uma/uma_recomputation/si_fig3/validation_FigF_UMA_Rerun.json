@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "model": "UMA-s-1p1",
+  "n_binary_structures": 15,
+  "n_element_reference_structures": 16,
+  "max_abs_differences": {
+    "UMA_Alloy_E_eV_atom": 0.0,
+    "UMA_ElementRef_E_eV_atom": 1.000000000139778e-06,
+    "UMA_Hf_kJ_mol_atom": 0.00010000000000331966
+  },
+  "tolerances": {
+    "energy_eV_atom": 1e-05,
+    "formation_enthalpy_kJ_mol_atom": 0.001
+  }
+}

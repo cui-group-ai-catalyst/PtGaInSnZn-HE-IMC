@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "system_id": "synthetic_three_element_demo",
+  "status": "test-only",
+  "host": "X",
+  "prototype": "custom_A3B",
+  "mixing_elements": ["A", "B", "C"],
+  "mixing_site_count": 4,
+  "count_columns": {
+    "A": "A_sites",
+    "B": "B_sites",
+    "C": "C_sites"
+  },
+  "energy_column": "custom_energy",
+  "energy_unit": "arbitrary energy unit",
+  "input_csv": "manifold_energies.csv",
+  "output_dir": "outputs",
+  "require_complete_integer_manifold": true,
+  "group_holdout_element": "B",
+  "scientific_scope": "Deterministic synthetic input-substitution test only."
+}

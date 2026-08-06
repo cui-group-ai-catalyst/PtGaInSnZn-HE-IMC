@@ -11,12 +11,18 @@ v3 changes vs v2
   data (script_B_mu_HEI_v3), replacing literature values.
 - Liquid side unchanged (script_A_mu_liquid_v3, same as v2).
 
-Per-element driving force (manuscript eq. 3, SI Table 1):
+Legacy element-resolved decomposition (manuscript eq. 3, SI Table 1):
     F_i = mu_i_source - mu_i_HEI       (kJ/mol per atom of species i)
         mu_i_source : Pt = 0 (SER); X = liquid cocktail chemical potential
         mu_i_HEI    : chemical potential of i inside the HEI (CEF fit, per atom)
 
-Total reaction Gibbs energy per formula unit (unchanged by this fix):
+The fixed-composition Pt3X energy manifold does not uniquely identify every
+absolute elemental mu_i. The F_i values are retained as an Euler-consistent
+reference-convention decomposition for manuscript regression. The total
+reaction energy below is the primary gauge-invariant thermodynamic result;
+beta-sublattice diffusion potentials are written by script_B_mu_HEI_v3.py.
+
+Total reaction Gibbs energy per formula unit (primary result):
     dG_rxn = 4*G_atom_HEI - Sum y_i * mu_i^L            (negative = spontaneous)
            = -Sum nu_i * F_i,    nu_Pt = 3,  nu_X = y_X (manuscript eq 3)
 
@@ -66,6 +72,10 @@ def main() -> None:
             "mu_HEI_per_atom_kJmol": round(end_pa, 4),
             "driving_force_per_atom_kJmol": round(F, 4),
             "driving_force_per_fu_kJmol": round(F * 4, 4),
+            "interpretation": (
+                "legacy Euler-consistent decomposition; not a unique absolute "
+                "elemental chemical potential"
+            ),
         })
 
     pt_start = mu_start["Pt"]
@@ -80,6 +90,10 @@ def main() -> None:
         "mu_HEI_per_atom_kJmol": round(pt_end, 4),
         "driving_force_per_atom_kJmol": round(F_Pt, 4),
         "driving_force_per_fu_kJmol": round(F_Pt * 4, 4),
+        "interpretation": (
+            "legacy Euler-consistent decomposition; not a unique absolute "
+            "elemental chemical potential"
+        ),
     })
     dmu_df = pd.DataFrame(dmu_rows)
 
@@ -93,7 +107,10 @@ def main() -> None:
         "delta_G_rxn_per_atom_kJmol": round(dG_rxn_atom, 4),
         "G_atom_HEI_kJmol": round(G_atom_HEI, 4),
         "sum_y_mu_L_kJmol": round(sum_y_mu_L, 4),
-        "notes": "delta_G_rxn<0 => spontaneous",
+        "notes": (
+            "delta_G_rxn<0 is thermodynamically favourable within the stated "
+            "model and reference states; kinetics and competing phases are not implied"
+        ),
     }
 
     tier_rows: list[dict] = []
@@ -131,6 +148,11 @@ def main() -> None:
     meta = {
         "script": "script_C_drive_force_v3.py",
         "convention": "per atom of f.u.; SER reference; 0K enthalpic",
+        "interpretation_priority": (
+            "delta_G_rxn is primary and gauge invariant within the model; "
+            "elementwise F_i is a reference-convention decomposition"
+        ),
+        "beta_diffusion_potentials": "beta_diffusion_potentials_v3_0K.csv",
         "data_sources": {
             "liquid": "script_A_mu_liquid_v3 (Miedema + CRC DH_fus)",
             "HEI": "script_B_mu_HEI_v3 (CEF fitted to Panel g 165 UMA points)",

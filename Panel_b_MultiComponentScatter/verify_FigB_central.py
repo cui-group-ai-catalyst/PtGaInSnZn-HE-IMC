@@ -24,11 +24,14 @@ later date it should target the central values printed here, modulo
 the Gaussian σ = 0.008 stoichiometric drift documented in Methods
 P51.
 
-Method (matches manuscript Methods eq. 1 and Methods P51)
----------------------------------------------------------
-* Composition: c_host = 0.25 (1 of 4 atoms in the Pt₃X formula unit),
-  c_X = 0.75 · y_X with y_Ga = 0.65, y_In = 0.20, y_Sn = 0.10,
-  y_Zn = 0.05.
+Method (matches manuscript Methods eq. 1 and the released Panel b anchor)
+----------------------------------------------------------------------------
+* Canonical screening composition: c_host = 0.25 and
+  c_X = 0.75 · y_X, with y_Ga = 0.65, y_In = 0.20, y_Sn = 0.10,
+  y_Zn = 0.05. This is the historical Panel b screening anchor; it is not
+  the A₃B/Pt₃X product stoichiometry.
+* A composition-sensitivity table also evaluates c_host = 0.75, which is the
+  A₃B host fraction, so the host ranking can be checked against this choice.
 * Binary Miedema (per Methods P47 eq. 1):
       ΔH_AB(50:50) = -P (Δφ*)² + Q (Δn_WS^(1/3))²,
       P = 14.1 kJ V⁻²,  Q = 9.4 kJ (d.u.)⁻²ᐟ³,
@@ -70,11 +73,11 @@ P_KJ_V2, Q_KJ_DU = 14.1, 9.4
 # Cocktail internal composition (Methods P51)
 Y_X = {"Ga": 0.65, "In": 0.20, "Sn": 0.10, "Zn": 0.05}
 
-# Host mole fraction at Pt3X stoichiometry: 3 host atoms out of 4 per f.u.
-C_HOST = 0.25      # NOTE: scatter-plot CSV uses dilute-host regime; the
-                   # manuscript's "most negative" ranking claim is on the
-                   # central A3B stoichiometric basis, which is what this
-                   # verifier uses.
+# Historical screening anchor used by the released Panel b data. This is not
+# the A3B/Pt3X product composition; that case has c_host = 0.75 and is tested
+# separately below.
+C_HOST = 0.25
+SENSITIVITY_C_HOST = (0.25, 0.75)
 
 # Cocktail-internal binary enthalpies (kJ/mol of average atoms at 50:50)
 # Literature-curated, identical to H_MIX_BINARY in script_SI_LiquidusPredictor.py
@@ -147,6 +150,45 @@ def main() -> None:
     print(f"\nVerification: Pt is rank #{int(pt['dH_rank'])} (most negative) — manuscript P18 claim holds.")
     print(f"  Pt cocktail dH_mix(c_host=0.25)  = {pt['dH_mix_kJmol']:+.3f} kJ/mol")
     print(f"  Pt cocktail dG_mix(500 K)        = {pt['dG_mix_500K_kJmol']:+.3f} kJ/mol")
+
+    sensitivity_rows = []
+    for c_host in SENSITIVITY_C_HOST:
+        for host in HOSTS:
+            dH, dG = mix_at_composition(host, c_host)
+            sensitivity_rows.append({
+                "Host": host,
+                "c_host": c_host,
+                "composition_role": (
+                    "historical_screening_anchor"
+                    if c_host == C_HOST else "A3B_host_fraction"
+                ),
+                "dH_mix_kJmol": dH,
+                "dG_mix_500K_kJmol": dG,
+            })
+    sensitivity = pd.DataFrame(sensitivity_rows)
+    sensitivity["dH_rank_within_composition"] = (
+        sensitivity.groupby("c_host")["dH_mix_kJmol"]
+        .rank(method="dense", ascending=True)
+        .astype(int)
+    )
+    sensitivity = sensitivity.sort_values(
+        ["c_host", "dH_rank_within_composition"]
+    )
+    sensitivity_out = HERE / "data_FigB_composition_sensitivity_regen.csv"
+    sensitivity.to_csv(sensitivity_out, index=False, float_format="%.6f")
+
+    for c_host in SENSITIVITY_C_HOST:
+        ranked = sensitivity[sensitivity["c_host"] == c_host]
+        pt_rank = int(
+            ranked.loc[ranked["Host"] == "Pt", "dH_rank_within_composition"].iloc[0]
+        )
+        assert pt_rank == 1, f"Pt is not rank #1 at c_host={c_host:.2f}"
+        top_five = ", ".join(ranked.head(5)["Host"])
+        print(
+            f"Sensitivity: c_host={c_host:.2f}, Pt rank #{pt_rank}; "
+            f"top five = {top_five}"
+        )
+    print(f"Wrote {sensitivity_out}")
 
 
 if __name__ == "__main__":

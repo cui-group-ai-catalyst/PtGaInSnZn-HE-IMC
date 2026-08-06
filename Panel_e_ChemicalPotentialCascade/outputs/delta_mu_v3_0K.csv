@@ -1,6 +1,6 @@
-element,sublattice,y_i,mu_start_liquid_kJmol,start_per_atom_kJmol,mu_HEI_per_atom_kJmol,driving_force_per_atom_kJmol,driving_force_per_fu_kJmol
-Ga,beta,0.65,5.568,5.568,-43.4296,48.9976,195.9904
-In,beta,0.2,3.041,3.041,-20.4952,23.5362,94.1448
-Sn,beta,0.1,6.983,6.983,-24.2309,31.2139,124.8556
-Zn,beta,0.05,7.298,7.298,-31.1968,38.4948,153.9792
-Pt,alpha,1.0,0.0,0.0,-36.3112,36.3112,145.2448
+element,sublattice,y_i,mu_start_liquid_kJmol,start_per_atom_kJmol,mu_HEI_per_atom_kJmol,driving_force_per_atom_kJmol,driving_force_per_fu_kJmol,interpretation
+Ga,beta,0.65,5.591,5.591,-43.4296,49.0206,196.0824,legacy Euler-consistent decomposition; not a unique absolute elemental chemical potential
+In,beta,0.2,3.045,3.045,-20.4952,23.5402,94.1608,legacy Euler-consistent decomposition; not a unique absolute elemental chemical potential
+Sn,beta,0.1,6.948,6.948,-24.2309,31.1789,124.7156,legacy Euler-consistent decomposition; not a unique absolute elemental chemical potential
+Zn,beta,0.05,7.308,7.308,-31.1968,38.5048,154.0192,legacy Euler-consistent decomposition; not a unique absolute elemental chemical potential
+Pt,alpha,1.0,0.0,0.0,-36.3112,36.3112,145.2448,legacy Euler-consistent decomposition; not a unique absolute elemental chemical potential

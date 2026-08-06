@@ -44,6 +44,11 @@ Outputs (all in ../outputs/)
   mu_HEI_v3_T_table.csv        SI temperature table
   omega_beta_subl_v3_fit.csv    Fitted Omega parameters + quality
   cef_fit_v3_quality.csv        R-squared, RMSE, parity data
+  beta_diffusion_potentials_v3_0K.csv
+                                Gauge-invariant beta-sublattice exchange
+                                potentials relative to Ga
+  beta_diffusion_potentials_v3_T_table.csv
+                                Temperature-dependent exchange potentials
   script_B_v3_meta.json
 
 Author: 2026-04-23 v3
@@ -181,6 +186,49 @@ def mu_HEI_per_atom(
     return rows
 
 
+def beta_diffusion_potentials(
+    rows: list[dict], reference: str = "Ga", T: float | None = None
+) -> list[dict]:
+    """Return gauge-invariant beta-site exchange potentials.
+
+    The fitted free energy is expressed per alloy atom, q(y). Because one
+    beta site occurs per four-atom Pt3X formula unit, an elemental exchange
+    chemical potential is
+
+        mu_i - mu_ref = 4 * (dq/dy_i - dq/dy_ref).
+
+    Absolute elemental chemical potentials cannot be identified uniquely
+    from the fixed-Pt3X composition manifold alone.
+    """
+    beta = {
+        row["element"]: float(row["mu_HEI_per_atom_kJmol"])
+        for row in rows
+        if row["sublattice"] == "beta"
+    }
+    if reference not in beta:
+        raise ValueError(f"Reference element {reference!r} is not on the beta sublattice")
+
+    output = []
+    for element in ELEMENTS:
+        normalized_difference = beta[element] - beta[reference]
+        row = {
+            "element": element,
+            "reference_element": reference,
+            "normalized_CEF_difference_kJmol_alloy_atom": round(
+                normalized_difference, 4
+            ),
+            "diffusion_potential_kJmol_element": round(
+                4.0 * normalized_difference, 4
+            ),
+            "definition": f"mu_{element} - mu_{reference}",
+            "gauge_invariant_within_fixed_Pt3X_manifold": True,
+        }
+        if T is not None:
+            row["T_K"] = T
+        output.append(row)
+    return output
+
+
 def main() -> None:
     csv_path = _resolve_data_csv()
     print(f"Reading 165-point data from:\n  {csv_path}\n")
@@ -205,12 +253,18 @@ def main() -> None:
 
     rows_0K = mu_HEI_per_atom(Y_BETA, h_end, omega, T=0.0)
     df_0K = pd.DataFrame(rows_0K)
+    diffusion_0K = pd.DataFrame(beta_diffusion_potentials(rows_0K, T=0.0))
 
     si_rows: list[dict] = []
+    diffusion_T_rows: list[dict] = []
     for T in SI_TEMPERATURES:
-        for r in mu_HEI_per_atom(Y_BETA, h_end, omega, float(T)):
+        rows_T = mu_HEI_per_atom(Y_BETA, h_end, omega, float(T))
+        for r in rows_T:
             r["T_K"] = T
             si_rows.append(r)
+        diffusion_T_rows.extend(
+            beta_diffusion_potentials(rows_T, T=float(T))
+        )
     df_T = pd.DataFrame(si_rows)
 
     out = Path(__file__).resolve().parent.parent / "outputs"
@@ -218,9 +272,24 @@ def main() -> None:
 
     df_0K.to_csv(out / "mu_HEI_v3_0K.csv", index=False, encoding="utf-8")
     df_T.to_csv(out / "mu_HEI_v3_T_table.csv", index=False, encoding="utf-8")
+    diffusion_0K.to_csv(
+        out / "beta_diffusion_potentials_v3_0K.csv",
+        index=False,
+        encoding="utf-8",
+    )
+    pd.DataFrame(diffusion_T_rows).to_csv(
+        out / "beta_diffusion_potentials_v3_T_table.csv",
+        index=False,
+        encoding="utf-8",
+    )
 
     fit_df = pd.DataFrame([
-        {"pair": f"{ei}-{ej}", "omega_per_atom_kJmol": round(float(omega[idx]), 4)}
+        {
+            "pair": f"{ei}-{ej}",
+            "omega_per_atom_kJmol": round(float(omega[idx]), 4),
+            "Omega_per_beta_site_kJmol": round(4.0 * float(omega[idx]), 4),
+            "unit_relation": "omega_per_atom = Omega_per_beta_site / 4",
+        }
         for idx, (ei, ej) in enumerate(PAIRS)
     ])
     fit_df.to_csv(out / "omega_beta_subl_v3_fit.csv", index=False, encoding="utf-8")
@@ -237,6 +306,16 @@ def main() -> None:
                               for idx, (ei, ej) in enumerate(PAIRS)},
         "fit_quality": quality,
         "composition_beta": Y_BETA,
+        "element_potential_identifiability": (
+            "The fixed-Pt3X manifold determines total G and beta-sublattice "
+            "diffusion potentials. Absolute element-resolved potentials require "
+            "an additional reference/gauge convention."
+        ),
+        "legacy_mu_output_convention": (
+            "Euler-consistent alloy-atom-normalized decomposition retained for "
+            "manuscript regression; do not interpret as unique absolute elemental mu."
+        ),
+        "diffusion_potential_output": "beta_diffusion_potentials_v3_0K.csv",
         "v3_change": ("End-member ?H_f from UMA 165-pt data, "
                        "Omega_ij from least-squares CEF fit (replaces literature + Miedema)"),
         "convention": "per atom of f.u. (alloy per-atom basis)",
@@ -251,6 +330,8 @@ def main() -> None:
                   "h_endmember_per_atom_kJmol",
                   "excess_per_atom_kJmol",
                   "mu_HEI_per_atom_kJmol", "note"]].to_string(index=False))
+    print("\nGauge-invariant beta-sublattice diffusion potentials")
+    print(diffusion_0K.to_string(index=False))
     print(f"\nOutputs -> {out}")
 
 

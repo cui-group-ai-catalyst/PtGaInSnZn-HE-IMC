@@ -1,0 +1,6 @@
+Material,reference_backend_value,reference_backend_rank,candidate_backend_value,candidate_backend_rank
+m1,5.0,1.0,5.1,1.0
+m2,4.0,2.0,3.8,2.0
+m3,3.0,3.0,3.2,3.0
+m4,2.0,4.0,1.9,4.0
+m5,1.0,5.0,1.2,5.0

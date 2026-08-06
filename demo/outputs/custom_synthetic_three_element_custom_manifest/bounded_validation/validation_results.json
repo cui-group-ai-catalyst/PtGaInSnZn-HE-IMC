@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "system_id": "synthetic_three_element_custom_manifest",
+  "scientific_scope": "Software input-substitution test using deterministic synthetic tables; no material claim.",
+  "overall_status": "passed",
+  "claim_boundary": {
+    "software_configurability": "demonstrated_for_bundled_inputs",
+    "within_manifold_interpolation": "validated_internal",
+    "binary_energy_rank_consistency": "observed_reference_set",
+    "new_host_or_prototype_transferability": "not_evaluated",
+    "nonmetal_compound_transferability": "not_evaluated",
+    "synthesizability": "not_predicted"
+  },
+  "modules": {
+    "renamed_composition_module": {
+      "kind": "manifold_regression",
+      "status": "passed",
+      "result": {
+        "system_id": "synthetic_three_element_demo",
+        "status": "test-only",
+        "host": "X",
+        "prototype": "custom_A3B",
+        "energy_unit": "arbitrary energy unit",
+        "mixing_elements": [
+          "A",
+          "B",
+          "C"
+        ],
+        "mixing_site_count": 4,
+        "n_compositions": 15,
+        "expected_complete_manifold_rows": 15,
+        "n_pair_parameters": 3,
+        "design_rank": 3,
+        "design_condition_number": 1.2983506020002014,
+        "training_R2": 1.0,
+        "training_metrics": {
+          "RMSE": 0.0,
+          "MAE": 0.0,
+          "max_abs_error": 0.0
+        },
+        "endmember_only_nonendmember_metrics": {
+          "RMSE": 0.1257788237343631,
+          "MAE": 0.11979166666666663,
+          "max_abs_error": 0.19999999999999996
+        },
+        "nonendmember_LOOCV_metrics": {
+          "RMSE": 1.4332917616497527e-16,
+          "MAE": 5.551115123125783e-17,
+          "max_abs_error": 4.440892098500626e-16
+        },
+        "group_holdout": {
+          "element": "B",
+          "n_groups": 4,
+          "RMSE_min": 0.0,
+          "RMSE_max": 3.8459253727671276e-16,
+          "RMSE_mean": 1.5165928555043602e-16
+        },
+        "scientific_scope": "Deterministic synthetic input-substitution test only.",
+        "transferability_claim": "none"
+      }
+    },
+    "renamed_backend_module": {
+      "kind": "energy_backend_comparison",
+      "status": "passed",
+      "result": {
+        "module_id": "renamed_backend_module",
+        "status": "passed",
+        "backends": [
+          {
+            "id": "reference_backend",
+            "label": "Reference backend",
+            "column": "reference_energy"
+          },
+          {
+            "id": "candidate_backend",
+            "label": "Candidate backend",
+            "column": "candidate_energy"
+          }
+        ],
+        "key_column": "Material",
+        "unit": "arbitrary energy unit",
+        "ranking_direction": "descending",
+        "primary_metric": "spearman_rank_correlation",
+        "pairwise_results": [
+          {
+            "subset_id": "all_materials",
+            "pair_id": "reference_backend__candidate_backend",
+            "left_backend": "reference_backend",
+            "right_backend": "candidate_backend",
+            "n": 5,
+            "spearman_rho": 0.9999999999999999,
+            "pearson_r": 0.9935270994574197,
+            "RMSE": 0.16733200530681516,
+            "MAE": 0.16,
+            "bias_right_minus_left": 0.039999999999999904,
+            "top_k": 2,
+            "top_k_overlap_count": 2,
+            "top_k_jaccard": 1.0,
+            "top_k_overlap": [
+              "m1",
+              "m2"
+            ],
+            "ranking_reversals": 0,
+            "comparable_item_pairs": 10,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.0
+          }
+        ],
+        "ranking_rows": [
+          {
+            "Material": "m1",
+            "reference_backend_value": 5.0,
+            "reference_backend_rank": 1.0,
+            "candidate_backend_value": 5.1,
+            "candidate_backend_rank": 1.0
+          },
+          {
+            "Material": "m2",
+            "reference_backend_value": 4.0,
+            "reference_backend_rank": 2.0,
+            "candidate_backend_value": 3.8,
+            "candidate_backend_rank": 2.0
+          },
+          {
+            "Material": "m3",
+            "reference_backend_value": 3.0,
+            "reference_backend_rank": 3.0,
+            "candidate_backend_value": 3.2,
+            "candidate_backend_rank": 3.0
+          },
+          {
+            "Material": "m4",
+            "reference_backend_value": 2.0,
+            "reference_backend_rank": 4.0,
+            "candidate_backend_value": 1.9,
+            "candidate_backend_rank": 4.0
+          },
+          {
+            "Material": "m5",
+            "reference_backend_value": 1.0,
+            "reference_backend_rank": 5.0,
+            "candidate_backend_value": 1.2,
+            "candidate_backend_rank": 5.0
+          }
+        ],
+        "interpretation": "Synthetic matched-column interface check.",
+        "limitation": "Deterministic synthetic data; no scientific material inference.",
+        "transferability_claim": "none"
+      }
+    }
+  },
+  "scientific_transferability_claim": "none",
+  "artifacts": {
+    "machine_readable": "validation_results.json",
+    "si_figure_png": "validation_evidence.png",
+    "si_figure_pdf": "validation_evidence.pdf",
+    "reviewer_report_html": "evidence_report.html",
+    "reviewer_report_pdf": "evidence_report.pdf"
+  }
+}

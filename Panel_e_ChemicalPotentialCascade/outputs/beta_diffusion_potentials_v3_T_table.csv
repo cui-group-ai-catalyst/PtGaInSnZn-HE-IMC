@@ -1,0 +1,17 @@
+element,reference_element,normalized_CEF_difference_kJmol_alloy_atom,diffusion_potential_kJmol_element,definition,gauge_invariant_within_fixed_Pt3X_manifold,T_K
+Ga,Ga,0.0,0.0,mu_Ga - mu_Ga,True,300.0
+In,Ga,22.1994,88.7976,mu_In - mu_Ga,True,300.0
+Sn,Ga,18.0314,72.1256,mu_Sn - mu_Ga,True,300.0
+Zn,Ga,10.6333,42.5332,mu_Zn - mu_Ga,True,300.0
+Ga,Ga,0.0,0.0,mu_Ga - mu_Ga,True,800.0
+In,Ga,20.9744,83.8976,mu_In - mu_Ga,True,800.0
+Sn,Ga,16.086,64.344,mu_Sn - mu_Ga,True,800.0
+Zn,Ga,7.9675,31.87,mu_Zn - mu_Ga,True,800.0
+Ga,Ga,0.0,0.0,mu_Ga - mu_Ga,True,1000.0
+In,Ga,20.4844,81.9376,mu_In - mu_Ga,True,1000.0
+Sn,Ga,15.3079,61.2316,mu_Sn - mu_Ga,True,1000.0
+Zn,Ga,6.9012,27.6048,mu_Zn - mu_Ga,True,1000.0
+Ga,Ga,0.0,0.0,mu_Ga - mu_Ga,True,1200.0
+In,Ga,19.9944,79.9776,mu_In - mu_Ga,True,1200.0
+Sn,Ga,14.5298,58.1192,mu_Sn - mu_Ga,True,1200.0
+Zn,Ga,5.8349,23.3396,mu_Zn - mu_Ga,True,1200.0

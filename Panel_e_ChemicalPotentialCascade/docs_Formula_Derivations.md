@@ -4,6 +4,15 @@
 **Purpose**: 对 SI 化学势计算所用的每一个公式, 给出 **原始文献 + 方程号 + 逐步推导 + 物理假设 + 本体系适用性 + 可能失效边界**。本文件是回应审稿人 "为什么你们的解析路径比原方案可靠" 质疑的**逐点证据表**。
 **Status**: Draft v1, 方法论 Methods 章节可直接引用
 
+> **2026-07-22 audit note:** This is a historical working memo, not a
+> submission-ready SI section. Statements of strict Widom equivalence,
+> universal elementwise driving-force criteria, and fixed numerical error
+> bounds require independent validation and must not be quoted as established
+> results. The current code evidence supports a semi-quantitative liquid
+> screen, a fixed-manifold CEF interpolation, gauge-invariant β-sublattice
+> diffusion potentials, and the total reaction energy under stated reference
+> conventions.
+
 ---
 
 ## 0. 方法论总纲 — 为什么解析路径在本问题上合法
@@ -248,6 +257,11 @@ $$\boxed{G^{\text{HEI}}(T, \mathbf{y}) = \sum_i y_i \Delta G_f^{\text{Pt}_3 X_i}
 
 系数 0.25 来自"只有 1/4 子晶格参与混合熵和相互作用"。
 
+**代码单位约定:** `script_B_mu_HEI_v3.py` 直接拟合每合金原子的
+$\omega_{ij}^{\mathrm{atom}}$，因此代码中的超额项写为
+$\sum_{i<j}\omega_{ij}^{\mathrm{atom}}y_i y_j$。与上式每 β 位点参数的关系为
+$\omega_{ij}^{\mathrm{atom}}=\Omega_{ij}^{\mathrm{sub}}/4$。两套参数不得混用。
+
 ### 6.2 原始文献
 
 - **M. Hillert, L.-I. Staffansson, *"The Regular Solution Model for Stoichiometric Phases and Ionic Melts"*, Acta Chem. Scand. **24**, 3618–3626 (1970)**, Eq. 10 (奠基)
@@ -290,11 +304,19 @@ L1₂ 结构 (AuCu₃ 型) 的两个子晶格:
 
 **理论基础**: Saunders-Miodownik 1998 §5.4 指出固相 Ω 需独立拟合, Miedema-style 公式仅适用液相近似。
 
-### 6.6 对 Pt 的处理
+### 6.6 可识别量、参考规范与 Pt 的处理
 
-Pt 占 α 子晶格 (100% 占据), 其 μ_Pt^HEI **不受 β 子晶格混合影响**, 故:
-$$\mu_{\text{Pt}}^{\text{HEI}}(T, \mathbf{y}) \approx \sum_i y_i \cdot \mu_{\text{Pt}}^{\text{Pt}_3 X_i, \text{endpoint}}(T)$$
-这是 "平均端点" 近似, 误差 < 1 kJ/mol (Pt 对 β 子晶格配置的二阶敏感度小), 见 Hillert 2001 §5。
+165 点数据都位于固定 $x_{\mathrm{Pt}}=3/4$ 的 Pt₃X 组成超平面。因此该流形可以直接确定
+$G(\mathbf y)$ 以及 β 子晶格上的切向导数，但不能仅凭这些点唯一确定五个绝对元素化学势。
+对任意 β 元素 $i$ 和参考元素 $r$，可识别的规范不变量为
+
+$$\mu_i-\mu_r=4\left(\frac{\partial g_{\mathrm{atom}}}{\partial y_i}-
+\frac{\partial g_{\mathrm{atom}}}{\partial y_r}\right).$$
+
+系数 4 来自每个 Pt₃X 公式单元含四个原子、一个 β 位点。代码另行输出这些扩散势。
+现有 `mu_HEI_v3_0K.csv` 采用 $\mu_{\mathrm{Pt}}=g_{\mathrm{atom}}$ 的 Euler 一致历史规范，
+用于保持图表回归；其逐元素绝对值不是由固定组成流形唯一决定的。总产物自由能和总反应
+$\Delta G_{\mathrm{rxn}}$ 不受这一分解规范影响。
 
 ---
 
@@ -444,7 +466,13 @@ $N = 1000 \Rightarrow \text{SE} \approx 0.03 \sigma$, 即 0.1 kJ/mol, 远小于�
 
 ### 11.1 公式
 
-$$\boxed{\text{HEI 是热力学汇} \iff \forall i \in \{Pt, Ga, In, Sn, Zn\}: \Delta\mu_i(T) > 0 \text{ 在 } T \in [1000, 1200]\,\text{K}}$$
+对本文写出的定化学计量反应，模型内可直接检验的量是
+
+$$\boxed{\Delta G_{\mathrm{rxn}}=G_{\mathrm{Pt_3X}}-
+\left(3\mu_{\mathrm{Pt}}^{\mathrm{source}}+\sum_i y_i\mu_i^{\mathrm{source}}\right)}.$$
+
+$\Delta G_{\mathrm{rxn}}<0$ 表示该反应在所选参考态和模型内热力学有利；它不等价于动力学可达，
+也不排除未纳入的竞争相。
 
 ### 11.2 依据
 
@@ -452,17 +480,16 @@ $$\boxed{\text{HEI 是热力学汇} \iff \forall i \in \{Pt, Ga, In, Sn, Zn\}: \
 - 非平衡热力学: **S. R. de Groot, P. Mazur, *Non-Equilibrium Thermodynamics*, Dover (1984), Ch. III** — 反应方向判据
 - 多元反应驱动力: Prigogine, *Introduction to Thermodynamics of Irreversible Processes*, 3rd ed., Wiley (1967), Ch. 2
 
-数学上反应 $\sum \nu_i A_i \to 0$ 的驱动力 $\mathcal{A} = -\sum \nu_i \mu_i$, 对**单相反应**判据 $\mathcal{A} > 0$ 即可。但本 SI 是 **多相反应** (液 + 固 Pt → HEI), 每个元素有不同起点相, 故必须**分元素**:
+数学上反应 $\sum_i \nu_i A_i=0$ 的亲和力为
+$\mathcal A=-\sum_i\nu_i\mu_i$。若要讨论单个元素跨界面传输，则必须额外指定独立元素库、
+界面状态或完整相平衡模型。固定 Pt₃X 流形给出的 β 子晶格扩散势可比较元素间交换倾向，
+但不足以证明每个元素都具有独立且唯一的正向传输驱动力。
 
-$$\forall i: \mu_i^{\text{source}_i} > \mu_i^{\text{HEI}}$$
+### 11.3 结论边界
 
-缺任一元素 → 该元素拒绝进 HEI → HEI 不能形成正化学计量 L1₂ → 会析杂相或 HEA。
-
-### 11.3 为什么不看总 ΔG
-
-**反直觉但关键**: 即便总 $\Delta G_{\text{rxn}} = \sum \nu_i \mu_i < 0$, 若某元素 $\Delta\mu_k < 0$ 但 $|\nu_k|$ 小, 总 ΔG 仍可能负——**但元素 k 会留在液相**, 产物相分离。
-
-参考: 多元系统"Phase Rule" 分析, Hillert 2008 Ch. 10。
+因此本文应把总 $\Delta G_{\mathrm{rxn}}$ 作为定化学计量反应的主要结果，把 β 子晶格扩散势作为
+组成响应信息，并把旧的逐元素瀑布图明确标记为参考规范下的分解。是否残留液相、析出杂相或达到
+目标 L1₂ 结构，还需要竞争相、界面和动力学证据共同判断。
 
 ---
 

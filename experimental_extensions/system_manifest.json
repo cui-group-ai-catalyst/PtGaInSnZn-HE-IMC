@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "system_id": "pt3_gainsnzn_bounded_validation",
+  "status": "bounded-validation-demo",
+  "scientific_scope": "Software configuration, interpolation inside the fixed L12-Pt3(Ga,In,Sn,Zn) representative-occupancy manifold, and rank consistency on the bundled M-Ga binary reference set.",
+  "output_dir": "outputs/system_validation",
+  "contract_catalog": "module_contracts.json",
+  "claim_boundary": {
+    "software_configurability": "demonstrated_for_bundled_inputs",
+    "within_manifold_interpolation": "validated_internal",
+    "binary_energy_rank_consistency": "observed_reference_set",
+    "new_host_or_prototype_transferability": "not_evaluated",
+    "nonmetal_compound_transferability": "not_evaluated",
+    "synthesizability": "not_predicted"
+  },
+  "modules": [
+    {
+      "id": "fixed_l12_manifold",
+      "kind": "manifold_regression",
+      "enabled": true,
+      "config_path": "pt3_gainsnzn_regression.json"
+    },
+    {
+      "id": "uma_mp_dft_binary_rank",
+      "kind": "energy_backend_comparison",
+      "enabled": true,
+      "config": {
+        "input_csv": "../SI_Figures/SI_Fig03_TripleConsensus/data_FigF_TripleConsensus_Data.csv",
+        "key_column": "Host",
+        "backends": [
+          {
+            "id": "mp_dft",
+            "label": "Materials Project DFT",
+            "column": "MP_DFT_abs_Hf_kJ_mol_atom"
+          },
+          {
+            "id": "uma_s_1p1",
+            "label": "UMA-s-1p1",
+            "column": "UMA_abs_Hf_kJ_mol_atom"
+          },
+          {
+            "id": "chgnet",
+            "label": "CHGNet",
+            "column": "CHGNet_abs_Hf_kJ_mol_atom"
+          }
+        ],
+        "unit": "kJ mol^-1 atom^-1",
+        "primary_metric": "spearman_rank_correlation",
+        "ranking_direction": "descending",
+        "top_k": 5,
+        "subsets": [
+          {
+            "id": "all_hosts",
+            "expected_n": 15,
+            "expected_spearman_rho": {
+              "mp_dft__uma_s_1p1": 0.8679,
+              "mp_dft__chgnet": 0.9500,
+              "uma_s_1p1__chgnet": 0.9036
+            },
+            "tolerance": 0.0001
+          },
+          {
+            "id": "size_compatible_hosts",
+            "filter": {"column": "Size_Pass", "equals": true},
+            "expected_n": 12,
+            "expected_spearman_rho": {
+              "mp_dft__uma_s_1p1": 0.9510
+            },
+            "tolerance": 0.0001
+          }
+        ],
+        "interpretation": "Pairwise agreement of binary M-Ga formation-enthalpy rankings on the bundled reference structures.",
+        "limitation": "This is a heterogeneous binary reference-set consistency check, not a direct accuracy validation of the five-component energy landscape or a synthesis-success test."
+      }
+    }
+  ]
+}

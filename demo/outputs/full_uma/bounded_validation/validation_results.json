@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "system_id": "pt3_gainsnzn_bounded_validation",
+  "scientific_scope": "Software configuration, interpolation inside the fixed L12-Pt3(Ga,In,Sn,Zn) representative-occupancy manifold, and rank consistency on the bundled M-Ga binary reference set.",
+  "overall_status": "passed",
+  "claim_boundary": {
+    "software_configurability": "demonstrated_for_bundled_inputs",
+    "within_manifold_interpolation": "validated_internal",
+    "binary_energy_rank_consistency": "observed_reference_set",
+    "new_host_or_prototype_transferability": "not_evaluated",
+    "nonmetal_compound_transferability": "not_evaluated",
+    "synthesizability": "not_predicted"
+  },
+  "modules": {
+    "fixed_l12_manifold": {
+      "kind": "manifold_regression",
+      "status": "passed",
+      "result": {
+        "system_id": "l12_pt3_gainsnzn_regression",
+        "status": "manuscript-regression-only",
+        "host": "Pt",
+        "prototype": "L12_A3B",
+        "energy_unit": "kJ mol^-1 atom^-1",
+        "mixing_elements": [
+          "Ga",
+          "In",
+          "Sn",
+          "Zn"
+        ],
+        "mixing_site_count": 8,
+        "n_compositions": 165,
+        "expected_complete_manifold_rows": 165,
+        "n_pair_parameters": 6,
+        "design_rank": 6,
+        "design_condition_number": 2.218800784900917,
+        "training_R2": 0.9992773421034635,
+        "training_metrics": {
+          "RMSE": 0.13582112732478216,
+          "MAE": 0.09777413809550069,
+          "max_abs_error": 0.5602699125757589
+        },
+        "endmember_only_nonendmember_metrics": {
+          "RMSE": 1.1365209539974888,
+          "MAE": 0.9214911164596272,
+          "max_abs_error": 2.4430484999999997
+        },
+        "nonendmember_LOOCV_metrics": {
+          "RMSE": 0.14225046715799528,
+          "MAE": 0.10396536352383957,
+          "max_abs_error": 0.5704868762394391
+        },
+        "group_holdout": {
+          "element": "Ga",
+          "n_groups": 8,
+          "RMSE_min": 0.07180603344096442,
+          "RMSE_max": 0.23196219085891873,
+          "RMSE_mean": 0.11430412418515826
+        },
+        "scientific_scope": "Interpolation inside the fixed L12-Pt3(Ga,In,Sn,Zn) representative-occupancy manifold only.",
+        "transferability_claim": "none"
+      }
+    },
+    "uma_mp_dft_binary_rank": {
+      "kind": "energy_backend_comparison",
+      "status": "passed",
+      "result": {
+        "module_id": "uma_mp_dft_binary_rank",
+        "status": "passed",
+        "backends": [
+          {
+            "id": "mp_dft",
+            "label": "Materials Project DFT",
+            "column": "MP_DFT_abs_Hf_kJ_mol_atom"
+          },
+          {
+            "id": "uma_s_1p1",
+            "label": "UMA-s-1p1",
+            "column": "UMA_abs_Hf_kJ_mol_atom"
+          },
+          {
+            "id": "chgnet",
+            "label": "CHGNet",
+            "column": "CHGNet_abs_Hf_kJ_mol_atom"
+          }
+        ],
+        "key_column": "Host",
+        "unit": "kJ mol^-1 atom^-1",
+        "ranking_direction": "descending",
+        "primary_metric": "spearman_rank_correlation",
+        "pairwise_results": [
+          {
+            "subset_id": "all_hosts",
+            "pair_id": "mp_dft__uma_s_1p1",
+            "left_backend": "mp_dft",
+            "right_backend": "uma_s_1p1",
+            "n": 15,
+            "spearman_rho": 0.8678571428571429,
+            "pearson_r": 0.888107459268379,
+            "RMSE": 10.483849496344364,
+            "MAE": 6.652113333333332,
+            "bias_right_minus_left": -1.258953333333334,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "top_k_overlap": [
+              "La",
+              "Pd",
+              "Rh",
+              "Y"
+            ],
+            "ranking_reversals": 15,
+            "comparable_item_pairs": 105,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.14285714285714285
+          },
+          {
+            "subset_id": "all_hosts",
+            "pair_id": "mp_dft__chgnet",
+            "left_backend": "mp_dft",
+            "right_backend": "chgnet",
+            "n": 15,
+            "spearman_rho": 0.95,
+            "pearson_r": 0.9775896715545105,
+            "RMSE": 6.062753824514621,
+            "MAE": 4.943073333333333,
+            "bias_right_minus_left": -3.8697133333333347,
+            "top_k": 5,
+            "top_k_overlap_count": 5,
+            "top_k_jaccard": 1.0,
+            "top_k_overlap": [
+              "Ce",
+              "La",
+              "Pd",
+              "Rh",
+              "Y"
+            ],
+            "ranking_reversals": 8,
+            "comparable_item_pairs": 105,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.0761904761904762
+          },
+          {
+            "subset_id": "all_hosts",
+            "pair_id": "uma_s_1p1__chgnet",
+            "left_backend": "uma_s_1p1",
+            "right_backend": "chgnet",
+            "n": 15,
+            "spearman_rho": 0.9035714285714285,
+            "pearson_r": 0.9266413674179843,
+            "RMSE": 8.841319868662145,
+            "MAE": 7.124546666666666,
+            "bias_right_minus_left": -2.61076,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "top_k_overlap": [
+              "La",
+              "Pd",
+              "Rh",
+              "Y"
+            ],
+            "ranking_reversals": 13,
+            "comparable_item_pairs": 105,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.12380952380952381
+          },
+          {
+            "subset_id": "size_compatible_hosts",
+            "pair_id": "mp_dft__uma_s_1p1",
+            "left_backend": "mp_dft",
+            "right_backend": "uma_s_1p1",
+            "n": 12,
+            "spearman_rho": 0.9510489510489512,
+            "pearson_r": 0.9615484077973601,
+            "RMSE": 5.966177336522383,
+            "MAE": 4.020324999999999,
+            "bias_right_minus_left": 2.721124999999999,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "top_k_overlap": [
+              "Ir",
+              "Pd",
+              "Pt",
+              "Rh"
+            ],
+            "ranking_reversals": 5,
+            "comparable_item_pairs": 66,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.07575757575757576
+          },
+          {
+            "subset_id": "size_compatible_hosts",
+            "pair_id": "mp_dft__chgnet",
+            "left_backend": "mp_dft",
+            "right_backend": "chgnet",
+            "n": 12,
+            "spearman_rho": 0.9370629370629372,
+            "pearson_r": 0.975769128421444,
+            "RMSE": 5.444194395944486,
+            "MAE": 4.397775000000001,
+            "bias_right_minus_left": -3.3634416666666684,
+            "top_k": 5,
+            "top_k_overlap_count": 5,
+            "top_k_jaccard": 1.0,
+            "top_k_overlap": [
+              "Ir",
+              "Pd",
+              "Pt",
+              "Rh",
+              "Ru"
+            ],
+            "ranking_reversals": 5,
+            "comparable_item_pairs": 66,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.07575757575757576
+          },
+          {
+            "subset_id": "size_compatible_hosts",
+            "pair_id": "uma_s_1p1__chgnet",
+            "left_backend": "uma_s_1p1",
+            "right_backend": "chgnet",
+            "n": 12,
+            "spearman_rho": 0.9720279720279721,
+            "pearson_r": 0.9706632707585607,
+            "RMSE": 7.707814998104197,
+            "MAE": 6.084566666666667,
+            "bias_right_minus_left": -6.084566666666667,
+            "top_k": 5,
+            "top_k_overlap_count": 4,
+            "top_k_jaccard": 0.6666666666666666,
+            "top_k_overlap": [
+              "Ir",
+              "Pd",
+              "Pt",
+              "Rh"
+            ],
+            "ranking_reversals": 4,
+            "comparable_item_pairs": 66,
+            "tied_item_pairs": 0,
+            "ranking_reversal_fraction": 0.06060606060606061
+          }
+        ],
+        "ranking_rows": [
+          {
+            "Host": "Rh",
+            "mp_dft_value": 65.6059,
+            "mp_dft_rank": 3.0,
+            "uma_s_1p1_value": 67.6809,
+            "uma_s_1p1_rank": 1.0,
+            "chgnet_value": 65.8354,
+            "chgnet_rank": 2.0
+          },
+          {
+            "Host": "Pd",
+            "mp_dft_value": 63.9356,
+            "mp_dft_rank": 4.0,
+            "uma_s_1p1_value": 65.0768,
+            "uma_s_1p1_rank": 2.0,
+            "chgnet_value": 59.8459,
+            "chgnet_rank": 5.0
+          },
+          {
+            "Host": "Pt",
+            "mp_dft_value": 60.7844,
+            "mp_dft_rank": 6.0,
+            "uma_s_1p1_value": 64.3311,
+            "uma_s_1p1_rank": 3.0,
+            "chgnet_value": 59.8283,
+            "chgnet_rank": 6.0
+          },
+          {
+            "Host": "Ir",
+            "mp_dft_value": 51.7696,
+            "mp_dft_rank": 7.0,
+            "uma_s_1p1_value": 47.9853,
+            "uma_s_1p1_rank": 6.0,
+            "chgnet_value": 44.4989,
+            "chgnet_rank": 7.0
+          },
+          {
+            "Host": "La",
+            "mp_dft_value": 79.6986,
+            "mp_dft_rank": 1.0,
+            "uma_s_1p1_value": 54.122,
+            "uma_s_1p1_rank": 5.0,
+            "chgnet_value": 69.04,
+            "chgnet_rank": 1.0
+          },
+          {
+            "Host": "Ce",
+            "mp_dft_value": 69.8312,
+            "mp_dft_rank": 2.0,
+            "uma_s_1p1_value": 46.1182,
+            "uma_s_1p1_rank": 7.0,
+            "chgnet_value": 60.9612,
+            "chgnet_rank": 4.0
+          },
+          {
+            "Host": "Y",
+            "mp_dft_value": 62.6728,
+            "mp_dft_rank": 5.0,
+            "uma_s_1p1_value": 60.4246,
+            "uma_s_1p1_rank": 4.0,
+            "chgnet_value": 64.517,
+            "chgnet_rank": 3.0
+          },
+          {
+            "Host": "Ru",
+            "mp_dft_value": 42.7989,
+            "mp_dft_rank": 8.0,
+            "uma_s_1p1_value": 39.4034,
+            "uma_s_1p1_rank": 9.0,
+            "chgnet_value": 38.4085,
+            "chgnet_rank": 8.0
+          },
+          {
+            "Host": "Ni",
+            "mp_dft_value": 40.889,
+            "mp_dft_rank": 9.0,
+            "uma_s_1p1_value": 43.1536,
+            "uma_s_1p1_rank": 8.0,
+            "chgnet_value": 36.2908,
+            "chgnet_rank": 9.0
+          },
+          {
+            "Host": "Os",
+            "mp_dft_value": 30.324,
+            "mp_dft_rank": 10.0,
+            "uma_s_1p1_value": 29.8142,
+            "uma_s_1p1_rank": 12.0,
+            "chgnet_value": 17.2657,
+            "chgnet_rank": 13.0
+          },
+          {
+            "Host": "Au",
+            "mp_dft_value": 22.4934,
+            "mp_dft_rank": 12.0,
+            "uma_s_1p1_value": 25.9192,
+            "uma_s_1p1_rank": 13.0,
+            "chgnet_value": 19.0797,
+            "chgnet_rank": 12.0
+          },
+          {
+            "Host": "Fe",
+            "mp_dft_value": 22.9873,
+            "mp_dft_rank": 11.0,
+            "uma_s_1p1_value": 37.9969,
+            "uma_s_1p1_rank": 10.0,
+            "chgnet_value": 19.5679,
+            "chgnet_rank": 11.0
+          },
+          {
+            "Host": "Re",
+            "mp_dft_value": 10.682,
+            "mp_dft_rank": 15.0,
+            "uma_s_1p1_value": 11.8661,
+            "uma_s_1p1_rank": 14.0,
+            "chgnet_value": 7.4091,
+            "chgnet_rank": 15.0
+          },
+          {
+            "Host": "Co",
+            "mp_dft_value": 19.361,
+            "mp_dft_rank": 13.0,
+            "uma_s_1p1_value": 31.1627,
+            "uma_s_1p1_rank": 11.0,
+            "chgnet_value": 25.3375,
+            "chgnet_rank": 10.0
+          },
+          {
+            "Host": "Cu",
+            "mp_dft_value": 11.5645,
+            "mp_dft_rank": 14.0,
+            "uma_s_1p1_value": 11.4589,
+            "uma_s_1p1_rank": 15.0,
+            "chgnet_value": 9.4666,
+            "chgnet_rank": 14.0
+          }
+        ],
+        "interpretation": "Pairwise agreement of binary M-Ga formation-enthalpy rankings on the bundled reference structures.",
+        "limitation": "This is a heterogeneous binary reference-set consistency check, not a direct accuracy validation of the five-component energy landscape or a synthesis-success test.",
+        "transferability_claim": "none"
+      }
+    }
+  },
+  "scientific_transferability_claim": "none",
+  "artifacts": {
+    "machine_readable": "validation_results.json",
+    "si_figure_png": "validation_evidence.png",
+    "si_figure_pdf": "validation_evidence.pdf",
+    "reviewer_report_html": "evidence_report.html",
+    "reviewer_report_pdf": "evidence_report.pdf"
+  }
+}

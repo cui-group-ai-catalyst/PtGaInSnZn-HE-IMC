@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "contracts": [
+    {
+      "kind": "manifold_regression",
+      "purpose": "Validate an integer sublattice-composition table and quantify interpolation by a pairwise CEF representation.",
+      "required_inputs": [
+        "mixing elements and site count",
+        "one non-negative integer count column per mixing element",
+        "one energy value per unique composition",
+        "explicit energy unit and scientific scope"
+      ],
+      "required_outputs": [
+        "manifold completeness and uniqueness checks",
+        "design rank and condition number",
+        "training, endmember-baseline, and leave-one-out metrics",
+        "explicit transferability_claim=none"
+      ],
+      "evidence_level": "internal_interpolation_validation",
+      "excluded_inferences": [
+        "energy-backend accuracy",
+        "global phase stability",
+        "new-host or new-prototype transferability",
+        "synthesizability"
+      ]
+    },
+    {
+      "kind": "energy_backend_comparison",
+      "purpose": "Compare two supplied energy columns on matched reference entries with transparent subset definitions.",
+      "required_inputs": [
+        "matched entry identifier",
+        "two numeric energy columns",
+        "comparison unit",
+        "subset filters and interpretation boundary"
+      ],
+      "required_outputs": [
+        "sample count",
+        "Spearman rank correlation",
+        "Pearson correlation, RMSE, MAE, and bias as secondary diagnostics",
+        "comparison-specific limitation"
+      ],
+      "evidence_level": "reference_set_consistency",
+      "excluded_inferences": [
+        "universal potential accuracy",
+        "five-component transferability",
+        "synthesis classification"
+      ]
+    }
+  ],
+  "scientific_replacement_requirements": {
+    "new_metallic_host_or_prototype": [
+      "new structures and site assignments",
+      "consistent reference states",
+      "competing-phase assessment",
+      "validation of the selected energy method",
+      "interface and kinetic assumptions appropriate to the new system",
+      "independent experimental validation"
+    ],
+    "N_O_S_P_containing_compounds": [
+      "bonding-appropriate thermodynamic model",
+      "compound and chemical-potential reference states",
+      "defect, nonstoichiometry, and competing-phase treatment",
+      "bonding-appropriate interface model",
+      "validated energy method and independent experiments"
+    ]
+  }
+}

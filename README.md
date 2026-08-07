@@ -9,6 +9,8 @@ intermediate from 4D-STEM multislice electron ptychography).
 
 ![Three-dimensional rendering of the detected atom-column positions across the 16-layer ptychographic reconstruction of the reaction intermediate (Figure 3i1).](Figure3/static/i1_3d_preview_readme.png)
 
+Open the interactive 3-D view (drag/rotate, adjust opacity, spacing and projection): [A_white_layer_resolved_readable_interactive.html](Figure3/interactive_3d/A_white_layer_resolved_readable_interactive.html)
+
 This working tree prepares `v1.4.0` (Figure 3 package on top of the v1.3.2
 scientific-audit corrections) and is not yet an archived release. The latest
 archived release is `v1.3.1`; the additions documented here require a new
